@@ -29,10 +29,6 @@ services:
       - "136:135"
       - "51998:51999"
 
-  favodemel.ui: 
-    ports:
-        - "8081:80"
-
   rabbitmq:
     environment:
       RABBITMQ_DEFAULT_USER: "favomel"
