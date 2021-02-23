@@ -9,7 +9,7 @@ namespace FavoDeMel.Domain.Test.Entities
         public void ClienteValido()
         {
             var cliente = new Cliente(new Domain.ValueObjects.NomeVo("Fe"));
-            Assert.True(cliente.Invalid);
+            Assert.True(!cliente.IsValid);
         }
     }
 }

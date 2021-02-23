@@ -29,7 +29,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             if (_clienteRepository.PossuiNomeCadastrado(cliente))
                 cliente.AddNotification("Cliente.Nome", "O nome do cliente ja esta cadastrado no banco.");
 
-            if (cliente.Invalid)
+            if (!cliente.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {

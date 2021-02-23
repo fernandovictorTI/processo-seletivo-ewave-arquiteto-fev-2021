@@ -29,7 +29,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             if (_comandaRepository.PossuiNumeroComandaCadastrada(comanda))
                 comanda.AddNotification("Comanda.Numero", "O numero da comanda ja esta cadastrado no banco.");
 
-            if (comanda.Invalid)
+            if (!comanda.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {

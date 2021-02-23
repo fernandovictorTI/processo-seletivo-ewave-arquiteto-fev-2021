@@ -97,7 +97,7 @@ namespace FavoDeMel.Infra.CrossCutting.IOC
             services.AddScoped<IRequestHandler<ObterPedidosComandasAbertasQuery, IEnumerable<PedidosComandaDto>>, ComandaQueryHandler>();            
 
             // Infra - RabbitMQ
-            services.AddScoped<IPublisher, Publisher>();
+            services.AddScoped<IPublisherMessagin, Publisher>();
 
             // Infra - Data
             services.AddScoped<IUnitOfWork, UnitOfWork>();

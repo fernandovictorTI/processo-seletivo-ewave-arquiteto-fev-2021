@@ -22,10 +22,10 @@ namespace FavoDeMel.Domain.Entities
         private void AdicionarValidacoes()
         {
             AddNotifications(
-               new Contract()
+               new Contract<object>()
                .Requires()
-               .HasMaxLen(Telefone, 15, "Garcom.Telefone", "O telefone deve ter 15 caracteres.")
-               .HasMinLen(Telefone, 3, "Garcom.Telefone", "O telefone deve ter mais de 3 caracteres.")
+               .IsGreaterThan(Telefone, 15, "Garcom.Telefone", "O telefone deve ter 15 caracteres.")
+               .IsLowerThan(Telefone, 3, "Garcom.Telefone", "O telefone deve ter mais de 3 caracteres.")
                .Join(Nome == null ? new NomeVo("") : Nome)
                );
         }

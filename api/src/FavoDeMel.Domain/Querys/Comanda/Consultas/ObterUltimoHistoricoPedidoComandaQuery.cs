@@ -5,7 +5,7 @@ using System;
 
 namespace FavoDeMel.Domain.Querys.Comanda.Consultas
 {
-    public class ObterUltimoHistoricoPedidoComandaQuery : Notifiable, IRequest<HistoricoPedidoDto>
+    public class ObterUltimoHistoricoPedidoComandaQuery : Notifiable<Notification>, IRequest<HistoricoPedidoDto>
     {
         public ObterUltimoHistoricoPedidoComandaQuery(Guid iDComanda)
         {

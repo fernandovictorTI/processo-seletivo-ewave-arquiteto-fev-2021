@@ -18,12 +18,12 @@ namespace FavoDeMel.Domain.Entities
             var enumValido = Enum.IsDefined(typeof(EnumSituacaoPedido), situacao.ToString());
 
             AddNotifications(
-                new Contract()
+                new Contract<object>()
                 .Requires()
                 .IsTrue(enumValido, "HistoricoPedido.Situacao", "Situação e obrigatória.")
                 );
 
-            if (Valid)
+            if (IsValid)
             {
                 Situacao = situacao;
                 Data = DateTime.Now;

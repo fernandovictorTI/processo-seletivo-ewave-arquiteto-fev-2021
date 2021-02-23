@@ -15,11 +15,11 @@ namespace FavoDeMel.Domain.EventeHandler
         IRequestHandler<RemovidoProdutoPedidoEvent, bool>
     {
         private readonly IPedidoRepository _pedidoRepository;
-        private readonly IPublisher _publisher;
+        private readonly IPublisherMessagin _publisher;
 
         public PedidoEventHandler(
             IPedidoRepository pedidoRepository,
-            IPublisher publisher)
+            IPublisherMessagin publisher)
         {
             _pedidoRepository = pedidoRepository;
             _publisher = publisher;

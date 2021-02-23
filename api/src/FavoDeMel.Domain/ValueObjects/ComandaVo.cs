@@ -10,7 +10,7 @@ namespace FavoDeMel.Domain.ValueObjects
             Numero = numero;
 
             AddNotifications(
-                new Contract()
+                new Contract<int>()
                 .Requires()
                 .IsGreaterOrEqualsThan(numero, 1, "ComandaVo.Numero", "O número da comanda deve ser maior que 1.")
                 );

@@ -9,7 +9,7 @@ namespace FavoDeMel.Domain.Test.Entities
         public void ComandaComNumeroValido()
         {
             var comanda = new Comanda(new Domain.ValueObjects.ComandaVo(0));
-            Assert.True(comanda.Invalid);
+            Assert.True(!comanda.IsValid);
         }
     }
 }

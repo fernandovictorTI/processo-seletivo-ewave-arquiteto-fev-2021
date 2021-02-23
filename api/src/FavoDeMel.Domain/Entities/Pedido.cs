@@ -24,7 +24,7 @@ namespace FavoDeMel.Domain.Entities
             HistoricoPedido = new List<HistoricoPedido>();
 
             AddNotifications(
-                new Contract()
+                new Contract<object>()
                 .IsNotNull(garcom, "Pedido.Garcom", "Garcom é obrigatorio")
                 .IsNotNull(comanda, "Pedido.Comanda", "Comanda é obrigatorio")
                 .Join(garcom == null ? new Garcom() : garcom)
@@ -48,12 +48,12 @@ namespace FavoDeMel.Domain.Entities
             var produtoJaAdicionado = Produtos.Any(prod => prod.Id == produto.Id);
 
             AddNotifications(
-                new Contract()
+                new Contract<bool>()
                     .Requires()
                     .IsFalse(produtoJaAdicionado, "Produto", "Produto ja adicionado, só aumente a quantidade.")
                 );
 
-            if (Valid)
+            if (IsValid)
             {
                 produto.VincularAoPedido(Id);
                 Produtos.Add(produto);
@@ -63,12 +63,12 @@ namespace FavoDeMel.Domain.Entities
         public void AumentarQuantidadeProduto(ProdutoPedido produto, int quantidade)
         {
             AddNotifications(
-                new Contract()
+                new Contract<int>()
                     .Requires()
                     .IsGreaterThan(quantidade, 0, "Produto.Quantidade", "A quantidade deve ser maior que 0.")
                 );
 
-            if (Valid)
+            if (IsValid)
                 this.Produtos.FirstOrDefault(prod => prod.Id == produto.Id).AumentarQuantidade(quantidade);
         }
 

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace FavoDeMel.Domain.Command.Pedido
 {
-    public class CriarPedidoCommand : Notifiable, IRequest<Guid>
+    public class CriarPedidoCommand : Notifiable<Notification>, IRequest<Guid>
     {
         public CriarPedidoCommand(
             Guid iDGarcom,

@@ -19,7 +19,7 @@ namespace FavoDeMel.Domain.Entities
             Quantidade = quantidade;
 
             AddNotifications(
-                new Contract()
+                new Contract<object>()
                     .Requires()
                     .IsGreaterThan(quantidade, 0, "ProdutoPedido.Quantidade", "A quantidade deve ser maior que 0")
                     .IsNotEmpty(idProduto, "ProdutoPedido.IDProduto", "Id do produto é obrigatório")

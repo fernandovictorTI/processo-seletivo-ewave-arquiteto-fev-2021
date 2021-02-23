@@ -1,4 +1,5 @@
 ﻿using FavoDeMel.Domain.Core.ValueObjects;
+using Flunt.Notifications;
 using Flunt.Validations;
 
 namespace FavoDeMel.Domain.ValueObjects
@@ -10,10 +11,10 @@ namespace FavoDeMel.Domain.ValueObjects
             Nome = nome;
 
             AddNotifications(
-                new Contract()
+                new Contract<string>()
                 .Requires()
-                .HasMaxLen(nome, 255, "Nome", "Nome deve ter menos de 255 caracteres.")
-                .HasMinLen(nome, 3, "Nome", "Nome deve ter mais de 3 caracteres.")
+                .IsGreaterThan(nome, 255, "Nome", "Nome deve ter menos de 255 caracteres.")
+                .IsLowerThan(nome, 3, "Nome", "Nome deve ter mais de 3 caracteres.")
                 );
         }
 

@@ -75,7 +75,7 @@ namespace FavoDeMel.Domain.CommandHandlers
 
             request.Produtos.ToList().ForEach(produtoPedido => pedido.AdicionarProduto(produtoPedido));
 
-            if (pedido.Invalid || request.Invalid)
+            if (!pedido.IsValid || !request.IsValid)
             {
                 pedido.AddNotifications(request.Notifications);
 
@@ -106,7 +106,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             else
                 historicoPedido = new HistoricoPedido(request.Situacao, pedido.Id);
 
-            if (historicoPedido.Invalid || request.Invalid)
+            if (!historicoPedido.IsValid || !request.IsValid)
             {
                 historicoPedido.AddNotifications(request.Notifications);
 
@@ -135,7 +135,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             if(pedido.Produtos.Count() == 1)
                 request.AddNotification("RemoverProdutoPedidoCommand", $"Não é permitido remover todos os produtos. Feche a comanda ou adicione outro produto para remover este.");
 
-            if (request.Invalid)
+            if (!request.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {
@@ -160,7 +160,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             var produtoPedido = new ProdutoPedido(request.IDProduto, request.Quantidade);
             produtoPedido.VincularAoPedido(request.IDPedido);
 
-            if (produtoPedido.Invalid || request.Invalid)
+            if (!produtoPedido.IsValid || !request.IsValid)
             {
                 produtoPedido.AddNotifications(request.Notifications);
 

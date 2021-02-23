@@ -5,7 +5,7 @@ using System;
 
 namespace FavoDeMel.Domain.Command.Pedido
 {
-    public class AlterarSituacaoPedidoCommand : Notifiable, IRequest<Guid>
+    public class AlterarSituacaoPedidoCommand : Notifiable<Notification>, IRequest<Guid>
     {
         public AlterarSituacaoPedidoCommand(Guid iDPedido, EnumSituacaoPedido situacao)
         {

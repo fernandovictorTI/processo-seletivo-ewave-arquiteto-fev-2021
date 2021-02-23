@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FavoDeMel.Domain.Querys.Comanda.Consultas
 {
-    public class ObterPedidosComandasAbertasQuery:  Notifiable, IRequest<IEnumerable<PedidosComandaDto>>
+    public class ObterPedidosComandasAbertasQuery: Notifiable<Notification>, IRequest<IEnumerable<PedidosComandaDto>>
     {
     }
 }

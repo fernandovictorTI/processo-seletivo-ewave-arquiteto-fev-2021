@@ -15,7 +15,7 @@ namespace FavoDeMel.Domain.Entities
             Valor = valor;
 
             AddNotifications(
-                new Contract()
+                new Contract<decimal>()
                     .Requires()
                     .IsGreaterThan(valor, 0, "Produto.Valor", "O valor do produto deve ser maior que 0."),
                 nome

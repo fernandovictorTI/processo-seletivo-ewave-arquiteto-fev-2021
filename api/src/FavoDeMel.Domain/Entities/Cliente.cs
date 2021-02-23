@@ -1,8 +1,8 @@
 ﻿using FavoDeMel.Domain.ValueObjects;
 using FavoDeMel.Domain.Core.Entities;
-using Flunt.Validations;
 using System;
 using System.Collections.Generic;
+using Flunt.Notifications;
 
 namespace FavoDeMel.Domain.Entities
 {
@@ -14,7 +14,7 @@ namespace FavoDeMel.Domain.Entities
             NomeVo nome)
         {
             Nome = nome;
-            DataCriacao = DateTime.Now;
+            DataCriacao = DateTime.Now;   
 
             AddNotifications(nome);
         }
@@ -22,6 +22,7 @@ namespace FavoDeMel.Domain.Entities
         public virtual NomeVo Nome { get; private set; }
         public DateTime DataCriacao { get; private set; }
         public virtual IEnumerable<Pedido> Pedidos { get; set; }
+        
 
         public override string ToString()
         {

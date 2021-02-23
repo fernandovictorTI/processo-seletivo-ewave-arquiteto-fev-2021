@@ -40,7 +40,7 @@ namespace FavoDeMel.Domain.Querys.Comanda
             if (request.Quantidade < 5)
                 request.AddNotification("ObterComandasQuery.Quantidade", "Quantidade deve ser maior ou igual que 5.");
 
-            if (request.Invalid)
+            if (!request.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {
@@ -58,7 +58,7 @@ namespace FavoDeMel.Domain.Querys.Comanda
             if (request.Id == null || request.Id == Guid.Empty)
                 request.AddNotification("ObterComandaQuery.Id", "Id é obrigatório.");
 
-            if (request.Invalid)
+            if (!request.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace FavoDeMel.Domain.Querys.Base
 {
-    public class PaginacaoQuery<T> : Notifiable, IRequest<IEnumerable<T>>
+    public class PaginacaoQuery<T> : Notifiable<Notification>, IRequest<IEnumerable<T>>
     {
         public PaginacaoQuery(int pagina, int quantidade)
         {

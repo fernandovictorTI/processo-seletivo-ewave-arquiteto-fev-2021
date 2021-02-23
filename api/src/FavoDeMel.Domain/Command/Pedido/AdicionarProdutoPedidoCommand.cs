@@ -4,7 +4,7 @@ using System;
 
 namespace FavoDeMel.Domain.Command.Pedido
 {
-    public class AdicionarProdutoPedidoCommand : Notifiable, IRequest<Guid>
+    public class AdicionarProdutoPedidoCommand : Notifiable<Notification>, IRequest<Guid>
     {
         public AdicionarProdutoPedidoCommand(Guid iDPedido, Guid iDProduto, int quantidade)
         {

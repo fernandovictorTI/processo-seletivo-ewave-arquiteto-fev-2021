@@ -12,7 +12,7 @@ namespace FavoDeMel.Domain.Test.ValueObjects
         {
             var nome = new NomeVo(strNome);
 
-            Assert.True(nome.Invalid);
+            Assert.True(!nome.IsValid);
         }
     }
 }

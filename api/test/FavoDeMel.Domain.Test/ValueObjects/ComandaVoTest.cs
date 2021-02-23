@@ -12,7 +12,7 @@ namespace FavoDeMel.Domain.Test.ValueObjects
         {
             var comanda = new ComandaVo(numeroComanda);
 
-            Assert.True(comanda.Invalid);
+            Assert.True(!comanda.IsValid);
         }
     }
 }

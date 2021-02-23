@@ -38,7 +38,7 @@ namespace FavoDeMel.Domain.Querys.Garcom
             if (request.Quantidade < 5)
                 request.AddNotification("ObterGarconsQuery.Quantidade", "Quantidade deve ser maior ou igual que 5.");
 
-            if (request.Invalid)
+            if (!request.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {
@@ -56,7 +56,7 @@ namespace FavoDeMel.Domain.Querys.Garcom
             if (request.Id == null || request.Id == Guid.Empty)
                 request.AddNotification("ObterCarcomQuery.Id", "Id é obrigatório.");
 
-            if (request.Invalid)
+            if (!request.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {

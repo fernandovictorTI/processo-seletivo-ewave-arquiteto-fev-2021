@@ -30,7 +30,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             if (_produtoRepository.PossuiProdutoCadastrado(produto))
                 produto.AddNotification("Produto.Nome", "O produto ja esta cadastrado no banco.");
 
-            if (produto.Invalid)
+            if (!produto.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {

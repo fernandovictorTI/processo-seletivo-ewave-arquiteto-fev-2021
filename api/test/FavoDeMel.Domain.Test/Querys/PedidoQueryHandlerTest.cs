@@ -45,7 +45,7 @@ namespace FavoDeMel.Domain.Test.Querys
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(command.Invalid);
+            Assert.True(!command.IsValid);
         }
 
         [Theory]
@@ -57,7 +57,7 @@ namespace FavoDeMel.Domain.Test.Querys
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(command.Invalid);
+            Assert.True(!command.IsValid);
         }
 
         public static IEnumerable<object[]> GuidsNullOrEmpty =>

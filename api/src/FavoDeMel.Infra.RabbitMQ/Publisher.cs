@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FavoDeMel.Infra.RabbitMQ
 {
-    public class Publisher : IPublisher
+    public class Publisher : IPublisherMessagin
     {
         private readonly ISendEndpointProvider _sendEndpointProvider;
 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FavoDeMel.Domain.Querys.Comanda.Consultas
 {
-    public class ObterComandasQuery : Notifiable, IRequest<IEnumerable<ComandaDto>>
+    public class ObterComandasQuery : Notifiable<Notification>, IRequest<IEnumerable<ComandaDto>>
     {
         public ObterComandasQuery(int pagina, int quantidade)
         {

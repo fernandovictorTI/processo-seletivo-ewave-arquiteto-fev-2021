@@ -2,7 +2,7 @@
 
 namespace FavoDeMel.Domain.Core.Messaging
 {
-    public interface IPublisher
+    public interface IPublisherMessagin
     {
         Task Publish<T>(T model) where T : IMessagin;
     }

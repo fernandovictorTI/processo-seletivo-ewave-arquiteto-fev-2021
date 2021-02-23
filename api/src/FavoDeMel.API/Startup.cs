@@ -66,7 +66,7 @@ namespace FavoDeMel.API
             {
                 Uri hostAddress = new Uri(rabbitMqOptions.Host);
 
-                MassTransit.RabbitMqTransport.IRabbitMqHost hostRabbit = cfg.Host(hostAddress, h =>
+                cfg.Host(hostAddress, h =>
                 {
                     h.Username(rabbitMqOptions.User);
                     h.Password(rabbitMqOptions.Password);

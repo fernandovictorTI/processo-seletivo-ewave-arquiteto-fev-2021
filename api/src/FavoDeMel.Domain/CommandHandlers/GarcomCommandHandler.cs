@@ -31,7 +31,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             if (_garcomRepository.PossuiNomeCadastrado(garcom))
                 garcom.AddNotification("Garcom.Nome", "O nome do garcom ja esta cadastrado no banco.");
 
-            if (garcom.Invalid)
+            if (!garcom.IsValid)
             {
                 await _mediator.Publish(new DomainNotification
                 {
