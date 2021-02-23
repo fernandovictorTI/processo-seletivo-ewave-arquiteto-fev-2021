@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row row-offcanvas row-offcanvas-right">
+    <div class="col-xs-12 col-sm-9">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/cozinha">Cozinha</a></li>
+        <li class="breadcrumb-item active"><a routerLink="/pedidos">Pedidos</a></li>
+        <li class="breadcrumb-item active"><a routerLink="/comandas">Comandas</a></li>
+        <li class="breadcrumb-item active"><a routerLink="/clientes">Clientes</a></li>
+        <li class="breadcrumb-item active"><a routerLink="/produtos">Produtos</a></li>
+        <li class="breadcrumb-item active"><a routerLink="/garcons">Garcons</a></li>
+      </ol>
+      <br />
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Bem vindo ao gerenciador da cozinha do restaurante Favo de Mel.</h5>
+          <p class="card-text">Cadastre Produtos, Comandas, Clientes e Garcons para começar.</p>
+        </div>
+      </div>
+      <br />
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

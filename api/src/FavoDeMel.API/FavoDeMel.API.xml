@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FavoDeMel.API</name>
+    </assembly>
+    <members>
+        <member name="T:FavoDeMel.API.Configuration.AutoMapperSetup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Configuration.AutoMapperSetup.AddAutoMapperSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:FavoDeMel.API.Configuration.DependencyInjectionSetup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Configuration.DependencyInjectionSetup.AddDependencyInjectionSetup(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:FavoDeMel.API.Controllers.ApiController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ApiController.#ctor(MediatR.INotificationHandler{FavoDeMel.Domain.Notifications.DomainNotification},FavoDeMel.Domain.UoW.IUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="notifications"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="P:FavoDeMel.API.Controllers.ApiController.Notifications">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ApiController.IsValidOperation">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ApiController.Response(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FavoDeMel.API.Controllers.ClienteController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ClienteController.#ctor(MediatR.INotificationHandler{FavoDeMel.Domain.Notifications.DomainNotification},FavoDeMel.Application.Interfaces.IClienteService,FavoDeMel.Domain.UoW.IUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="notifications"></param>
+            <param name="clienteService"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ClienteController.Post(FavoDeMel.Application.ViewModels.ClienteViewModel)">
+            <summary>
+            Cria um cliente
+            </summary>
+            <param name="clienteViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ClienteController.Get(FavoDeMel.Application.QueryModels.ClienteQueryModel)">
+            <summary>
+            Obtem clientes por paginacao
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ClienteController.GetById(System.Guid)">
+            <summary>
+            Obtem cliente por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FavoDeMel.API.Controllers.ComandaController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ComandaController.#ctor(MediatR.INotificationHandler{FavoDeMel.Domain.Notifications.DomainNotification},FavoDeMel.Application.Interfaces.IComandaService,FavoDeMel.Domain.UoW.IUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="notifications"></param>
+            <param name="comandaService"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ComandaController.Post(FavoDeMel.Application.ViewModels.ComandaViewModel)">
+            <summary>
+            Cria um comanda
+            </summary>
+            <param name="comandaViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ComandaController.Get(FavoDeMel.Application.QueryModels.ComandaQueryModel)">
+            <summary>
+            Obtem comandas por paginacao
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ComandaController.ObterPedidosComandasAbertas">
+            <summary>
+            Obtem comandas abertas com seus pedidos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ComandaController.GetById(System.Guid)">
+            <summary>
+            Obtem comanda por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FavoDeMel.API.Controllers.GarcomController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.GarcomController.#ctor(MediatR.INotificationHandler{FavoDeMel.Domain.Notifications.DomainNotification},FavoDeMel.Application.Interfaces.IGarcomService,FavoDeMel.Domain.UoW.IUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="notifications"></param>
+            <param name="garcomService"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.GarcomController.Post(FavoDeMel.Application.ViewModels.GarcomViewModel)">
+            <summary>
+            Cria um garcom
+            </summary>
+            <param name="garcomViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.GarcomController.Get(FavoDeMel.Application.QueryModels.GarcomQueryModel)">
+            <summary>
+            Obtem garcoms por paginacao
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.GarcomController.GetById(System.Guid)">
+            <summary>
+            Obtem Garcom por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FavoDeMel.API.Controllers.PedidoController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.PedidoController.#ctor(MediatR.INotificationHandler{FavoDeMel.Domain.Notifications.DomainNotification},FavoDeMel.Application.Interfaces.IPedidoService,FavoDeMel.Domain.UoW.IUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="notifications"></param>
+            <param name="pedidoService"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.PedidoController.Post(FavoDeMel.Application.ViewModels.PedidoViewModel)">
+            <summary>
+            Cria um pedido
+            </summary>
+            <param name="pedidoViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.PedidoController.Get(FavoDeMel.Application.QueryModels.PedidoQueryModel)">
+            <summary>
+            Obtem pedidos por paginacao
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.PedidoController.GetById(System.Guid)">
+            <summary>
+            Obtem pedido por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.PedidoController.AlterarSituacao(System.Guid,FavoDeMel.Application.ViewModels.AlterarSituacaoPedidoViewModel)">
+            <summary>
+            Altera situação do pedido
+            </summary>
+            <param name="id"></param>
+            <param name="viewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.PedidoController.RemoverProdutoPedido(System.Guid,System.Guid)">
+            <summary>
+            Remove produto do pedido
+            </summary>
+            <param name="id"></param>
+            <param name="idProdutoPedido"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.PedidoController.AdicionaProdutoPedido(System.Guid,FavoDeMel.Application.ViewModels.ProdutoPedidoViewModel)">
+            <summary>
+            Adiciona produto ao pedido
+            </summary>
+            <param name="id"></param>
+            <param name="viewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FavoDeMel.API.Controllers.ProdutoController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ProdutoController.#ctor(MediatR.INotificationHandler{FavoDeMel.Domain.Notifications.DomainNotification},FavoDeMel.Application.Interfaces.IProdutoService,FavoDeMel.Domain.UoW.IUnitOfWork)">
+            <summary>
+            
+            </summary>
+            <param name="notifications"></param>
+            <param name="produtoService"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ProdutoController.Post(FavoDeMel.Application.ViewModels.ProdutoViewModel)">
+            <summary>
+            Cria um produto
+            </summary>
+            <param name="produtoViewModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ProdutoController.Get(FavoDeMel.Application.QueryModels.ProdutoQueryModel)">
+            <summary>
+            Obtem produtos por paginacao
+            </summary>
+            <param name="query"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FavoDeMel.API.Controllers.ProdutoController.GetById(System.Guid)">
+            <summary>
+            Obtem Produto por ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FavoDeMel.API.Options.RabbitMQOptions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FavoDeMel.API.Options.RabbitMQOptions.Host">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FavoDeMel.API.Options.RabbitMQOptions.User">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FavoDeMel.API.Options.RabbitMQOptions.Password">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:FavoDeMel.API.Options.RabbitMQOptions.Queue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:FavoDeMel.API.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:FavoDeMel.API.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FavoDeMel.API.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:FavoDeMel.API.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FavoDeMel.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:FavoDeMel.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

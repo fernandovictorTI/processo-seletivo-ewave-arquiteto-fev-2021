@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  favodemel.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - CONNECTIONSTRINGS__FAVODEMEL_CONNECTION_STRING=Server=favodemel.db;Database=FavoDeMel;User=sa;Password=Sql2019isfast
+      - CONNECTIONSTRINGS__RABBITMQ=host=rabbitmq
+      - RABBITMQOPTIONS__HOST=rabbitmq://rabbitmq:5672
+      - RABBITMQOPTIONS__USER=favomel
+      - RABBITMQOPTIONS__PASSWORD=RabbitMQ2019!
+      - RABBITMQOPTIONS__QUEUE=favodemel
+    ports:
+      - "32767:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  favodemel.db:
+    environment:
+      SA_PASSWORD: "Sql2019isfast"
+      ACCEPT_EULA: "Y"
+      MSSQL_AGENT_ENABLED: "true" 
+      MSSQL_RPC_PORT: 135
+      MSSQL_DTC_TCP_PORT: 51999
+    ports:
+      - "1402:1433"
+      - "136:135"
+      - "51998:51999"
+
+  favodemel.ui: 
+    ports:
+        - "8081:80"
+
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_USER: "favomel"
+      RABBITMQ_DEFAULT_PASS: "RabbitMQ2019!"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15674:15674"

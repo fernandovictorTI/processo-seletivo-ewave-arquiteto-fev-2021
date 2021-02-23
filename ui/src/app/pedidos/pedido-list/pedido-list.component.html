@@ -1,0 +1,29 @@
+<p-fieldset class="col-sm-12" legend="{{title}}">
+  <p-table 
+    [value]="pedidos | async"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Comanda</th>
+        <th>Garcom</th>
+        <th>Cliente</th>
+        <th>Data do Pedido</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pedido>
+      <tr>
+        <td>{{pedido.numeroComanda}}</td>
+        <td>{{pedido.nomeGarcom}}</td>
+        <td>{{pedido.nomeCliente}}</td>
+        <td>{{pedido.dataPedido | date: 'dd/MM/yyyy h:mm:ss'}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td colspan="4">
+          Sem dados para serem exibidos.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-fieldset>

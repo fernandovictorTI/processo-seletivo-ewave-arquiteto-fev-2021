@@ -1,0 +1,101 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Domain", "src\FavoDeMel.Domain\FavoDeMel.Domain.csproj", "{CF1488E5-070E-47E8-A790-3797DF8E1947}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E532D532-7E79-457F-9D47-5F84CCCB5AFB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Domain.Core", "src\FavoDeMel.Domain.Core\FavoDeMel.Domain.Core.csproj", "{C9AB8719-24C5-4A63-ACEC-FED12C2453F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Domain.Test", "test\FavoDeMel.Domain.Test\FavoDeMel.Domain.Test.csproj", "{E27DAC41-D93C-44E9-BE15-5E3DDEF6D6DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infra.EF", "src\FavoDeMel.Infra.EF\FavoDeMel.Infra.EF.csproj", "{E772157A-2A2C-4FA2-B7BB-302607439101}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infra.CrossCutting.IOC", "src\FavoDeMel.Infra.CrossCutting.IOC\FavoDeMel.Infra.CrossCutting.IOC.csproj", "{DFC3ECF3-275C-4B77-B5CA-85249D86367D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.API", "src\FavoDeMel.API\FavoDeMel.API.csproj", "{BA00B249-0730-4659-AC4C-C10404A6CB31}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\docker-compose.dcproj", "{06AF6FEE-12C1-4720-BEED-C916C790C424}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{1723C08D-8522-4E6A-BA93-872D52D20241}"
+	ProjectSection(SolutionItems) = preProject
+		db\db-init.sh = db\db-init.sh
+		db\db-init.sql = db\db-init.sql
+		db\Dockerfile = db\Dockerfile
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Application", "src\FavoDeMel.Application\FavoDeMel.Application.csproj", "{A8C5D702-02F6-43A1-A95B-7DF927A31323}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infra.Dapper", "src\FavoDeMel.Infra.Dapper\FavoDeMel.Infra.Dapper.csproj", "{FD6A1A5A-D106-414F-9817-1D071CA95E2F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infra.RabbitMQ", "src\FavoDeMel.Infra.RabbitMQ\FavoDeMel.Infra.RabbitMQ.csproj", "{CAAD5949-EC3D-484D-B324-17D87BE01510}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF1488E5-070E-47E8-A790-3797DF8E1947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF1488E5-070E-47E8-A790-3797DF8E1947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF1488E5-070E-47E8-A790-3797DF8E1947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF1488E5-070E-47E8-A790-3797DF8E1947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9AB8719-24C5-4A63-ACEC-FED12C2453F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9AB8719-24C5-4A63-ACEC-FED12C2453F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9AB8719-24C5-4A63-ACEC-FED12C2453F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9AB8719-24C5-4A63-ACEC-FED12C2453F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E27DAC41-D93C-44E9-BE15-5E3DDEF6D6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E27DAC41-D93C-44E9-BE15-5E3DDEF6D6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E27DAC41-D93C-44E9-BE15-5E3DDEF6D6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E27DAC41-D93C-44E9-BE15-5E3DDEF6D6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E772157A-2A2C-4FA2-B7BB-302607439101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E772157A-2A2C-4FA2-B7BB-302607439101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E772157A-2A2C-4FA2-B7BB-302607439101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E772157A-2A2C-4FA2-B7BB-302607439101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFC3ECF3-275C-4B77-B5CA-85249D86367D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC3ECF3-275C-4B77-B5CA-85249D86367D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC3ECF3-275C-4B77-B5CA-85249D86367D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC3ECF3-275C-4B77-B5CA-85249D86367D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA00B249-0730-4659-AC4C-C10404A6CB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA00B249-0730-4659-AC4C-C10404A6CB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA00B249-0730-4659-AC4C-C10404A6CB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA00B249-0730-4659-AC4C-C10404A6CB31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06AF6FEE-12C1-4720-BEED-C916C790C424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06AF6FEE-12C1-4720-BEED-C916C790C424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06AF6FEE-12C1-4720-BEED-C916C790C424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06AF6FEE-12C1-4720-BEED-C916C790C424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C5D702-02F6-43A1-A95B-7DF927A31323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C5D702-02F6-43A1-A95B-7DF927A31323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C5D702-02F6-43A1-A95B-7DF927A31323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C5D702-02F6-43A1-A95B-7DF927A31323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD6A1A5A-D106-414F-9817-1D071CA95E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD6A1A5A-D106-414F-9817-1D071CA95E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD6A1A5A-D106-414F-9817-1D071CA95E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD6A1A5A-D106-414F-9817-1D071CA95E2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAAD5949-EC3D-484D-B324-17D87BE01510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAAD5949-EC3D-484D-B324-17D87BE01510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAAD5949-EC3D-484D-B324-17D87BE01510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAAD5949-EC3D-484D-B324-17D87BE01510}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF1488E5-070E-47E8-A790-3797DF8E1947} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+		{C9AB8719-24C5-4A63-ACEC-FED12C2453F7} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+		{E27DAC41-D93C-44E9-BE15-5E3DDEF6D6DA} = {E532D532-7E79-457F-9D47-5F84CCCB5AFB}
+		{E772157A-2A2C-4FA2-B7BB-302607439101} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+		{DFC3ECF3-275C-4B77-B5CA-85249D86367D} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+		{BA00B249-0730-4659-AC4C-C10404A6CB31} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+		{A8C5D702-02F6-43A1-A95B-7DF927A31323} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+		{FD6A1A5A-D106-414F-9817-1D071CA95E2F} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+		{CAAD5949-EC3D-484D-B324-17D87BE01510} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B05F9C33-1360-4F9A-96C7-392876B9D487}
+	EndGlobalSection
+EndGlobal

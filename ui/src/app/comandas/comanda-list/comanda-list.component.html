@@ -1,0 +1,42 @@
+<div class="col-sm-12" style="text-align: center;">
+  <button class="btn btn-primary" routerLink="/comandas/criar">Criar nova comanda</button>
+</div>
+<p-fieldset class="col-sm-12" legend="{{title}}">
+  <p-table 
+    [value]="comandas | async"
+    >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Numero</th>
+        <th>Aberta</th>
+        <th>Abrir Comanda</th>
+        <th>Gerenciar Comanda</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-comanda>
+      <tr>
+        <td>{{comanda.numero}}</td>
+        <td>{{comanda.isAberta ? 'Sim' : 'Não'}}</td>
+        <td>
+          <button type="button" [disabled]="!comanda.isAberta" (click)="abrirComanda(comanda.idComanda)"
+            class="btn btn-secondary btn-sm">
+            <i class="fa fa-plus"></i>
+          </button>
+        </td>
+        <td>
+          <button type="button" [disabled]="comanda.isAberta" (click)="gerenciarComanda(comanda.idPedido)"
+            class="btn btn-secondary btn-sm">
+            <i class="fa fa-plus"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td colspan="4">
+          Sem dados para serem exibidos.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-fieldset>

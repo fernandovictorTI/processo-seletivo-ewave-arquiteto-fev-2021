@@ -1,0 +1,26 @@
+<div class="col-sm-12" style="text-align: center;">
+  <button class="btn btn-primary" routerLink="/produtos/criar">Criar novo produto</button>
+</div>
+<p-fieldset class="col-sm-12" legend="{{title}}">
+  <p-table [value]="produtos | async">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nome</th>
+        <th>Valor</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-produto>
+      <tr>
+        <td>{{produto.nome}}</td>
+        <td>{{produto.valor | currency}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td colspan="2">
+          Sem dados para serem exibidos.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-fieldset>

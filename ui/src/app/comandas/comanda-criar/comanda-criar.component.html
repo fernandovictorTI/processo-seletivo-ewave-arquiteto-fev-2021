@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">
+    <h2>{{title}}</h2>
+  </div>
+  <div class="card-body">
+    <form #frmComanda="ngForm" id="frmComanda" novalidate (ngSubmit)="onSaveComanda()" novalidate>
+      <div class="row">
+        <label class="control-label col-sm-3" for="txtNome">Numero:</label>
+        <div class="col-sm-5">
+          <input id="txtNome" type="number" class="form-control" [(ngModel)]="comanda.numero" title="Numero"
+            placeholder="Entre com o número da comanda ..." [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+
+      <div class="row">
+        <hr>
+      </div>
+
+      <div class="card-footer header-buttons">
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Salvar Comanda</button>
+        <button type="button" (click)="voltar()" class="btn btn-secondary btn-sm">
+          <i class="fa fa-arrow-left"></i> Voltar
+        </button>
+        <button type="button" (click)="limparCampos()" class="btn btn-danger btn-sm">
+          <i class="fa fa-undo"></i> Limpar
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

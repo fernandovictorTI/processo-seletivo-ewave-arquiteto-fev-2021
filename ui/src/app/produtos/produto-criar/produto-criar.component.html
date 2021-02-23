@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    <h2>{{title}}</h2>
+  </div>
+  <div class="card-body">
+    <form #frmProduto="ngForm" id="frmProduto" novalidate (ngSubmit)="onSaveProduto()" novalidate>
+      <div class="row">
+        <label class="control-label col-sm-3" for="txtNome">Nome:</label>
+        <div class="col-sm-5">
+          <input id="txtNome" type="text" class="form-control" [(ngModel)]="produto.nome" title="Nome"
+            placeholder="Entre com o nome do produto ..." [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+      <div class="row">
+        <label class="control-label col-sm-3" for="txtValor">Valor:</label>
+        <div class="col-sm-5">
+          <input id="txtValor" type="number" class="form-control" [(ngModel)]="produto.valor" title="Valor"
+            placeholder="Entre com o valor do produto ..." [ngModelOptions]="{standalone: true}" />
+        </div>
+      </div>
+
+      <div class="row">
+        <hr>
+      </div>
+
+      <div class="card-footer header-buttons">
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Salvar Produto</button>
+        <button type="button" (click)="voltar()" class="btn btn-secondary btn-sm">
+          <i class="fa fa-arrow-left"></i> Voltar
+        </button>
+        <button type="button" (click)="limparCampos()" class="btn btn-danger btn-sm">
+          <i class="fa fa-undo"></i> Limpar
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

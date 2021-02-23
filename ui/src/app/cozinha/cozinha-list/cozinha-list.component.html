@@ -1,0 +1,51 @@
+<p-fieldset class="col-sm-12" legend="{{title}}">
+  <p-table [value]="comandasAbertas | async" dataKey="numero">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Cliente</th>
+        <th>Produto</th>
+        <th>Valor</th>
+        <th>Quantidade</th>
+        <th>Situação</th>
+        <th>Mudar Situação</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+      <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.numero].index === rowIndex">
+        <td colspan="4">
+          <a href="#" [pRowToggler]="rowData">
+            <i [ngClass]="expanded ? 'pi pi-fw pi-chevron-circle-down' : 'pi pi-fw pi-chevron-circle-right'"
+              style="vertical-align: middle;padding-bottom: .1em;"></i>
+            <span>
+              Comanda: {{rowData.numero}} na data {{rowData.dataPedido | date: 'dd/MM/yyyy h:mm:ss'}}
+            </span>
+          </a>
+        </td>
+        <td>
+          {{rowData.situacaoDescription}}
+        </td>
+        <td>
+          <select class="form-control" (change)="onChangeSelectSituacao(rowData, $event.target.value)">
+            <option value="0">Selecione</option>
+            <option *ngFor="let item of situacoes" [value]="item.value">{{item.label}}</option>
+          </select>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
+      <tr>
+        <td>{{rowData.nomeCliente}}</td>
+        <td>{{rowData.nomeProduto}}</td>
+        <td>{{rowData.valor | currency}}</td>
+        <td>{{rowData.quantidade}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td colspan="6">
+          Sem dados para serem exibidos.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-fieldset>
