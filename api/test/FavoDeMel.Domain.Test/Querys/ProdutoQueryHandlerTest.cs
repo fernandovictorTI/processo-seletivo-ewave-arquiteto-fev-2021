@@ -40,7 +40,7 @@ namespace FavoDeMel.Domain.Test.Querys
         {
             var handler = new ProdutoQueryHandler(_produtoDapper, _mediator, null);
             var command = new ObterProdutosQuery(-1, 4);
-            
+
             await handler.Handle(command, new CancellationToken());
 
             Assert.True(!command.IsValid);

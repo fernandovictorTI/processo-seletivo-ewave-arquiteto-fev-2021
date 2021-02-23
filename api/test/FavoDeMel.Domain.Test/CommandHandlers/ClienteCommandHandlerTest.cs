@@ -31,7 +31,7 @@ namespace FavoDeMel.Domain.Test.CommandHandlers
 
             repositoryMoq
                 .Setup(x => x.PossuiNomeCadastrado(It.IsAny<Cliente>()))
-                .Returns((Cliente c) => repositoryMoq.Object.GetAll().Where(c=> c.Nome.Nome == c.Nome.Nome).Any());
+                .Returns((Cliente c) => repositoryMoq.Object.GetAll().Where(c => c.Nome.Nome == c.Nome.Nome).Any());
 
             var mediatorMoq = new Mock<IMediator>();
 

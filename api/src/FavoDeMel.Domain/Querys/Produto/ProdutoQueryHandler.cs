@@ -53,7 +53,7 @@ namespace FavoDeMel.Domain.Querys.Produto
 
         public async Task<ProdutoDto> Handle(ObterProdutoQuery request, CancellationToken cancellationToken)
         {
-            if (request.Id == null || request.Id == Guid.Empty)
+            if (request.Id == Guid.Empty)
                 request.AddNotification("ObterCarcomQuery.Id", "Id é obrigatório.");
 
             if (!request.IsValid)

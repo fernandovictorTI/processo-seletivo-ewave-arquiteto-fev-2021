@@ -54,7 +54,7 @@ namespace FavoDeMel.Domain.Querys.Pedido
 
         public async Task<PedidoDto> Handle(ObterPedidoQuery request, CancellationToken cancellationToken)
         {
-            if (request.Id == null || request.Id == Guid.Empty)
+            if (request.Id == Guid.Empty)
                 request.AddNotification("ObterPedidoQuery.Id", "Id é obrigatório.");
 
             if (!request.IsValid)

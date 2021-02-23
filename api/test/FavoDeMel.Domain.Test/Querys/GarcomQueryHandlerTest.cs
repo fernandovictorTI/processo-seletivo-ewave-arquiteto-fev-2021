@@ -42,7 +42,7 @@ namespace FavoDeMel.Domain.Test.Querys
         {
             var handler = new GarcomQueryHandler(_garcomDapper, _mediator, _garcomRepository);
             var command = new ObterGarconsQuery(-1, 4);
-            
+
             await handler.Handle(command, new CancellationToken());
 
             Assert.True(!command.IsValid);

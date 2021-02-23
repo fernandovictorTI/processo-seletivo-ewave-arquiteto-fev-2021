@@ -129,11 +129,13 @@ namespace FavoDeMel.Domain.CommandHandlers
 
             if (produtoPedido == null)
                 request.AddNotification("RemoverProdutoPedidoCommand", $"Produto ({request.IDProdutoPedido}) não encontrado no banco de dados.");
+            else
+            {
+                var pedido = _pedidoRepository.GetEntityById(produtoPedido.IDPedido);
 
-            var pedido = _pedidoRepository.GetEntityById(produtoPedido.IDPedido);
-
-            if(pedido.Produtos.Count() == 1)
-                request.AddNotification("RemoverProdutoPedidoCommand", $"Não é permitido remover todos os produtos. Feche a comanda ou adicione outro produto para remover este.");
+                if (pedido.Produtos.Count() == 1)
+                    request.AddNotification("RemoverProdutoPedidoCommand", $"Não é permitido remover todos os produtos. Feche a comanda ou adicione outro produto para remover este.");
+            }
 
             if (!request.IsValid)
             {

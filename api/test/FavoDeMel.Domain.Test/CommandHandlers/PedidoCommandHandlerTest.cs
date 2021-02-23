@@ -20,7 +20,7 @@ namespace FavoDeMel.Domain.Test.CommandHandlers
         private readonly IComandaRepository _comandaRepository;
         private readonly IHistoricoPedidoRepository _historicoPedidoRepository;
         private readonly IProdutoPedidoRepository _produtoPedidoRepository;
-        private readonly IClienteRepository _clienteRepository;        
+        private readonly IClienteRepository _clienteRepository;
         private readonly IMediator _mediator;
         private readonly HelperEntitiesTest _helperEntitiesTest;
 
@@ -68,7 +68,7 @@ namespace FavoDeMel.Domain.Test.CommandHandlers
 
             mediatorMoq
                 .Setup(x => x.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.CompletedTask);            
+                .Returns(Task.CompletedTask);
 
             _mediator = mediatorMoq.Object;
             _pedidoGetEntityNullRepository = repositoryPedidoGetEntityNullMoq.Object;
@@ -84,9 +84,9 @@ namespace FavoDeMel.Domain.Test.CommandHandlers
         public async Task DeveRetornarErroSeGarcomComandaNaoExisteNoBanco()
         {
             var handler = new PedidoCommandHandler(
-                _pedidoRepository, 
-                _garcomRepository, 
-                _comandaRepository, 
+                _pedidoRepository,
+                _garcomRepository,
+                _comandaRepository,
                 _historicoPedidoRepository,
                 _produtoPedidoRepository,
                 _clienteRepository,
