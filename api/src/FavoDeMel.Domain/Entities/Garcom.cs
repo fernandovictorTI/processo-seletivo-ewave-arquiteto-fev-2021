@@ -24,8 +24,8 @@ namespace FavoDeMel.Domain.Entities
             AddNotifications(
                new Contract<object>()
                .Requires()
-               .IsGreaterThan(Telefone, 15, "Garcom.Telefone", "O telefone deve ter 15 caracteres.")
-               .IsLowerThan(Telefone, 3, "Garcom.Telefone", "O telefone deve ter mais de 3 caracteres.")
+               .IsLowerOrEqualsThan(Telefone, 15, "Garcom.Telefone", "O telefone deve ter 15 caracteres.")
+               .IsGreaterOrEqualsThan(Telefone, 3, "Garcom.Telefone", "O telefone deve ter mais de 3 caracteres.")
                .Join(Nome == null ? new NomeVo("") : Nome)
                );
         }
