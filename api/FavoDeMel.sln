@@ -23,9 +23,10 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\docker
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{1723C08D-8522-4E6A-BA93-872D52D20241}"
 	ProjectSection(SolutionItems) = preProject
-		db\db-init.sh = db\db-init.sh
-		db\db-init.sql = db\db-init.sql
-		db\Dockerfile = db\Dockerfile
+		..\db\db-init.sh = ..\db\db-init.sh
+		..\db\db-init.sql = ..\db\db-init.sql
+		..\db\Dockerfile = ..\db\Dockerfile
+		..\db\entrypoint.sh = ..\db\entrypoint.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Application", "src\FavoDeMel.Application\FavoDeMel.Application.csproj", "{A8C5D702-02F6-43A1-A95B-7DF927A31323}"

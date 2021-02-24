@@ -110,7 +110,7 @@ namespace FavoDeMel.API
                 .AddRabbitMQ("amqp://favomel:RabbitMQ2019!@localhost:5672", name: "rabbitMQ")
                 .AddSqlServer(connectionString: Configuration.GetConnectionString("FAVODEMEL_CONNECTION_STRING"));
 
-            services.AddHealthChecksUI();
+            // services.AddHealthChecksUI();
 
             services.AddMediatR(typeof(Startup));
 
@@ -141,13 +141,13 @@ namespace FavoDeMel.API
                 s.SwaggerEndpoint($"/swagger/v1/swagger.json", "FavoDeMel - Manager v1.0");
             });
 
-            app.UseHealthChecks("/healthchecks-data-ui", new HealthCheckOptions()
-            {
-                Predicate = _ => true,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
+            //app.UseHealthChecks("/healthchecks-data-ui", new HealthCheckOptions()
+            //{
+            //    Predicate = _ => true,
+            //    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            //});
 
-            app.UseHealthChecksUI();
+            //app.UseHealthChecksUI();
 
             app.UseEndpoints(endpoints =>
             {
