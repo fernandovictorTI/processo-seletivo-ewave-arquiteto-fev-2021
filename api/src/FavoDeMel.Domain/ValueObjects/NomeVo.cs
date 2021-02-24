@@ -13,8 +13,8 @@ namespace FavoDeMel.Domain.ValueObjects
             AddNotifications(
                 new Contract<string>()
                 .Requires()
-                .IsGreaterThan(nome, 255, "Nome", "Nome deve ter menos de 255 caracteres.")
-                .IsLowerThan(nome, 3, "Nome", "Nome deve ter mais de 3 caracteres.")
+                .IsLowerOrEqualsThan(nome, 255, "Nome", "Nome deve ter menos de 255 caracteres.")
+                .IsGreaterOrEqualsThan(nome, 3, "Nome", "Nome deve ter mais de 3 caracteres.")
                 );
         }
 
