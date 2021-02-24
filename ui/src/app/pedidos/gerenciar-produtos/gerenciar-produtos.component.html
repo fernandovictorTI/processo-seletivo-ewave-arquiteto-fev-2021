@@ -63,7 +63,7 @@
         <ng-template pTemplate="body" let-produto>
           <tr>
             <td>{{produto.nome}}</td>
-            <td>{{produto.valor | currency}}</td>
+            <td>{{produto.valor}}</td>
             <td>{{produto.quantidade}}</td>
             <td>
               <button type="button" (click)="removerProdutoBanco(produto)" class="btn btn-secondary btn-sm">
