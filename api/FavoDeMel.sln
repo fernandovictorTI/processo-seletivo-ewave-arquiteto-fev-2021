@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{1723C08D-8522-
 		..\db\db-init.sql = ..\db\db-init.sql
 		..\db\Dockerfile = ..\db\Dockerfile
 		..\db\entrypoint.sh = ..\db\entrypoint.sh
+		..\db\setup.sql = ..\db\setup.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Application", "src\FavoDeMel.Application\FavoDeMel.Application.csproj", "{A8C5D702-02F6-43A1-A95B-7DF927A31323}"

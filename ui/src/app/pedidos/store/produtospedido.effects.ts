@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as produtoPedidoActions from './produtospedido.actions';
 import {
   AdicionarProdutoPedido,
@@ -23,9 +23,8 @@ export class ProdutoPedidoEffects {
     private actions$: Actions,
     private svc: PedidosService) {
   }
-
-  @Effect()
-  adicionarProdutoPedido$ = this.actions$.pipe(
+  
+  adicionarProdutoPedido$ = createEffect(() => this.actions$.pipe(
     ofType(produtoPedidoActions.CRIAR_PRODUTOPEDIDO),
     map((action: AdicionarProdutoPedido) => action.payload),
     switchMap(payload =>
@@ -33,10 +32,9 @@ export class ProdutoPedidoEffects {
         map(() => new AdicionarProdutoPedidoSuccess(payload.idPedido)),
         catchError((err) => [new AdicionarProdutoPedidoError(err.error)]))
     )
-  );
-
-  @Effect()
-  removerProdutoPedido$ = this.actions$.pipe(
+  ));
+  
+  removerProdutoPedido$ = createEffect(() => this.actions$.pipe(
     ofType(produtoPedidoActions.REMOVER_PRODUTOPEDIDO),
     map((action: RemoverProdutoPedido) => action.payload),
     switchMap(payload =>
@@ -44,5 +42,5 @@ export class ProdutoPedidoEffects {
         map((response) => new RemoverProdutoPedidoSuccess(payload.idPedido)),
         catchError((err) => [new RemoverProdutoPedidoError(err.error)]))
     )
-  );
+  ));
 }

@@ -49,7 +49,7 @@ export class CozinhaComponent implements OnInit {
     this.rxStompService.watch('/queue/queue-removido-produto-pedido').subscribe((message) => {
       this.store.dispatch(new ObterComandasAbertas());
     });
-    this.rxStompService.watch('/queue/queue-situacao-pedido-alterada').subscribe((message) => {
+    this.rxStompService.watch('/exchange/queue-situacao-pedido-alterada').subscribe((message) => {
       this.store.dispatch(new ObterComandasAbertas());
     });
   }

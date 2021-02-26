@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as cozinhaActions from './cozinha.actions';
 import {
   ObterComandasAbertas,
@@ -17,12 +17,11 @@ export class CozinhaEffects {
     private svc: ComandasService) {
   }
 
-  @Effect()
-  obterAllCozinha$: Observable<Action> = this.actions$.pipe(
+  obterAllCozinha$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(cozinhaActions.OBTER_COMANDAS_ABERTAS),
     switchMap(() => this.svc.obterComandasAbertas().pipe(
       map(response => new ObterComandasAbertasSuccess(response || [])),
       catchError((err) => [new ObterComandasAbertasError(err.error)])
     ))
-  );
+  ));
 }

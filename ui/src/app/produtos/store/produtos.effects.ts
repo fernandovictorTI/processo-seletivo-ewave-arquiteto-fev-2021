@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as produtoActions from './produtos.actions';
 import {
   AdicionarProduto,
@@ -23,8 +23,7 @@ export class ProdutoEffects {
     private svc: ProdutosService) {
   }
 
-  @Effect()
-  obterAllProdutos$: Observable<Action> = this.actions$.pipe(
+  obterAllProdutos$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(produtoActions.OBTER_PRODUTOS),
     map((action: ObterProdutos) => action.payload),
     switchMap((quantidade) => 
@@ -32,10 +31,9 @@ export class ProdutoEffects {
       map(response => new ObterProdutosSuccess(response || [])),
       catchError((err) => [new ObterProdutosError(err.error)]))
     )    
-  );
+  ));
 
-  @Effect()
-  obterProduto$ = this.actions$.pipe(
+  obterProduto$ = createEffect(() => this.actions$.pipe(
     ofType(produtoActions.OBTER_PRODUTO),
     map((action: ObterProduto) => action.payload),
     switchMap(id => 
@@ -43,10 +41,9 @@ export class ProdutoEffects {
         map(response => new ObterProdutoSuccess(response)),
         catchError((err) => [new ObterProdutoError(err.error)]))
       )
-  );
+  ));
 
-  @Effect()
-  createProduto$ = this.actions$.pipe(
+  createProduto$ = createEffect(() => this.actions$.pipe(
     ofType(produtoActions.CRIAR_PRODUTO),
     map((action: AdicionarProduto) => action.payload),
     switchMap(newProduto =>
@@ -54,5 +51,5 @@ export class ProdutoEffects {
         map((response) => new AdicionarProdutoSuccess(response.id)),
         catchError((err) => [new AdicionarProdutoError(err.error)]))
     )
-  );
+  ));
 }

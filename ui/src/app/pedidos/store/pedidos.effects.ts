@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import * as pedidoActions from './pedidos.actions';
 import {
   ObterPedidos,
@@ -19,9 +19,8 @@ export class PedidoEffects {
   constructor(private actions$: Actions,
               private svc: PedidosService) {
   }
-
-  @Effect()
-  obterAllPedidos$: Observable<Action> = this.actions$.pipe(
+  
+  obterAllPedidos$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(pedidoActions.OBTER_PEDIDOS),
     map((action: ObterPedidos) => action.payload),
     switchMap((quantidade) => 
@@ -30,10 +29,9 @@ export class PedidoEffects {
         catchError((err) => [new ObterPedidosError(err.error)])
       )
       )    
-  );
+  ));
 
-  @Effect()
-  obterPedido$ = this.actions$.pipe(
+  obterPedido$ = createEffect(() => this.actions$.pipe(
     ofType(pedidoActions.OBTER_PEDIDO),
     map((action: ObterPedido) => action.payload),
     switchMap(id => 
@@ -41,5 +39,5 @@ export class PedidoEffects {
         map(response => new ObterPedidoSuccess(response)),
         catchError((err) => [new ObterPedidoError(err.error)]))
     )
-  );
+  ));
 }

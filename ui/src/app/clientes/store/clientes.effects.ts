@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as clienteActions from './clientes.actions';
 import {
   AdicionarCliente,
@@ -23,33 +23,30 @@ export class ClienteEffects {
     private svc: ClientesService) {
   }
 
-  @Effect()
-  obterAllClientes$: Observable<Action> = this.actions$.pipe(
+  obterAllClientes$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(clienteActions.OBTER_CLIENTES),
     map((action: ObterClientes) => action.payload),
     switchMap((quantidade) => this.svc.obter(quantidade).pipe(
       map(response => new ObterClientesSuccess(response || [])),
       catchError((err) => [new ObterClientesError(err.error)])
     ))
-  );
+  ));
 
-  @Effect()
-  obterCliente$ = this.actions$.pipe(
+  obterCliente$ = createEffect(() => this.actions$.pipe(
     ofType(clienteActions.OBTER_CLIENTE),
     map((action: ObterCliente) => action.payload),
     switchMap(id => this.svc.obterPorId(id).pipe(
       map(response => new ObterClienteSuccess(response)),
       catchError((err) => [new ObterClienteError(err.error)])
     ))
-  );
+  ));
 
-  @Effect()
-  createCliente$ = this.actions$.pipe(
+  createCliente$ = createEffect(() => this.actions$.pipe(
     ofType(clienteActions.CRIAR_CLIENTE),
     map((action: AdicionarCliente) => action.payload),
     switchMap(newCliente => this.svc.criar(newCliente).pipe(
       map((response) => new AdicionarClienteSuccess(response.id)),
       catchError((err) => [new AdicionarClienteError(err.error)])
     ))
-  );
+  ));
 }

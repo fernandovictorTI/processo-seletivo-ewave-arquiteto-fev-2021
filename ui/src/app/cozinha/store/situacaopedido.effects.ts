@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as situacaoPedidoActions from './situacaopedido.actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AlterarSituacaoPedido, AlterarSituacaoPedidoSuccess, AlterarSituacaoPedidoError } from './situacaopedido.actions';
@@ -12,8 +12,7 @@ export class SituacaoPedidoEffects {
     private svc: PedidosService) {
   }
 
-  @Effect()
-  alterarSituacaoPedido$ = this.actions$.pipe(
+  alterarSituacaoPedido$ = createEffect(() => this.actions$.pipe(
     ofType(situacaoPedidoActions.ALTERAR_SITUACAOPEDIDO),
     map((action: AlterarSituacaoPedido) => action.payload),
     switchMap(payload =>
@@ -21,5 +20,5 @@ export class SituacaoPedidoEffects {
         map(() => new AlterarSituacaoPedidoSuccess(payload.idPedido)),
         catchError((err) => [new AlterarSituacaoPedidoError(err.error)]))
     )
-  );
+  ));
 }

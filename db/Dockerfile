@@ -1,16 +1,8 @@
-FROM mcr.microsoft.com/mssql/server:2017-CU17-ubuntu
-
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-COPY . /usr/src/app
-
-RUN chmod +x /usr/src/app/db-init.sh
-
+FROM mcr.microsoft.com/mssql/server:2019-latest
+ENV ACCEPT_EULA y
 ENV SA_PASSWORD Sql2019isfast
-ENV ACCEPT_EULA Y
-ENV MSSQL_PID Express
-
+COPY ./setup.sql .
+COPY ./entrypoint.sh .
 EXPOSE 1433
-
+USER root
 CMD /bin/bash ./entrypoint.sh

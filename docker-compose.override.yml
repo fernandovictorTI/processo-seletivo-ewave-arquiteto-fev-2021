@@ -17,17 +17,10 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
-  favodemel.ui: 
-    ports:
-        - "8081:80"
-
   favodemel.db:
     environment:
       SA_PASSWORD: "Sql2019isfast"
       ACCEPT_EULA: "Y"
-      MSSQL_AGENT_ENABLED: "true" 
-      MSSQL_RPC_PORT: 135
-      MSSQL_DTC_TCP_PORT: 51999
     ports:
       - "1402:1433"
       - "136:135"
