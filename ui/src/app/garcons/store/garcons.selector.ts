@@ -1,8 +1,7 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-
 import { GarcomState, ENTITY_FEATURE_KEY } from "./garcons.reducers";
-
 import { selectAll, selectIds } from './garcons.reducers';
+import * as  GarconsActions from './garcons.actions';
 
 const getEntityState = createFeatureSelector<GarcomState>(ENTITY_FEATURE_KEY);
 
@@ -39,5 +38,10 @@ export const selectGarcomCarregado = createSelector(
 export const selectError = createSelector(
   getEntityState,
   state => state.error
+);
+
+export const isCreated = createSelector(getEntityState,
+  getEntityState,
+  state => !state.error && state.isCreated
 );
 

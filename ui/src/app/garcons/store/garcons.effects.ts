@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as garconsActions from './garcons.actions';
 import { of } from 'rxjs';
 import { GarconsService } from '../../shared/services/garcons.service';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class GarconsEffects {
@@ -34,6 +34,7 @@ export class GarconsEffects {
         });
       }),
       catchError(error => {
+        console.log('Nao entra aqui mesmo');
         return of(
           garconsActions.ObterGarconsError({ error })
         )
@@ -43,18 +44,15 @@ export class GarconsEffects {
 
   createGarcom$ = createEffect(() => this.actions$.pipe(
     ofType(garconsActions.AdicionarGarcom),
-    switchMap(action => this.svc.criar(action.entity).pipe(
-      map((response) => garconsActions.AdicionarGarcomSuccess({
-        entity: response
-      }),
-        catchError((error) => {
-          return of(
-            garconsActions.AdicionarGarcomError({
-              error
-            })
-          );
-        })
-      ))
+    map((action) => action.entity),
+    switchMap(entity =>
+      this.svc.criar(entity).pipe(
+        map((response) => garconsActions.AdicionarGarcomSuccess({
+          entity: response
+        })),
+        catchError(({ error: { errors } }) => [garconsActions.AdicionarGarcomError({
+          error: errors
+        })]))
     )
   ));
 }

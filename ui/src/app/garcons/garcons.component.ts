@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import {AppState} from '../app.state';
-import { ObterGarcons } from './store/garcons.actions';
+import { selectError, isCreated } from './store/garcons.selector';
 import {
   fromGarcomActions
 } from './store/garcons.actions';
@@ -23,20 +23,25 @@ export class GarconsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.store.dispatch(fromGarcomActions.ObterGarcons());
+    this.carregarListaGarcons();
     
     // this.store.select(obterGarconsError).subscribe((error) => this.showErroStore(error));
 
-    // this.store.select(isCreated).subscribe((done) => {
-    //   this.showMsgCriadoERedirect(done, 'Garcom criado com sucesso');
-    // });
+    this.store.select(isCreated).subscribe((done) => {
+      this.showMsgCriadoERedirect(done, 'Garcom criado com sucesso');
+    });
 
-    // this.store.select(obterCriarError).subscribe((error) => {
-    //   this.showErrorAction(error, 'Erro ao criar garcom');
-    // });
+    this.store.select(selectError).subscribe((error) => {
+      this.showErrorAction(error, 'Erro');
+    });
+  }
+
+  carregarListaGarcons() {
+    this.store.dispatch(fromGarcomActions.ObterGarcons());
   }
   
-  showErroStore(error) {
+  showErroStore(error: any[]) {
+    console.log(error);
     if (error) {
       const msgErro = error.map(erro => erro.message).join(', ');
       this.notificationMessageService.mostrarMensagemErro(msgErro);
