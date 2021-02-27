@@ -3,7 +3,8 @@ import {Garcom} from '../shared/garcom';
 import {AppState} from '../../app.state';
 import {Store} from '@ngrx/store';
 import { fromGarcomActions } from '../store/garcons.actions';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { GarcomState } from '../store/garcons.reducers';
 
 @Component({
   selector: 'app-garcom-criar',
@@ -15,7 +16,7 @@ export class GarcomCreateComponent implements OnInit {
   garcom: Garcom = new Garcom();
 
   constructor(private router: Router,
-              private store: Store<AppState>) {
+              private store: Store<GarcomState>) {
   }
 
   ngOnInit() {

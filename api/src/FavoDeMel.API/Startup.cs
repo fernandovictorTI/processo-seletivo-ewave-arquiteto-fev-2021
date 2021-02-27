@@ -128,6 +128,9 @@ namespace FavoDeMel.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else{
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 

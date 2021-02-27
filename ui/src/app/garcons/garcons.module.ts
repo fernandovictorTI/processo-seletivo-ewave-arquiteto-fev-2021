@@ -4,17 +4,18 @@ import {SharedModule} from '../shared/shared.module';
 import {StoreModule, ActionReducerMap} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {GarconsEffects} from './store/garcons.effects';
-import * as comandaReducer from './store/garcons.reducers';
+// import { reducer } from './store/garcons.reducers';
+import * as garconsReducer from './store/garcons.reducers';
 
 export const reducers: ActionReducerMap<any> = {
-  garcons: comandaReducer.reducer
+  garcons: garconsReducer.reducer
 };
 
 @NgModule({
   imports: [
     SharedModule,
     GarconsRoutingModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot({garcons: garconsReducer.reducer}),
     EffectsModule.forRoot([GarconsEffects])
   ],
   declarations: [garconsRoutedComponents],

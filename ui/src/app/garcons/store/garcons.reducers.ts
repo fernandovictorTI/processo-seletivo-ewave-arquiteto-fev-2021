@@ -1,5 +1,4 @@
 import * as comandaActions from './garcons.actions';
-import { AppAction } from '../../app.action';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import {createFeatureSelector, createSelector, createReducer, on, Action } from '@ngrx/store';
 import { Garcom } from '../shared/garcom';
@@ -21,8 +20,8 @@ export const initialState = adapter.getInitialState({
 const _reducer = createReducer(
   initialState,
   
-  on(comandaActions.ObterGarconsSuccess, (state, { data })=> {
-    return adapter.setAll(data, {
+  on(comandaActions.ObterGarconsSuccess, (state, { data }) => {
+    return adapter.addMany(data, {
       ...state,
       loaded: true
     });
@@ -61,3 +60,5 @@ const _reducer = createReducer(
 export function reducer(state: GarcomState | undefined, action: Action) {
   return _reducer(state, action);
 }
+
+export const { selectAll, selectIds } = adapter.getSelectors();

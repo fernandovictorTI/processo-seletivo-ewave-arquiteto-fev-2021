@@ -16,7 +16,7 @@ export enum GarcomActionTypes {
 export const ObterGarcons = createAction(GarcomActionTypes.OBTER_GARCONS);
 
 export const ObterGarconsSuccess = createAction(
-  GarcomActionTypes.OBTER_GARCONS,
+  GarcomActionTypes.OBTER_GARCONS_SUCCESS,
   props<{data: Garcom[]}>()
 );
 

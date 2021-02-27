@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as garconsActions from './garcons.actions';
-import { Observable, of } from 'rxjs';
-import { Action } from '@ngrx/store';
+import { of } from 'rxjs';
 import { GarconsService } from '../../shared/services/garcons.service';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
@@ -12,7 +11,7 @@ export class GarconsEffects {
     private svc: GarconsService) {
   }
 
-  obterAllGarcons$: Observable<Action> = createEffect(() => this.actions$.pipe(
+  obterAllGarcons$ = createEffect(() => this.actions$.pipe(
     ofType(garconsActions.ObterGarcons),
     switchMap(() => this.svc.obter(10).pipe(
       map(response => garconsActions.ObterGarconsSuccess({

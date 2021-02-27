@@ -23,7 +23,7 @@ export class GarconsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(fromGarcomActions.ObterGarcons());
+    // this.store.dispatch(fromGarcomActions.ObterGarcons());
     
     // this.store.select(obterGarconsError).subscribe((error) => this.showErroStore(error));
 
