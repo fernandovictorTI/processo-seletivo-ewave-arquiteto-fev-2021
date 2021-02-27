@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Pedido, ProdutoPedido } from './pedido';
 import { environment } from 'src/environments/environment';
+import { Pedido, ProdutoPedido } from 'src/app/pedidos/shared/pedido';
 
 @Injectable()
 export class PedidosService {

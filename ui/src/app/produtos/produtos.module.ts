@@ -1,9 +1,7 @@
-import {NgModule} from '@angular/core';
-import {produtosRoutedComponents, ProdutosRoutingModule} from './produtos-routing.module';
-import {SharedModule} from '../shared/shared.module';
-import {StoreModule, ActionReducerMap} from '@ngrx/store';
-import {EffectsModule} from '@ngrx/effects';
-import {ProdutoEffects} from './store/produtos.effects';
+import { NgModule } from '@angular/core';
+import { produtosRoutedComponents, ProdutosRoutingModule } from './produtos-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { ActionReducerMap } from '@ngrx/store';
 import * as produtoReducer from './store/produtos.reducers';
 import { ProdutosService } from '../shared/services/produtos.service';
 
@@ -14,9 +12,7 @@ export const reducers: ActionReducerMap<any> = {
 @NgModule({
   imports: [
     SharedModule,
-    ProdutosRoutingModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([ProdutoEffects])
+    ProdutosRoutingModule
   ],
   declarations: [produtosRoutedComponents],
   providers: [

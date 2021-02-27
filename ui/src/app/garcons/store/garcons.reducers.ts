@@ -22,7 +22,7 @@ export const initialState = adapter.getInitialState({
 
 const _reducer = createReducer(
   initialState,
-  
+
   on(comandaActions.ObterGarconsSuccess, (state, { data }) => {
     return adapter.addMany(data || [], {
       ...state,
@@ -30,22 +30,8 @@ const _reducer = createReducer(
     });
   }),
 
-  on(comandaActions.ObterGarconsError, (state, { error })=> {
-    return {
-      ...state,
-      error
-    };
-  }),
-
   on(comandaActions.ObterGarcomSuccess, (state, { garcom }) => {
     return adapter.addOne(garcom, state);
-  }),
-
-  on(comandaActions.ObterGarcomError, (state, { error }) => {
-    return {
-      ...state,
-      error
-    };
   }),
 
   on(comandaActions.AdicionarGarcomSuccess, (state, { entity }) => {
@@ -54,14 +40,6 @@ const _reducer = createReducer(
       isCreated: true
     }
     return adapter.addOne(entity, state);
-  }),
-
-  on(comandaActions.AdicionarGarcomError, (state, { error }) => {
-    console.log(error);
-    return {
-      ...state,
-      error
-    };
   })
 );
 
@@ -69,4 +47,4 @@ export function reducer(state: GarcomState | undefined, action: Action) {
   return _reducer(state, action);
 }
 
-export const { selectAll, selectIds } = adapter.getSelectors();
+export const { selectAll, selectIds, selectTotal } = adapter.getSelectors();

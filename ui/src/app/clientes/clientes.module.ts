@@ -1,9 +1,7 @@
-import {NgModule} from '@angular/core';
-import {clientesRoutedComponents, ClientesRoutingModule} from './clientes-routing.module';
-import {SharedModule} from '../shared/shared.module';
-import {StoreModule, ActionReducerMap} from '@ngrx/store';
-import {EffectsModule} from '@ngrx/effects';
-import {ClienteEffects} from './store/clientes.effects';
+import { NgModule } from '@angular/core';
+import { clientesRoutedComponents, ClientesRoutingModule } from './clientes-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { ActionReducerMap } from '@ngrx/store';
 import * as clienteReducer from './store/clientes.reducers';
 
 export const reducers: ActionReducerMap<any> = {
@@ -13,9 +11,7 @@ export const reducers: ActionReducerMap<any> = {
 @NgModule({
   imports: [
     SharedModule,
-    ClientesRoutingModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([ClienteEffects])
+    ClientesRoutingModule
   ],
   declarations: [clientesRoutedComponents],
   providers: []

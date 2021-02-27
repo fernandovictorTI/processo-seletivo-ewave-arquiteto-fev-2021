@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as situacaoPedidoActions from './situacaopedido.actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { AlterarSituacaoPedido, AlterarSituacaoPedidoSuccess, AlterarSituacaoPedidoError } from './situacaopedido.actions';
-import { PedidosService } from 'src/app/pedidos/shared/pedidos.service';
+import { PedidosService } from 'src/app/shared/services/pedidos.service';
 
 @Injectable()
 export class SituacaoPedidoEffects {

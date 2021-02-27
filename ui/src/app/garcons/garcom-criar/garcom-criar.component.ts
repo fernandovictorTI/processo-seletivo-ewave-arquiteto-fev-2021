@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Garcom} from '../shared/garcom';
-import {AppState} from '../../app.state';
-import {Store} from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { Garcom } from '../shared/garcom';
+import { AppState } from '../../app.state';
+import { Store } from '@ngrx/store';
 import { fromGarcomActions } from '../store/garcons.actions';
 import { Router } from '@angular/router';
 import { GarcomState } from '../store/garcons.reducers';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-garcom-criar',
@@ -13,10 +14,12 @@ import { GarcomState } from '../store/garcons.reducers';
 })
 export class GarcomCreateComponent implements OnInit {
   title = 'Criar um novo garcom';
-  garcom: Garcom = new Garcom();
+  frmGarcom: FormGroup;
 
   constructor(private router: Router,
-              private store: Store<GarcomState>) {
+    private fb: FormBuilder,
+    private store: Store<GarcomState>) {
+    this.iniciarFormulario();
   }
 
   ngOnInit() {
@@ -27,11 +30,18 @@ export class GarcomCreateComponent implements OnInit {
   }
 
   onSaveGarcom() {
-    this.store.dispatch(fromGarcomActions.AdicionarGarcom( { entity: this.garcom } ));
+    const objetoSalvar = this.frmGarcom.getRawValue();
+    this.store.dispatch(fromGarcomActions.AdicionarGarcom({ entity: objetoSalvar }));
+  }
+
+  iniciarFormulario() {
+    this.frmGarcom = this.fb.group({
+      nome: [],
+      telefone: []
+    });
   }
 
   limparCampos() {
-    this.garcom.nome = "";
-    this.garcom.telefone = "";
+    this.iniciarFormulario();
   }
 }

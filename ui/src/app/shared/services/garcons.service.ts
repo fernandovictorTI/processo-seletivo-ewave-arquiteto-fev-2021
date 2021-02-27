@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Garcom} from '../../garcons/shared/garcom';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Garcom } from '../../garcons/shared/garcom';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -27,6 +27,6 @@ export class GarconsService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json; charset=utf-8');
 
-    return this.http.post<Garcom>(this.URL, data, {headers});
+    return this.http.post<Garcom>(this.URL, data, { headers });
   }
 }

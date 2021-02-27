@@ -3,19 +3,19 @@
     <h2>{{title}}</h2>
   </div>
   <div class="card-body">
-    <form #frmGarcom="ngForm" id="frmGarcom" novalidate (ngSubmit)="onSaveGarcom()" novalidate>
+    <form [formGroup]="frmGarcom" (ngSubmit)="onSaveGarcom()" novalidate>
       <div class="row">
         <label class="control-label col-sm-3" for="txtNome">Nome:</label>
         <div class="col-sm-5">
-          <input id="txtNome" type="text" class="form-control" [(ngModel)]="garcom.nome" title="Nome"
-            placeholder="Entre com o nome do garcom ..." [ngModelOptions]="{standalone: true}" />
+          <input id="txtNome" type="text" class="form-control" formControlName="nome" title="Nome"
+            placeholder="Entre com o nome do garcom ..." />
         </div>
       </div>
       <div class="row">
         <label class="control-label col-sm-3" for="txtTelefone">Telefone:</label>
         <div class="col-sm-5">
-          <input id="txtTelefone" type="text" class="form-control" [(ngModel)]="garcom.telefone" title="Telefone"
-            placeholder="Entre com o telefone do garcom ..." [ngModelOptions]="{standalone: true}" />
+          <input id="txtTelefone" type="text" class="form-control" formControlName="telefone" title="Telefone"
+            placeholder="Entre com o telefone do garcom ..." />
         </div>
       </div>
 
