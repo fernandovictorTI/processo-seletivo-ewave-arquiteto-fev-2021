@@ -3,12 +3,12 @@
     <h2>{{title}}</h2>
   </div>
   <div class="card-body">
-    <form #frmCliente="ngForm" id="frmCliente" novalidate (ngSubmit)="onSaveCliente()" novalidate>
+    <form [formGroup]="frm" id="frmCliente" novalidate (ngSubmit)="onSaveCliente()" novalidate>
       <div class="row">
         <label class="control-label col-sm-3" for="txtNome">Nome:</label>
         <div class="col-sm-5">
-          <input id="txtNome" type="text" class="form-control" [(ngModel)]="cliente.nome" title="Nome"
-            placeholder="Entre com o nome ..." [ngModelOptions]="{standalone: true}" />
+          <input id="txtNome" type="text" class="form-control" formControlName="nome" title="Nome"
+            placeholder="Entre com o nome ..." />
         </div>
       </div>
 

@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Comanda} from '../shared/comanda';
-import {AppState} from '../../app.state';
-import {Store} from '@ngrx/store';
-import {AdicionarComanda} from '../store/comandas.actions';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Comanda } from '../shared/comanda';
+import { AppState } from '../../app.state';
+import { Store } from '@ngrx/store';
+import { AdicionarComanda } from '../store/comandas.actions';
+import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-comanda-criar',
@@ -11,14 +12,16 @@ import {Router} from '@angular/router';
   styleUrls: ['./comanda-criar.component.css']
 })
 export class ComandaCreateComponent implements OnInit {
+  frm: FormGroup;
   title = 'Criar uma nova comanda';
-  comanda: Comanda = new Comanda();
 
   constructor(private router: Router,
-              private store: Store<AppState>) {
+    private fb: FormBuilder,
+    private store: Store<AppState>) {
   }
 
   ngOnInit() {
+    this.iniciarFormulario();
   }
 
   voltar() {
@@ -26,10 +29,17 @@ export class ComandaCreateComponent implements OnInit {
   }
 
   onSaveComanda() {
-    this.store.dispatch(new AdicionarComanda(this.comanda));
+    const objetoSalvar = this.frm.getRawValue();
+    this.store.dispatch(new AdicionarComanda(objetoSalvar));
+  }
+
+  iniciarFormulario() {
+    this.frm = this.fb.group({
+      nome: [],
+    });
   }
 
   limparCampos() {
-    this.comanda.numero = 0;
+    this.iniciarFormulario();
   }
 }

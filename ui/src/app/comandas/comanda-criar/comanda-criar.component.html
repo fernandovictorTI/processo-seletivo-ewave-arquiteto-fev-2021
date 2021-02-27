@@ -3,12 +3,12 @@
     <h2>{{title}}</h2>
   </div>
   <div class="card-body">
-    <form #frmComanda="ngForm" id="frmComanda" novalidate (ngSubmit)="onSaveComanda()" novalidate>
+    <form [formGroup]="frm" id="frmComanda" novalidate (ngSubmit)="onSaveComanda()" novalidate>
       <div class="row">
         <label class="control-label col-sm-3" for="txtNome">Numero:</label>
         <div class="col-sm-5">
-          <input id="txtNome" type="number" class="form-control" [(ngModel)]="comanda.numero" title="Numero"
-            placeholder="Entre com o número da comanda ..." [ngModelOptions]="{standalone: true}" />
+          <input id="txtNome" type="number" class="form-control" formControlName="numero" title="Numero"
+            placeholder="Entre com o número da comanda ..." />
         </div>
       </div>
 

@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Cliente} from '../shared/cliente';
-import {AppState} from '../../app.state';
-import {Store} from '@ngrx/store';
-import {AdicionarCliente} from '../store/clientes.actions';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Cliente } from '../shared/cliente';
+import { AppState } from '../../app.state';
+import { Store } from '@ngrx/store';
+import { AdicionarCliente } from '../store/clientes.actions';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente-criar',
@@ -11,14 +12,16 @@ import {Router} from '@angular/router';
   styleUrls: ['./cliente-criar.component.css']
 })
 export class ClienteCreateComponent implements OnInit {
+  frm: FormGroup;
   title = 'Criar um novo cliente';
-  cliente: Cliente = new Cliente();
 
   constructor(private router: Router,
-              private store: Store<AppState>) {
+    private fb: FormBuilder,
+    private store: Store<AppState>) {
   }
 
   ngOnInit() {
+    this.iniciarFormulario();
   }
 
   voltar() {
@@ -26,10 +29,17 @@ export class ClienteCreateComponent implements OnInit {
   }
 
   onSaveCliente() {
-    this.store.dispatch(new AdicionarCliente(this.cliente));
+    const objetoSalvar = this.frm.getRawValue();
+    this.store.dispatch(new AdicionarCliente(objetoSalvar));
+  }
+
+  iniciarFormulario() {
+    this.frm = this.fb.group({
+      nome: [],
+    });
   }
 
   limparCampos() {
-    this.cliente.nome = '';
+    this.iniciarFormulario();
   }
 }
