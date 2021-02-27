@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Garcom} from '../shared/garcom';
 import {AppState} from '../../app.state';
 import {Store} from '@ngrx/store';
-import {AdicionarGarcom} from '../store/garcons.actions';
+import { fromGarcomActions } from '../store/garcons.actions';
 import {Router} from '@angular/router';
 
 @Component({
@@ -26,7 +26,7 @@ export class GarcomCreateComponent implements OnInit {
   }
 
   onSaveGarcom() {
-    this.store.dispatch(new AdicionarGarcom(this.garcom));
+    this.store.dispatch(fromGarcomActions.AdicionarGarcom( { entity: this.garcom } ));
   }
 
   limparCampos() {

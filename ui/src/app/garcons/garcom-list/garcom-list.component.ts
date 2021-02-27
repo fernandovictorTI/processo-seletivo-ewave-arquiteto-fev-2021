@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../app.state';
 import {Garcom} from '../shared/garcom';
 import {Observable} from 'rxjs';
-import {obterAllGarcons} from '../store/garcons.reducers';
+import { selectObterGarcons } from '../store/garcons.selector';
 
 @Component({
   selector: 'app-garcom-list',
@@ -18,6 +18,6 @@ export class GarcomListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.garcons = this.store.select(obterAllGarcons);
+    this.garcons = this.store.select(selectObterGarcons);
   }
 }

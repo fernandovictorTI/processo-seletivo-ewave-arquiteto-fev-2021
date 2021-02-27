@@ -1,77 +1,68 @@
-import {Action} from '@ngrx/store';
+import { Action, createAction, props} from '@ngrx/store';
 import {Garcom} from '../shared/garcom';
 
-export const OBTER_GARCONS = '[ALL] Garcons';
-export const OBTER_GARCONS_SUCCESS = '[ALL] Garcons Success';
-export const OBTER_GARCONS_ERROR = '[ALL] Garcons Error';
-
-export const OBTER_GARCOM = '[GET] Garcom';
-export const OBTER_GARCOM_SUCCESS = '[GET] Garcons Success';
-export const OBTER_GARCOM_ERROR = '[GET] Garcons Error';
-
-export const CRIAR_GARCOM = '[CRIAR] Garcom';
-export const CRIAR_GARCOM_SUCCESS = '[CRIAR] Garcom Success';
-export const CRIAR_GARCOM_ERROR = '[CRIAR] Garcom Error';
-
-export class ObterGarcons implements Action {
-  readonly type = OBTER_GARCONS;
-
-  constructor(public payload: number) {
-  }
+export enum GarcomActionTypes {
+  OBTER_GARCONS = '[ALL] Garcons',
+  OBTER_GARCONS_SUCCESS = '[ALL] Garcons Success',
+  OBTER_GARCONS_ERROR = '[ALL] Garcons Error',
+  OBTER_GARCOM = '[GET] Garcom',
+  OBTER_GARCOM_SUCCESS = '[GET] Garcons Success',
+  OBTER_GARCOM_ERROR = '[GET] Garcons Error',
+  CRIAR_GARCOM = '[CRIAR] Garcom', 
+  CRIAR_GARCOM_SUCCESS = '[CRIAR] Garcom Success',
+  CRIAR_GARCOM_ERROR = '[CRIAR] Garcom Error'
 }
 
-export class ObterGarconsSuccess implements Action {
-  readonly type = OBTER_GARCONS_SUCCESS;
+export const ObterGarcons = createAction(GarcomActionTypes.OBTER_GARCONS);
 
-  constructor(public payload: Garcom[]) {
-  }
-}
+export const ObterGarconsSuccess = createAction(
+  GarcomActionTypes.OBTER_GARCONS,
+  props<{data: Garcom[]}>()
+);
 
-export class ObterGarconsError implements Action {
-  readonly type = OBTER_GARCONS_ERROR;
+export const ObterGarconsError = createAction(
+  GarcomActionTypes.OBTER_GARCONS_ERROR,
+  props<{ error: Error | any }>()
+);
 
-  constructor(public payload: Error) {
-  }
-}
+export const ObterGarcom = createAction(
+  GarcomActionTypes.OBTER_GARCOM,
+  props<{ id: string }>()
+);
 
-export class ObterGarcom implements Action {
-  readonly type = OBTER_GARCOM;
+export const ObterGarcomSuccess = createAction(
+  GarcomActionTypes.OBTER_GARCOM_SUCCESS,
+  props<{garcom: Garcom}>()
+);
 
-  constructor(public payload: string) {
-  }
-}
+export const ObterGarcomError = createAction(
+  GarcomActionTypes.OBTER_GARCOM_ERROR,
+  props<{ error: Error | any }>()
+);
 
-export class ObterGarcomSuccess implements Action {
-  readonly type = OBTER_GARCOM_SUCCESS;
+export const AdicionarGarcom = createAction(
+  GarcomActionTypes.CRIAR_GARCOM,
+  props<{entity: Garcom}>()
+);
 
-  constructor(public payload: Garcom) {
-  }
-}
+export const AdicionarGarcomSuccess = createAction(
+  GarcomActionTypes.CRIAR_GARCOM_SUCCESS,
+  props<{entity: Garcom}>()
+);
 
-export class ObterGarcomError implements Action {
-  readonly type = OBTER_GARCOM_ERROR;
+export const AdicionarGarcomError = createAction(
+  GarcomActionTypes.CRIAR_GARCOM_ERROR,
+  props<{ error: Error | any }>()
+);
 
-  constructor(public payload: Error) {
-  }
-}
-
-export class AdicionarGarcom implements Action {
-  readonly type = CRIAR_GARCOM;
-
-  constructor(public payload: Garcom) {
-  }
-}
-
-export class AdicionarGarcomSuccess implements Action {
-  readonly type = CRIAR_GARCOM_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class AdicionarGarcomError implements Action {
-  readonly type = CRIAR_GARCOM_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
+export const fromGarcomActions = {
+  ObterGarcons,
+  ObterGarconsError,
+  ObterGarconsSuccess,
+  ObterGarcom,
+  ObterGarcomSuccess,
+  ObterGarcomError,
+  AdicionarGarcom,
+  AdicionarGarcomError,
+  AdicionarGarcomSuccess
+};
