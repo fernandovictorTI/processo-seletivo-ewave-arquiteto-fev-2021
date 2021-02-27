@@ -14,6 +14,7 @@ import { Cliente } from 'src/app/clientes/shared/cliente';
 import { ClientesService } from 'src/app/shared/services/clientes.service';
 import { NotificationMessageService } from 'src/app/shared/services/notification-message.service';
 import { AdicionarPedido } from '../store/criarpedido.actions';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-pedido-criar',
@@ -21,6 +22,7 @@ import { AdicionarPedido } from '../store/criarpedido.actions';
   styleUrls: ['./pedido-criar.component.css']
 })
 export class PedidoCreateComponent implements OnInit {
+  frm: FormGroup;
   title = 'Criar um novo pedido';
   pedido: Pedido = new Pedido();
 
@@ -33,6 +35,7 @@ export class PedidoCreateComponent implements OnInit {
   clientes: Observable<Cliente[]>;
 
   constructor(private router: Router,
+    private fb: FormBuilder,
     private store: Store<AppState>,
     private comandaService: ComandasService,
     private garconService: GarconsService,
@@ -43,6 +46,9 @@ export class PedidoCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.iniciarFormulario();
+
     this.comandas = this.comandaService.obterLovs();
     this.garcons = this.garconService.obterLovs();
     this.produtos = this.produtoService.obterLovs();
@@ -55,11 +61,11 @@ export class PedidoCreateComponent implements OnInit {
       .subscribe(params => {
         const idComanda = params['idComanda'];
 
-        if(!idComanda)
+        if (!idComanda)
           this.router.navigate(['/comandas']);
 
         this.pedido.idComanda = idComanda;
-      });    
+      });
   }
 
   voltar() {
@@ -72,26 +78,29 @@ export class PedidoCreateComponent implements OnInit {
 
   adicionarProduto() {
 
-    if (this.quantidadeProdutoSelecionado <= 0 || !this.produtoSelecionado){    
+    const { produtoSelecionado, quantidadeProdutoSelecionado, idCliente, idGarcom } = this.frm.getRawValue();
+
+    if (quantidadeProdutoSelecionado <= 0 || !produtoSelecionado) {
       this.showErrorAction("Selecione produto e quantidade.");
       return;
     }
 
-    if (this.pedido.produtos.some(prod => prod.idProduto == this.produtoSelecionado.id))
-    {    
+    if (this.pedido.produtos.some(prod => prod.idProduto == produtoSelecionado.id)) {
       this.showErrorAction("Produto já adicionado.");
       return;
     }
 
+    this.pedido.idCliente = idCliente;
+    this.pedido.idGarcom = idGarcom;
+
     this.pedido.produtos.push({
-      idProduto: this.produtoSelecionado.id,
-      quantidade: this.quantidadeProdutoSelecionado,
-      nome: this.produtoSelecionado.nome,
-      valor: this.produtoSelecionado.valor
+      idProduto: produtoSelecionado.id,
+      quantidade: quantidadeProdutoSelecionado,
+      nome: produtoSelecionado.nome,
+      valor: produtoSelecionado.valor
     });
 
-    this.produtoSelecionado = null;
-    this.quantidadeProdutoSelecionado = 0;
+    this.iniciarFormulario();
   }
 
   removerProduto(produto) {
@@ -99,10 +108,19 @@ export class PedidoCreateComponent implements OnInit {
   }
 
   showErrorAction(message: string) {
-      this.notificationMessageService.mostrarMensagemErro(message);
+    this.notificationMessageService.mostrarMensagemErro(message);
+  }
+
+  iniciarFormulario() {
+    this.frm = this.fb.group({
+      produtoSelecionado: [],
+      quantidadeProdutoSelecionado: [],
+      idCliente: [],
+      idGarcom: []
+    });
   }
 
   limparCampos() {
-    this.pedido = new Pedido();
+    this.iniciarFormulario();
   }
 }

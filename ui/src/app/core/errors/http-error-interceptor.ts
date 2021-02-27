@@ -21,9 +21,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
-                // Deixar somente Dev 
-                console.error("Error ao realizar requisição", error);
-
                 this.notificationMessageService.mostrarMensagemErro(error.message ?? JSON.stringify(error));
                 return throwError(error);
             })

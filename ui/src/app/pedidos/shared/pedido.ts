@@ -1,23 +1,22 @@
-  
+
 export class Pedido {
-    constructor() {
-      this.produtos = [];
-    }
-    
-    id: string;
-    idGarcom: string;
-    nomeGarcom: string;
-    idComanda: string;
-    numeroComanda: number;
-    idCliente: string;
-    nomeCliente: string;
-    produtos: ProdutoPedido[];
-    dateFake: Date = new Date();
+  constructor() {
+    this.produtos = [];
   }
 
-  export class ProdutoPedido {
-    idProduto: string;
-    nome: string;
-    quantidade: number;
-    valor: number
-  }
+  id: string;
+  idGarcom: string;
+  nomeGarcom: string;
+  idComanda: string;
+  numeroComanda: number;
+  idCliente: string;
+  nomeCliente: string;
+  produtos: ProdutoPedido[];
+}
+
+export class ProdutoPedido {
+  idProduto: string;
+  nome: string;
+  quantidade: number;
+  valor: number
+}

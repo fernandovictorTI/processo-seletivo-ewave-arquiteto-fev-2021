@@ -3,7 +3,7 @@
     <h2>{{title}}</h2>
   </div>
   <div class="card-body">
-    <form *ngIf="pedido">
+    <form [formGroup]="frm"  *ngIf="pedido">
       <div class="form-group row">
         <label for="staticNumeroComanda" class="col-sm-3 col-form-label">Numero Comanda:</label>
         <div class="col-sm-9">
@@ -31,16 +31,14 @@
       <div class="row">
         <label class="control-label col-sm-2" for="selectProduto">Produto:</label>
         <div class="col-sm-3">
-          <select name="selectProduto" class="form-control" [(ngModel)]="produtoSelecionado"
-            [ngModelOptions]="{standalone: true}">
+          <select name="selectProduto" class="form-control" formControlName="produtoSelecionado">
             <option *ngFor="let item of produtos | async" [ngValue]="item">{{item.nome}} - {{item.valor | currency}}
             </option>
           </select>
         </div>
         <label class="control-label col-sm-3" for="selectProduto">Quantidade:</label>
         <div class="col-sm-2">
-          <input type="number" class="form-control" [(ngModel)]="quantidadeProdutoSelecionado"
-            [ngModelOptions]="{standalone: true}">
+          <input type="number" class="form-control" formControlName="quantidadeProdutoSelecionado">
         </div>
         <div class="col-sm-2">
           <button type="button" (click)="adicionarProdutoBanco()" class="btn btn-secondary btn-sm">

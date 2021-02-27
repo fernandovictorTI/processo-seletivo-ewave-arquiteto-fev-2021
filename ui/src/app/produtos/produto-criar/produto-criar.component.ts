@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Produto} from '../shared/produto';
-import {AppState} from '../../app.state';
-import {Store} from '@ngrx/store';
-import {AdicionarProduto} from '../store/produtos.actions';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AppState } from '../../app.state';
+import { Store } from '@ngrx/store';
+import { AdicionarProduto } from '../store/produtos.actions';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-produto-criar',
@@ -11,14 +11,16 @@ import {Router} from '@angular/router';
   styleUrls: ['./produto-criar.component.css']
 })
 export class ProdutoCreateComponent implements OnInit {
+  frm: FormGroup;
   title = 'Criar um novo produto';
-  produto: Produto = new Produto();
 
   constructor(private router: Router,
-              private store: Store<AppState>) {
+    private fb: FormBuilder,
+    private store: Store<AppState>) {
   }
 
   ngOnInit() {
+    this.iniciarFormulario();
   }
 
   voltar() {
@@ -26,11 +28,18 @@ export class ProdutoCreateComponent implements OnInit {
   }
 
   onSaveProduto() {
-    this.store.dispatch(new AdicionarProduto(this.produto));
+    const objetoSalvar = this.frm.getRawValue();
+    this.store.dispatch(new AdicionarProduto(objetoSalvar));
+  }
+
+  iniciarFormulario() {
+    this.frm = this.fb.group({
+      nome: [],
+      valor: []
+    });
   }
 
   limparCampos() {
-    this.produto.nome = "";
-    this.produto.valor = 0;
+    this.iniciarFormulario();
   }
 }

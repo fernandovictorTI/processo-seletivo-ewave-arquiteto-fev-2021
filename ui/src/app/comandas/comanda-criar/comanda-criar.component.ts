@@ -4,7 +4,7 @@ import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
 import { AdicionarComanda } from '../store/comandas.actions';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-comanda-criar',
@@ -35,7 +35,7 @@ export class ComandaCreateComponent implements OnInit {
 
   iniciarFormulario() {
     this.frm = this.fb.group({
-      nome: [],
+      numero: [],
     });
   }
 

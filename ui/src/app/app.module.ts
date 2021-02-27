@@ -63,9 +63,7 @@ export const reducers: ActionReducerMap<any> = {
         strictStateImmutability: true,
         strictActionImmutability: true,
         strictStateSerializability: true,
-        strictActionSerializability: true,
-        strictActionWithinNgZone: true,
-        strictActionTypeUniqueness: true,
+        strictActionSerializability: false,
       },
     }),
     EffectsModule.forRoot([ProdutoEffects, GarconsEffects, CozinhaEffects, SituacaoPedidoEffects, ComandaEffects, ClienteEffects, PedidoEffects, ProdutoPedidoEffects, CriarPedidoEffects])

@@ -11,6 +11,7 @@ import { Produto } from 'src/app/produtos/shared/produto';
 import { ProdutosService } from 'src/app/shared/services/produtos.service';
 import { NotificationMessageService } from 'src/app/shared/services/notification-message.service';
 import { foiRemovidoProdutoPedidoError, foiRemovidoProdutoPedido } from '../store/produtospedido.reducers';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-gerenciar-produtos',
@@ -20,8 +21,7 @@ import { foiRemovidoProdutoPedidoError, foiRemovidoProdutoPedido } from '../stor
 export class GerenciarProdutosComponent implements OnInit {
   title = 'Gerenciar pedido';
 
-  quantidadeProdutoSelecionado = 0;
-  produtoSelecionado: Produto;
+  frm: FormGroup;
 
   produtos: Observable<Produto[]>;
   pedido: Pedido;
@@ -29,12 +29,15 @@ export class GerenciarProdutosComponent implements OnInit {
 
   constructor(private router: Router,
     private store: Store<AppState>,
+    private fb: FormBuilder,
     private produtoService: ProdutosService,
     private route: ActivatedRoute,
     private notificationMessageService: NotificationMessageService) {
   }
 
   ngOnInit() {
+
+    this.iniciarFormulario();
 
     this.store.select(foiRemovidoProdutoPedidoError).subscribe((error) => {
       if (error) {
@@ -52,7 +55,7 @@ export class GerenciarProdutosComponent implements OnInit {
 
     this.store.select(obterPedido)
       .subscribe(ped => {
-        if(ped)
+        if (ped)
           this.pedido = ped;
       });
 
@@ -74,27 +77,36 @@ export class GerenciarProdutosComponent implements OnInit {
   }
 
   adicionarProdutoBanco() {
-    if (this.quantidadeProdutoSelecionado <= 0 || !this.produtoSelecionado) {
+
+    const { produtoSelecionado, quantidadeProdutoSelecionado } = this.frm.getRawValue();
+
+    if (quantidadeProdutoSelecionado <= 0 || !produtoSelecionado) {
       this.showErroTela("Selecione produto e quantidade.");
       return;
     }
 
-    if (this.pedido.produtos.some(prod => prod.idProduto == this.produtoSelecionado.id)) {
+    if (this.pedido.produtos.some(prod => prod.idProduto == produtoSelecionado.id)) {
       this.showErroTela("Produto já adicionado.");
       return;
     }
 
     const produtoPedido = {
-      idProduto: this.produtoSelecionado.id,
-      quantidade: this.quantidadeProdutoSelecionado,
-      nome: this.produtoSelecionado.nome,
-      valor: this.produtoSelecionado.valor
+      idProduto: produtoSelecionado.id,
+      quantidade: quantidadeProdutoSelecionado,
+      nome: produtoSelecionado.nome,
+      valor: produtoSelecionado.valor
     };
 
     this.store.dispatch(new AdicionarProdutoPedido({ idPedido: this.pedido.id, ProdutoPedido: produtoPedido }));
 
-    this.produtoSelecionado = null;
-    this.quantidadeProdutoSelecionado = 0;
+    this.iniciarFormulario();
+  }
+
+  iniciarFormulario() {
+    this.frm = this.fb.group({
+      quantidadeProdutoSelecionado: [],
+      produtoSelecionado: []
+    });
   }
 
   removerProdutoBanco(produto) {

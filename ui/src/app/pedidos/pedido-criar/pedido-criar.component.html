@@ -3,12 +3,12 @@
     <h2>{{title}}</h2>
   </div>
   <div class="card-body">
-    <form #frmProduto="ngForm" novalidate novalidate id="frmProduto" novalidate>
+    <form [formGroup]="frm" novalidate>
 
       <div class="row">
         <label class="control-label col-sm-3" for="selectComanda">Comanda:</label>
         <div class="col-sm-5">
-          <select disabled name="selectComanda" class="form-control" [(ngModel)]="pedido.idComanda">
+          <select disabled name="selectComanda" class="form-control" [value]="pedido.idComanda">
             <option *ngFor="let item of comandas | async" [value]="item.idComanda">{{item.numero}}</option>
           </select>
         </div>
@@ -17,7 +17,7 @@
       <div class="row">
         <label class="control-label col-sm-3" for="selectGarcom">Garcom:</label>
         <div class="col-sm-5">
-          <select name="selectGarcom" class="form-control" [(ngModel)]="pedido.idGarcom">
+          <select name="selectGarcom" class="form-control" formControlName="idGarcom">
             <option *ngFor="let item of garcons | async" [value]="item.idGarcom">{{item.nome}}</option>
           </select>
         </div>
@@ -26,7 +26,7 @@
       <div class="row">
         <label class="control-label col-sm-3" for="selectCliente">Cliente:</label>
         <div class="col-sm-5">
-          <select name="selectCliente" class="form-control" [(ngModel)]="pedido.idCliente">
+          <select name="selectCliente" class="form-control" formControlName="idCliente">
             <option *ngFor="let item of clientes | async" [value]="item.idCliente">{{item.nome}}</option>
           </select>
         </div>
@@ -39,16 +39,14 @@
       <div class="row">
         <label class="control-label col-sm-2" for="selectProduto">Produto:</label>
         <div class="col-sm-3">
-          <select name="selectProduto" class="form-control" [(ngModel)]="produtoSelecionado"
-            [ngModelOptions]="{standalone: true}">
+          <select name="selectProduto" class="form-control" formControlName="produtoSelecionado">
             <option *ngFor="let item of produtos | async" [ngValue]="item">{{item.nome}} - {{item.valor | currency}}
             </option>
           </select>
         </div>
         <label class="control-label col-sm-3" for="selectProduto">Quantidade:</label>
         <div class="col-sm-2">
-          <input type="number" class="form-control" [(ngModel)]="quantidadeProdutoSelecionado"
-            [ngModelOptions]="{standalone: true}">
+          <input type="number" class="form-control" formControlName="quantidadeProdutoSelecionado">
         </div>
         <div class="col-sm-2">
           <button type="button" (click)="adicionarProduto()" class="btn btn-secondary btn-sm">
