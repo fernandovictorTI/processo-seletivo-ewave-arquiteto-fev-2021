@@ -15,8 +15,6 @@ jobs:
         working-directory: ./api
 
     runs-on: ubuntu-latest
-    env:
-      config: 'Release'
 
     steps:
     - uses: actions/checkout@v2
@@ -53,7 +51,7 @@ jobs:
             
     # Roda os testes
     - name: Test PR      
-      run: dotnet test --no-restore --no-build --configuration $config --logger:"liquid.md;LogFileName=${{github.workspace}}/${{env.file_name}};Title=${{env.title}};"
+      run: dotnet test --no-restore --no-build --logger:"liquid.md;LogFileName=${{github.workspace}}/${{env.file_name}};Title=${{env.title}};"
       
     # Atualiza o relatorio com os artefatos da build e testes
     - name: Upload a Build Artifact
