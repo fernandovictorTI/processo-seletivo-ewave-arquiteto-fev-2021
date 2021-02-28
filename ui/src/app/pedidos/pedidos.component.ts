@@ -57,7 +57,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
   showMsgCriadoERedirect(done: boolean, message: string) {
     if (done) {
       this.notificationMessageService.mostrarMensagemSucesso(message);
-      this.router.navigate(['/garcons']);
+      this.router.navigate(['/cozinha']);
     }
   }
 }

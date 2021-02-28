@@ -78,7 +78,7 @@ export class PedidoCreateComponent implements OnInit {
 
   adicionarProduto() {
 
-    const { produtoSelecionado, quantidadeProdutoSelecionado, idCliente, idGarcom } = this.frm.getRawValue();
+    const { produtoSelecionado, quantidadeProdutoSelecionado } = this.frm.getRawValue();
 
     if (quantidadeProdutoSelecionado <= 0 || !produtoSelecionado) {
       this.notificationMessageService.mostrarMensagemErro("Selecione produto e quantidade.");
@@ -89,9 +89,6 @@ export class PedidoCreateComponent implements OnInit {
       this.notificationMessageService.mostrarMensagemErro("Produto já adicionado.");
       return;
     }
-
-    this.pedido.idCliente = idCliente;
-    this.pedido.idGarcom = idGarcom;
 
     this.pedido.produtos.push({
       idProduto: produtoSelecionado.id,
@@ -112,7 +109,8 @@ export class PedidoCreateComponent implements OnInit {
       produtoSelecionado: [],
       quantidadeProdutoSelecionado: [],
       idCliente: [],
-      idGarcom: []
+      idGarcom: [],
+      idComanda: []
     });
   }
 

@@ -8,16 +8,18 @@
       <div class="row">
         <label class="control-label col-sm-3" for="selectComanda">Comanda:</label>
         <div class="col-sm-5">
-          <select disabled name="selectComanda" class="form-control" [value]="pedido.idComanda">
+          <select disabled name="selectComanda" class="form-control" formControlName="idComanda" [(ngModel)]="pedido.idComanda">
             <option *ngFor="let item of comandas | async" [value]="item.idComanda">{{item.numero}}</option>
           </select>
         </div>
       </div>
 
+      {{pedido | json}}
+
       <div class="row">
         <label class="control-label col-sm-3" for="selectGarcom">Garcom:</label>
         <div class="col-sm-5">
-          <select name="selectGarcom" class="form-control" formControlName="idGarcom">
+          <select name="selectGarcom" class="form-control" formControlName="idGarcom" [(ngModel)]="pedido.idGarcom">
             <option *ngFor="let item of garcons | async" [value]="item.idGarcom">{{item.nome}}</option>
           </select>
         </div>
@@ -26,7 +28,7 @@
       <div class="row">
         <label class="control-label col-sm-3" for="selectCliente">Cliente:</label>
         <div class="col-sm-5">
-          <select name="selectCliente" class="form-control" formControlName="idCliente">
+          <select name="selectCliente" class="form-control" formControlName="idCliente" [(ngModel)]="pedido.idCliente">
             <option *ngFor="let item of clientes | async" [value]="item.idCliente">{{item.nome}}</option>
           </select>
         </div>

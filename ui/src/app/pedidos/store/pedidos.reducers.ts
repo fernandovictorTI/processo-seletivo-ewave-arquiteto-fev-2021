@@ -26,7 +26,7 @@ const _reducer = createReducer(
 
   on(pedidosActions.ObterPedidosSuccess, (state, { data }) => {
     return adapter.addMany(data || [], {
-      ...state,
+      ...initialState,
       loaded: true
     });
   }),
