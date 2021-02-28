@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { GarcomState, ENTITY_FEATURE_KEY } from "./garcons.reducers";
-import { selectAll, selectIds, selectTotal } from './garcons.reducers';
+import { GarcomState, ENTITY_FEATURE_KEY, selectAll, selectIds, selectTotal } from "./garcons.reducers";
 
 const getEntityState = createFeatureSelector<GarcomState>(ENTITY_FEATURE_KEY);
 

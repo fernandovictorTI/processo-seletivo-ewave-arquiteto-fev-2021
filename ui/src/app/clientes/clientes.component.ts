@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { isCreated } from './store/clientes.selector';
-import { MessageService } from 'primeng/api';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -25,7 +24,6 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
     private store: Store<ClienteState>,
-    private messageService: MessageService,
     private notificationMessageService: NotificationMessageService) {
   }
 

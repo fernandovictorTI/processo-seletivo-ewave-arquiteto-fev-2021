@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { ClienteState, ENTITY_FEATURE_KEY } from "./clientes.reducers";
-import { selectAll, selectIds, selectTotal } from './clientes.reducers';
+import { ClienteState, ENTITY_FEATURE_KEY, selectAll, selectIds, selectTotal } from "./clientes.reducers";
 
 const getEntityState = createFeatureSelector<ClienteState>(ENTITY_FEATURE_KEY);
 
