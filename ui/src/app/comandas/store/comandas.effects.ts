@@ -1,21 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as comandaActions from './comandas.actions';
-import {
-  AdicionarComanda,
-  AdicionarComandaError,
-  AdicionarComandaSuccess,
-  ObterComandas,
-  ObterComandasError,
-  ObterComandasSuccess,
-  ObterComanda,
-  ObterComandaError,
-  ObterComandaSuccess,
-} from './comandas.actions';
-import { Observable } from 'rxjs';
-import { Action } from '@ngrx/store';
+import * as comandasActions from './comandas.actions';
 import { ComandasService } from '../../shared/services/comandas.service';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable()
 export class ComandaEffects {
@@ -23,30 +10,48 @@ export class ComandaEffects {
     private svc: ComandasService) {
   }
 
-  obterAllComandas$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(comandaActions.OBTER_COMANDAS),
-    map((action: ObterComandas) => action.payload),
-    switchMap((quantidade) => this.svc.obter(quantidade).pipe(
-      map(response => new ObterComandasSuccess(response || [])),
-      catchError((err) => [new ObterComandasError(err.error)])
-    ))
-  ));
+  obterAllComandas$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(comandasActions.ObterComandas),
+      map((action) => action),
+      switchMap(({ quantidade }) => this.svc.obter(quantidade).pipe(
+        map((response: any) => {
+          return comandasActions.ObterComandasSuccess({
+            data: response
+          });
+        })
+      ))
+    )
+  );
 
   obterComanda$ = createEffect(() => this.actions$.pipe(
-    ofType(comandaActions.OBTER_COMANDA),
-    map((action: ObterComanda) => action.payload),
-    switchMap(id => this.svc.obterPorId(id).pipe(
-      map(response => new ObterComandaSuccess(response)),
-      catchError((err) => [new ObterComandaError(err.error)])
-    ))
-  ));
+    ofType(comandasActions.ObterComanda),
+    switchMap(({ id }) => this.svc.obterPorId(id).pipe(
+      map((response: any) => {
+        return comandasActions.ObterComandaSuccess({
+          comanda: response
+        });
+      })
+    )),
+    tap(error => this.handleErrors(error))
+  ),
+    { dispatch: false });
 
-  createComanda$ = createEffect(() => this.actions$.pipe(
-    ofType(comandaActions.CRIAR_COMANDA),
-    map((action: AdicionarComanda) => action.payload),
-    switchMap(newComanda => this.svc.criar(newComanda).pipe(
-      map((response) => new AdicionarComandaSuccess(response.id)),
-      catchError((err) => [new AdicionarComandaError(err.error)])
-    ))
-  ));
+  createComanda$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(comandasActions.AdicionarComanda),
+      map((action) => action),
+      switchMap(({ entity }) => this.svc.criar(entity).pipe(
+        map((response) => {
+          return comandasActions.AdicionarComandaSuccess({
+            entity: response
+          });
+        })
+      ))
+    )
+  );
+
+  handleErrors(error) {
+    throw error;
+  }
 }

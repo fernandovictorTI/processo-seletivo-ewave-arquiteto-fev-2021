@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Comanda } from '../shared/comanda';
-import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
-import { AdicionarComanda } from '../store/comandas.actions';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { fromComandaActions } from '../store/comandas.actions';
+import { ComandaState } from '../store/comandas.reducers';
 
 @Component({
   selector: 'app-comanda-criar',
@@ -17,7 +16,7 @@ export class ComandaCreateComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    private store: Store<AppState>) {
+    private store: Store<ComandaState>) {
   }
 
   ngOnInit() {
@@ -29,8 +28,8 @@ export class ComandaCreateComponent implements OnInit {
   }
 
   onSaveComanda() {
-    const objetoSalvar = this.frm.getRawValue();
-    this.store.dispatch(new AdicionarComanda(objetoSalvar));
+    let objetoSalvar = this.frm.getRawValue();
+    this.store.dispatch(fromComandaActions.AdicionarComanda({ entity: objetoSalvar }));
   }
 
   iniciarFormulario() {

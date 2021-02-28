@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Router} from '@angular/router';
-import {AppState} from '../app.state';
-import { ObterComandas } from './store/comandas.actions';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { AppState } from '../app.state';
+import { isCreated } from './store/comandas.selector';
 import {
-  obterCriarError, obterComandasError, isCreated
-} from './store/comandas.reducers';
+  fromComandaActions
+} from './store/comandas.actions';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-comandas',
@@ -15,47 +17,55 @@ import { NotificationMessageService } from '../shared/services/notification-mess
     <router-outlet></router-outlet>`,
   styleUrls: ['./comandas.component.css']
 })
-export class ComandasComponent implements OnInit {
+export class ComandasComponent implements OnInit, OnDestroy {
+
+  private isCreatedComanda$;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private router: Router,
-              private store: Store<AppState>,
-              private notificationMessageService: NotificationMessageService) {
+    private store: Store<AppState>,
+    private notificationMessageService: NotificationMessageService) {
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   ngOnInit() {
-    this.store.dispatch(new ObterComandas(1000));
-    
-    this.store.select(obterComandasError).subscribe((error) => this.showErroStore(error));
 
-    this.store.select(isCreated).subscribe((done) => {
-      if(done){
-        this.store.dispatch(new ObterComandas(1000));
+    this.carregarListaComandas();
+
+    this.isCreatedComanda$ = this.store.select(isCreated);
+
+    this.isCreatedComanda$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((done) => {
         this.showMsgCriadoERedirect(done, 'Comanda criado com sucesso');
-      }
-    });
-
-    this.store.select(obterCriarError).subscribe((error) => {
-      this.showErrorAction(error, 'Erro ao criar comanda');
-    });
+      });
   }
-  
+
+  carregarListaComandas() {
+    this.store.dispatch(fromComandaActions.ObterComandas({ quantidade: 100 }));
+  }
+
   showErroStore(error) {
     if (error) {
       const msgErro = error.map(erro => erro.message).join(', ');
       this.notificationMessageService.mostrarMensagemErro(msgErro);
     }
   }
-  
+
   showMsgCriadoERedirect(done: boolean, message: string) {
     if (done) {
       this.notificationMessageService.mostrarMensagemSucesso(message);
       this.router.navigate(['/comandas']);
     }
   }
-  
+
   showErrorAction(error, message: string) {
-    if (error) {    
-      const msgErro = error.map(erro => erro.message).join(', ');  
+    if (error) {
+      const msgErro = error.map(erro => erro.message).join(', ');
       this.notificationMessageService.mostrarMensagemErro(msgErro);
     }
   }

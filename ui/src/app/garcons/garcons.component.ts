@@ -26,6 +26,7 @@ export class GarconsComponent implements OnInit, OnDestroy {
     private store: Store<GarcomState>,
     private notificationMessageService: NotificationMessageService) {
   }
+
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();

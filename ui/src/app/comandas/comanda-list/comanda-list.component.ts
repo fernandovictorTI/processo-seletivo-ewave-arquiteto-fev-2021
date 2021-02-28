@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../app.state';
-import {Comanda} from '../shared/comanda';
-import {Observable} from 'rxjs';
-import {obterAllComandas} from '../store/comandas.reducers';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Comanda } from '../shared/comanda';
+import { Observable } from 'rxjs';
+import { ComandaState } from '../store/comandas.reducers';
 import { Router } from '@angular/router';
 import { RxStompService } from '@stomp/ng2-stompjs';
-import { ObterComandas } from '../store/comandas.actions';
+import { fromComandaActions } from '../store/comandas.actions';
+import { selectObterComandas } from '../store/comandas.selector';
 
 @Component({
   selector: 'app-comanda-list',
@@ -18,16 +18,16 @@ export class ComandaListComponent implements OnInit {
   comandas: Observable<Comanda[]>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store<ComandaState>,
     private router: Router,
     private rxStompService: RxStompService) {
   }
 
   ngOnInit() {
-    this.comandas = this.store.select(obterAllComandas);
+    this.comandas = this.store.select(selectObterComandas);
 
-    this.rxStompService.watch('/queue/queue-situacao-pedido-alterada').subscribe((message) => {
-      this.store.dispatch(new ObterComandas(1000));
+    this.rxStompService.watch('/exchange/queue-situacao-pedido-alterada').subscribe((message) => {
+      this.store.dispatch(fromComandaActions.ObterComandas({ quantidade: 100 }));
     });
   }
 

@@ -1,77 +1,50 @@
-import {Action} from '@ngrx/store';
-import {Comanda} from '../shared/comanda';
+import { Action, createAction, props } from '@ngrx/store';
+import { Comanda } from '../shared/comanda';
 
-export const OBTER_COMANDAS = '[ALL] Comandas';
-export const OBTER_COMANDAS_SUCCESS = '[ALL] Comandas Success';
-export const OBTER_COMANDAS_ERROR = '[ALL] Comandas Error';
-
-export const OBTER_COMANDA = '[GET] Comanda';
-export const OBTER_COMANDA_SUCCESS = '[GET] Comandas Success';
-export const OBTER_COMANDA_ERROR = '[GET] Comandas Error';
-
-export const CRIAR_COMANDA = '[CRIAR] Comanda';
-export const CRIAR_COMANDA_SUCCESS = '[CRIAR] Comanda Success';
-export const CRIAR_COMANDA_ERROR = '[CRIAR] Comanda Error';
-
-export class ObterComandas implements Action {
-  readonly type = OBTER_COMANDAS;
-
-  constructor(public payload: number) {
-  }
+export enum ComandaActionTypes {
+  OBTER_COMANDAS = '[ALL] Comandas',
+  OBTER_COMANDAS_SUCCESS = '[ALL] Comandas Success',
+  OBTER_COMANDA = '[GET] Comanda',
+  OBTER_COMANDA_SUCCESS = '[GET] Comandas Success',
+  CRIAR_COMANDA = '[CRIAR] Comanda',
+  CRIAR_COMANDA_SUCCESS = '[CRIAR] Comanda Success',
 }
 
-export class ObterComandasSuccess implements Action {
-  readonly type = OBTER_COMANDAS_SUCCESS;
+export const ObterComandas = createAction(
+  ComandaActionTypes.OBTER_COMANDAS,
+  props<{ quantidade: number }>()
+);
 
-  constructor(public payload: Comanda[]) {
-  }
-}
+export const ObterComandasSuccess = createAction(
+  ComandaActionTypes.OBTER_COMANDAS_SUCCESS,
+  props<{ data: Comanda[] }>()
+);
 
-export class ObterComandasError implements Action {
-  readonly type = OBTER_COMANDAS_ERROR;
+export const ObterComanda = createAction(
+  ComandaActionTypes.OBTER_COMANDA,
+  props<{ id: string }>()
+);
 
-  constructor(public payload: Error) {
-  }
-}
+export const ObterComandaSuccess = createAction(
+  ComandaActionTypes.OBTER_COMANDA_SUCCESS,
+  props<{ comanda: Comanda }>()
+);
 
-export class ObterComanda implements Action {
-  readonly type = OBTER_COMANDA;
+export const AdicionarComanda = createAction(
+  ComandaActionTypes.CRIAR_COMANDA,
+  props<{ entity: Comanda }>()
+);
 
-  constructor(public payload: string) {
-  }
-}
+export const AdicionarComandaSuccess = createAction(
+  ComandaActionTypes.CRIAR_COMANDA_SUCCESS,
+  props<{ entity: Comanda }>()
+);
 
-export class ObterComandaSuccess implements Action {
-  readonly type = OBTER_COMANDA_SUCCESS;
-
-  constructor(public payload: Comanda) {
-  }
-}
-
-export class ObterComandaError implements Action {
-  readonly type = OBTER_COMANDA_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
-
-export class AdicionarComanda implements Action {
-  readonly type = CRIAR_COMANDA;
-
-  constructor(public payload: Comanda) {
-  }
-}
-
-export class AdicionarComandaSuccess implements Action {
-  readonly type = CRIAR_COMANDA_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class AdicionarComandaError implements Action {
-  readonly type = CRIAR_COMANDA_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
+export const fromComandaActions = {
+  ObterComandas,
+  ObterComandasSuccess,
+  ObterComanda,
+  ObterComandaSuccess,
+  AdicionarComanda,
+  AdicionarComandaSuccess
+};

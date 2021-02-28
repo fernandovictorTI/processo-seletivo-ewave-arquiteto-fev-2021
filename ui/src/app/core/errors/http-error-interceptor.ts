@@ -27,11 +27,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     case 400:
                         this.notificationMessageService.mostrarMensagemErro(this.formatarMensagem400(error));
                         return of([]);
-                        break;
 
                     case 500:
                         this.notificationMessageService.mostrarMensagemErro(error.error || error.message);
-                        break;
+                        return of([]);
 
                     default:
                         throwError(error);

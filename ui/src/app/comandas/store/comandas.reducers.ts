@@ -1,135 +1,64 @@
-import * as comandaActions from './comandas.actions';
-import {AppAction} from '../../app.action';
-import {createFeatureSelector, createSelector} from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+
 import { Comanda } from '../shared/comanda';
+import * as comandasActions from './comandas.actions';
 
-export interface State {
-  data: Comanda[];
-  selected: Comanda;
-  action: string;
-  done: boolean;
-  error?: Error;
+export const ENTITY_FEATURE_KEY = "comandas";
+
+export interface ComandaState extends EntityState<Comanda> {
+  loaded: boolean;
+  error: Error;
+  isCreated: boolean;
 }
 
-const initialState: State = {
-  data: [],
-  selected: null,
-  action: null,
-  done: false,
-  error: null
-};
+export const adapter: EntityAdapter<Comanda> = createEntityAdapter<Comanda>();
 
-export function reducer(state = initialState, action: AppAction): State {
-  switch (action.type) {
-    case comandaActions.OBTER_COMANDAS:
-      return {
-        ...state,
-        action: comandaActions.OBTER_COMANDAS,
-        done: false,
-        selected: null,
-        error: null
-      };
-    case comandaActions.OBTER_COMANDAS_SUCCESS:
-      return {
-        ...state,
-        data: action.payload,
-        done: true,
-        selected: null,
-        error: null
-      };
-    case comandaActions.OBTER_COMANDAS_ERROR:
-      return {
-        ...state,
-        done: true,
-        selected: null,
-        error: action.payload
-      };
-      
-    case comandaActions.OBTER_COMANDA:
-      return {
-        ...state,
-        action: comandaActions.OBTER_COMANDA,
-        done: false,
-        selected: null,
-        error: null
-      };
-    case comandaActions.OBTER_COMANDA_SUCCESS:
-      return {
-        ...state,
-        selected: action.payload,
-        done: true,
-        error: null
-      };
-    case comandaActions.OBTER_COMANDA_ERROR:
-      return {
-        ...state,
-        selected: null,
-        done: true,
-        error: action.payload
-      };
-      
-    case comandaActions.CRIAR_COMANDA:
-      return {
-        ...state,
-        selected: action.payload,
-        action: comandaActions.CRIAR_COMANDA,
-        done: false,
-        error: null
-      };
-    case comandaActions.CRIAR_COMANDA_SUCCESS:
-      {
-        const newComanda = {
-          ...state.selected,
-          id: action.payload
-        };
-        const data = [
-          ...state.data,
-          newComanda
-        ];
-        return {
-          ...state,
-          data,
-          selected: null,
-          error: null,
-          done: true
-        };
-      }
-    case comandaActions.CRIAR_COMANDA_ERROR:
-      return {
-        ...state,
-        selected: null,
-        done: true,
-        error: action.payload
-      };
-  }
-  return state;
+export const initialState = adapter.getInitialState({
+  loaded: false,
+  error: null,
+  isCreated: false
+});
+
+const _reducer = createReducer(
+  initialState,
+
+  on(comandasActions.ObterComandasSuccess, (state, { data }) => {
+    return adapter.addMany(data, {
+      ...state,
+      loaded: true
+    });
+  }),
+
+  on(comandasActions.ObterComandaSuccess, (state, { comanda }) => {
+    return adapter.addOne(comanda, state);
+  }),
+
+  on(comandasActions.AdicionarComanda, (state, { entity }) => {
+    state = {
+      ...state,
+      isCreated: false,
+    };
+    return state;
+  }),
+
+  on(comandasActions.AdicionarComandaSuccess, (state, { entity }) => {
+    state = {
+      ...state,
+      isCreated: true
+    };
+
+    entity = {
+      ...entity,
+      isAberta: true
+    };
+
+    return adapter.addOne(entity, state);
+  })
+);
+
+export function reducer(state: ComandaState | undefined, action: Action) {
+  return _reducer(state, action);
 }
 
-export const obterComandasState = createFeatureSelector <State> ('comandas');
-export const obterAllComandas = createSelector(obterComandasState, (state: State) => state.data);
-export const obterComanda = createSelector(obterComandasState, (state: State) => {
-  if (state.action === comandaActions.OBTER_COMANDA && state.done) {
-    return state.selected;
-  } else {
-    return null;
-  }
-
-});
-export const isCreated = createSelector(obterComandasState, (state: State) =>
- state.action === comandaActions.CRIAR_COMANDA && state.done && !state.error);
-
-export const obterCriarError = createSelector(obterComandasState, (state: State) => {
-  return state.action === comandaActions.CRIAR_COMANDA
-    ? state.error
-   : null;
-});
-export const obterComandasError = createSelector(obterComandasState, (state: State) => {
-  return state.action === comandaActions.OBTER_COMANDAS
-    ? state.error
-   : null;
-});
-export const obterComandaError = createSelector(obterComandasState, (state: State) => {
-  return state.action === comandaActions.OBTER_COMANDA
-    ? state.error
-   : null;
-});
+export const { selectAll, selectIds, selectTotal } = adapter.getSelectors();

@@ -18,7 +18,7 @@
         <td>{{comanda.numero}}</td>
         <td>{{comanda.isAberta ? 'Sim' : 'Não'}}</td>
         <td>
-          <button type="button" [disabled]="!comanda.isAberta" (click)="abrirComanda(comanda.idComanda)"
+          <button type="button" [disabled]="!comanda.isAberta" (click)="abrirComanda(comanda.id)"
             class="btn btn-secondary btn-sm">
             <i class="fa fa-plus"></i>
           </button>
