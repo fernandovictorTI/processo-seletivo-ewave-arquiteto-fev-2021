@@ -1,0 +1,44 @@
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    
+name: Build tests Angular
+jobs:
+  build:
+  
+  
+    # Defini diretorio do projeto Angular
+    defaults:
+      run:
+        working-directory: ./ui
+    
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      # Usando cache dos pacotes do NPM
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            
+      # Defini o setup-node do GITHub
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      # Instala os pacotes e roda o build com environment de producao
+      - name: npm install and npm run build
+        run: |
+          npm i
+          npm run build:prod
