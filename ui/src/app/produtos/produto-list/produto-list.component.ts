@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.state';
 import { Produto } from '../shared/produto';
 import { Observable } from 'rxjs';
 import { selectObterProdutos } from '../store/produtos.selector';

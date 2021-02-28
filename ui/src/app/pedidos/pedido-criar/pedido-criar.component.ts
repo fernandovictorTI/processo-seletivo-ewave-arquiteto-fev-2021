@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../shared/pedido';
-import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ComandasService } from 'src/app/shared/services/comandas.service';

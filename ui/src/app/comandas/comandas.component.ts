@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { AppState } from '../app.state';
 import { isCreated } from './store/comandas.selector';
 import {
   fromComandaActions
@@ -9,6 +8,7 @@ import {
 import { NotificationMessageService } from '../shared/services/notification-message.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ComandaState } from './store/comandas.reducers';
 
 @Component({
   selector: 'app-comandas',
@@ -23,7 +23,7 @@ export class ComandasComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private router: Router,
-    private store: Store<AppState>,
+    private store: Store<ComandaState>,
     private notificationMessageService: NotificationMessageService) {
   }
 

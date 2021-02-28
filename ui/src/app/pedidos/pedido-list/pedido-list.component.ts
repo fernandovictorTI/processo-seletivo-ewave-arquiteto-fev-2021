@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.state';
 import { Pedido } from '../shared/pedido';
 import { Observable } from 'rxjs';
 import { selectObterPedidos } from '../store/pedidos.selector';
