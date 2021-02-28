@@ -1,11 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { AppState } from '../app.state';
 import { fromPedidoActions } from './store/pedidos.actions';
-import {
-  getIdDoPedidoAoAdicionarProdutoPedido
-} from './store/produtospedido.reducers';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -54,11 +50,6 @@ export class PedidosComponent implements OnInit, OnDestroy {
         this.storeComandas.dispatch(fromComandaActions.ObterComandas({ quantidade: 100 }));
         this.showMsgCriadoERedirect(done, 'Pedido criado com sucesso');
       });
-
-    this.store.select(getIdDoPedidoAoAdicionarProdutoPedido).subscribe((selected: any) => {
-      if (selected)
-        this.carregarPedidos();
-    });
   }
 
   carregarPedidos() {

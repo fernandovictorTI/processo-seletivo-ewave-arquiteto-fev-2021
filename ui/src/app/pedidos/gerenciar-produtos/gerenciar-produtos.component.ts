@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../shared/pedido';
 import { Store } from '@ngrx/store';
 import { fromPedidoActions } from '../store/pedidos.actions';
-import { AdicionarProdutoPedido, RemoverProdutoPedido } from '../store/produtospedido.actions';
+import { fromProdutoPedidoActions } from '../store/produtospedido.actions';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Produto } from 'src/app/produtos/shared/produto';
 import { ProdutosService } from 'src/app/shared/services/produtos.service';
 import { NotificationMessageService } from 'src/app/shared/services/notification-message.service';
-import { foiRemovidoProdutoPedidoError, foiRemovidoProdutoPedido } from '../store/produtospedido.reducers';
+import { ProdutoPedidoState } from '../store/produtospedido.reducers';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { selectObterPedido } from '../store/pedidos.selector';
 import { PedidoState } from '../store/pedidos.reducers';
-import { AppState } from 'src/app/app.state';
+import { isRemovedProdutoPedido, isCreatedProdutoPedido } from '../store/produtospedido.selector';
 
 @Component({
   selector: 'app-gerenciar-produtos',
@@ -29,7 +29,7 @@ export class GerenciarProdutosComponent implements OnInit {
   idPedido;
 
   constructor(private router: Router,
-    private store: Store<AppState>,
+    private produtoPedidoStore: Store<ProdutoPedidoState>,
     private pedidoStore: Store<PedidoState>,
     private fb: FormBuilder,
     private produtoService: ProdutosService,
@@ -41,14 +41,12 @@ export class GerenciarProdutosComponent implements OnInit {
 
     this.iniciarFormulario();
 
-    this.store.select(foiRemovidoProdutoPedidoError).subscribe((error) => {
-      if (error) {
-        this.showErrorAction(error);
+    this.produtoPedidoStore.select(isRemovedProdutoPedido).subscribe((done) => {
+      if (done)
         this.carregarPedido(this.idPedido);
-      }
     });
 
-    this.store.select(foiRemovidoProdutoPedido).subscribe((done) => {
+    this.produtoPedidoStore.select(isCreatedProdutoPedido).subscribe((done) => {
       if (done)
         this.carregarPedido(this.idPedido);
     });
@@ -103,7 +101,7 @@ export class GerenciarProdutosComponent implements OnInit {
       valor: produtoSelecionado.valor
     };
 
-    this.store.dispatch(new AdicionarProdutoPedido({ idPedido: this.pedido.id, ProdutoPedido: produtoPedido }));
+    this.produtoPedidoStore.dispatch(fromProdutoPedidoActions.AdicionarProdutoPedido({ idPedido: this.pedido.id, produtoPedido: produtoPedido }));
 
     this.iniciarFormulario();
   }
@@ -116,7 +114,7 @@ export class GerenciarProdutosComponent implements OnInit {
   }
 
   removerProdutoBanco(produto) {
-    this.store.dispatch(new RemoverProdutoPedido({ idPedido: this.pedido.id, idProdutoPedido: produto.idProdutoPedido }));
+    this.produtoPedidoStore.dispatch(fromProdutoPedidoActions.RemoverProdutoPedido({ idPedido: this.pedido.id, idProdutoPedido: produto.idProdutoPedido }));
   }
 
   showErroTela(erro) {

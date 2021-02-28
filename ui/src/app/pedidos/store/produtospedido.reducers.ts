@@ -1,109 +1,62 @@
-import * as pedidoActions from './produtospedido.actions';
-import { AppAction } from '../../app.action';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as produtoPedidoActions from './produtospedido.actions';
+import { Action, createReducer, on } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { ProdutoPedido } from '../shared/pedido';
 
-export interface State {
-  selected: string;
-  action: string;
-  done: boolean;
-  error?: Error;
+export const ENTITY_FEATURE_KEY = "produtospedido";
+
+export interface ProdutoPedidoState extends EntityState<ProdutoPedido> {
+  loaded: boolean;
+  error: Error;
+  isCreated: boolean;
+  isRemoved: boolean;
 }
 
-const initialState: State = {
-  selected: null,
-  action: null,
-  done: false,
-  error: null
-};
+export const adapter: EntityAdapter<ProdutoPedido> = createEntityAdapter<ProdutoPedido>();
 
-export function reducer(state = initialState, action: AppAction): State {
-  switch (action.type) {
+export const initialState = adapter.getInitialState({
+  loaded: false,
+  error: null,
+  isCreated: false,
+  isRemoved: false
+});
 
-    case pedidoActions.CRIAR_PRODUTOPEDIDO:
-      return {
-        ...state,
-        selected: action.payload,
-        action: pedidoActions.CRIAR_PRODUTOPEDIDO,
-        done: false,
-        error: null
-      };
+const _reducer = createReducer(
+  initialState,
 
-    case pedidoActions.CRIAR_PRODUTOPEDIDO_SUCCESS:
-      {
-        return {
-          ...state,
-          error: null,
-          done: true
-        };
-      }
+  on(produtoPedidoActions.AdicionarProdutoPedido, (state) => {
+    state = {
+      ...state,
+      isCreated: false
+    };
+    return state;
+  }),
 
-    case pedidoActions.CRIAR_PRODUTOPEDIDO_ERROR:
-      return {
-        ...state,
-        selected: null,
-        done: true,
-        error: action.payload
-      };
+  on(produtoPedidoActions.AdicionarProdutoPedidoSuccess, (state) => {
+    state = {
+      ...state,
+      isCreated: true
+    };
+    return state;
+  }),
 
-    case pedidoActions.REMOVER_PRODUTOPEDIDO:
-      return {
-        ...state,
-        selected: action.payload,
-        action: pedidoActions.REMOVER_PRODUTOPEDIDO,
-        done: false,
-        error: null
-      };
+  on(produtoPedidoActions.RemoverProdutoPedido, (state) => {
+    state = {
+      ...state,
+      isRemoved: false
+    };
+    return state;
+  }),
 
-    case pedidoActions.REMOVER_PRODUTOPEDIDO_SUCCESS:
-      {
-        return {
-          ...state,
-          error: null,
-          done: true
-        };
-      }
+  on(produtoPedidoActions.RemoverProdutoPedidoSuccess, (state) => {
+    state = {
+      ...state,
+      isRemoved: true
+    };
+    return state;
+  }),
+);
 
-    case pedidoActions.REMOVER_PRODUTOPEDIDO_ERROR:
-      return {
-        ...state,
-        selected: null,
-        done: true,
-        error: action.payload
-      };
-  }
-  return state;
+export function reducer(state: ProdutoPedidoState | undefined, action: Action) {
+  return _reducer(state, action);
 }
-
-export const produtoPedidosState = createFeatureSelector<State>('produtospedido');
-
-export const isAdicionadoProdutoPedido = createSelector(produtoPedidosState, (state: State) =>
-  state.action === pedidoActions.CRIAR_PRODUTOPEDIDO && state.done && !state.error);
-
-export const getIdDoPedidoAoAdicionarProdutoPedido = createSelector(produtoPedidosState, (state: State) => {
-  if (state.action === pedidoActions.CRIAR_PRODUTOPEDIDO && state.done && !state.error)
-    return state.selected;
-  else
-    return null;
-});
-
-export const getIdDoPedidoAoRemoverProdutoPedido = createSelector(produtoPedidosState, (state: State) => {
-  if (state.action === pedidoActions.REMOVER_PRODUTOPEDIDO && state.done && !state.error)
-    return state.selected;
-  else
-    return null;
-});
-
-export const obterCriarError = createSelector(produtoPedidosState, (state: State) => {
-  return state.action === pedidoActions.CRIAR_PRODUTOPEDIDO
-    ? state.error
-    : null;
-});
-
-export const foiRemovidoProdutoPedido = createSelector(produtoPedidosState, (state: State) =>
-  state.action === pedidoActions.REMOVER_PRODUTOPEDIDO && state.done && !state.error);
-
-export const foiRemovidoProdutoPedidoError = createSelector(produtoPedidosState, (state: State) => {
-  return state.action === pedidoActions.REMOVER_PRODUTOPEDIDO
-    ? state.error
-    : null;
-});
