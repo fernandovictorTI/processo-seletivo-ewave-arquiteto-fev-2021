@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
-import { AdicionarProduto } from '../store/produtos.actions';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { fromProdutosActions } from '../store/produtos.actions';
+import { ProdutoState } from '../store/produtos.reducers';
 
 @Component({
   selector: 'app-produto-criar',
@@ -16,7 +16,7 @@ export class ProdutoCreateComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    private store: Store<AppState>) {
+    private store: Store<ProdutoState>) {
   }
 
   ngOnInit() {
@@ -29,7 +29,7 @@ export class ProdutoCreateComponent implements OnInit {
 
   onSaveProduto() {
     const objetoSalvar = this.frm.getRawValue();
-    this.store.dispatch(new AdicionarProduto(objetoSalvar));
+    this.store.dispatch(fromProdutosActions.AdicionarProduto({ entity: objetoSalvar }));
   }
 
   iniciarFormulario() {

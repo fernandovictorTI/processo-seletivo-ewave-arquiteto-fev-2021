@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as garconsActions from './garcons.actions';
-import * as logsActions from '../../shared/store/logs/logs.actions'
-import { of } from 'rxjs';
 import { GarconsService } from '../../shared/services/garcons.service';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { createAction } from '@ngrx/store';
-
-export const noAction = createAction('State stay equal');
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable()
 export class GarconsEffects {

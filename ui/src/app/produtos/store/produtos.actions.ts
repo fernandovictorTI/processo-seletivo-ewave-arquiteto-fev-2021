@@ -1,77 +1,50 @@
-import {Action} from '@ngrx/store';
-import {Produto} from '../shared/produto';
+import { Action, createAction, props } from '@ngrx/store';
+import { Produto } from '../shared/produto';
 
-export const OBTER_PRODUTOS = '[ALL] Produtos';
-export const OBTER_PRODUTOS_SUCCESS = '[ALL] Produtos Success';
-export const OBTER_PRODUTOS_ERROR = '[ALL] Produtos Error';
-
-export const OBTER_PRODUTO = '[GET] Produto';
-export const OBTER_PRODUTO_SUCCESS = '[GET] Produtos Success';
-export const OBTER_PRODUTO_ERROR = '[GET] Produtos Error';
-
-export const CRIAR_PRODUTO = '[CRIAR] Produto';
-export const CRIAR_PRODUTO_SUCCESS = '[CRIAR] Produto Success';
-export const CRIAR_PRODUTO_ERROR = '[CRIAR] Produto Error';
-
-export class ObterProdutos implements Action {
-  readonly type = OBTER_PRODUTOS;
-
-  constructor(public payload: number) {
-  }
+export enum ProdutoActionTypes {
+  OBTER_PRODUTOS = '[ALL] Produtos',
+  OBTER_PRODUTOS_SUCCESS = '[ALL] Produtos Success',
+  OBTER_PRODUTO = '[GET] Produto',
+  OBTER_PRODUTO_SUCCESS = '[GET] Produtos Success',
+  CRIAR_PRODUTO = '[CRIAR] Produto',
+  CRIAR_PRODUTO_SUCCESS = '[CRIAR] Produto Success'
 }
 
-export class ObterProdutosSuccess implements Action {
-  readonly type = OBTER_PRODUTOS_SUCCESS;
+export const ObterProdutos = createAction(
+  ProdutoActionTypes.OBTER_PRODUTOS,
+  props<{ quantidade: number }>()
+)
 
-  constructor(public payload: Produto[]) {
-  }
-}
+export const ObterProdutosSuccess = createAction(
+  ProdutoActionTypes.OBTER_PRODUTOS_SUCCESS,
+  props<{ data: Produto[] }>()
+)
 
-export class ObterProdutosError implements Action {
-  readonly type = OBTER_PRODUTOS_ERROR;
+export const ObterProduto = createAction(
+  ProdutoActionTypes.OBTER_PRODUTO,
+  props<{ id: string }>()
+)
 
-  constructor(public payload: Error) {
-  }
-}
+export const ObterProdutoSuccess = createAction(
+  ProdutoActionTypes.OBTER_PRODUTO_SUCCESS,
+  props<{ entity: Produto }>()
+)
 
-export class ObterProduto implements Action {
-  readonly type = OBTER_PRODUTO;
+export const AdicionarProduto = createAction(
+  ProdutoActionTypes.CRIAR_PRODUTO,
+  props<{ entity: Produto }>()
+)
 
-  constructor(public payload: string) {
-  }
-}
+export const AdicionarProdutoSuccess = createAction(
+  ProdutoActionTypes.CRIAR_PRODUTO_SUCCESS,
+  props<{ entity: Produto }>()
+)
 
-export class ObterProdutoSuccess implements Action {
-  readonly type = OBTER_PRODUTO_SUCCESS;
-
-  constructor(public payload: Produto) {
-  }
-}
-
-export class ObterProdutoError implements Action {
-  readonly type = OBTER_PRODUTO_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
-
-export class AdicionarProduto implements Action {
-  readonly type = CRIAR_PRODUTO;
-
-  constructor(public payload: Produto) {
-  }
-}
-
-export class AdicionarProdutoSuccess implements Action {
-  readonly type = CRIAR_PRODUTO_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class AdicionarProdutoError implements Action {
-  readonly type = CRIAR_PRODUTO_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
+export const fromProdutosActions = {
+  ObterProdutos,
+  ObterProdutosSuccess,
+  ObterProduto,
+  ObterProdutoSuccess,
+  AdicionarProduto,
+  AdicionarProdutoSuccess
+};

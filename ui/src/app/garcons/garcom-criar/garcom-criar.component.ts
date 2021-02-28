@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Garcom } from '../shared/garcom';
-import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
 import { fromGarcomActions } from '../store/garcons.actions';
 import { Router } from '@angular/router';

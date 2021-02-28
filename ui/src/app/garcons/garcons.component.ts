@@ -7,7 +7,7 @@ import {
 } from './store/garcons.actions';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
 import { GarcomState } from './store/garcons.reducers';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
