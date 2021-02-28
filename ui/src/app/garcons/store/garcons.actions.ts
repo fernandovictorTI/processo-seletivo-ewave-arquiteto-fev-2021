@@ -10,7 +10,10 @@ export enum GarcomActionTypes {
   CRIAR_GARCOM_SUCCESS = '[CRIAR] Garcom Success',
 }
 
-export const ObterGarcons = createAction(GarcomActionTypes.OBTER_GARCONS);
+export const ObterGarcons = createAction(
+  GarcomActionTypes.OBTER_GARCONS,
+  props<{ quantidade: number }>()
+);
 
 export const ObterGarconsSuccess = createAction(
   GarcomActionTypes.OBTER_GARCONS_SUCCESS,

@@ -7,6 +7,7 @@ import {
   fromGarcomActions
 } from './store/garcons.actions';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
+import { GarcomState } from './store/garcons.reducers';
 
 @Component({
   selector: 'app-garcoms',
@@ -17,8 +18,10 @@ import { NotificationMessageService } from '../shared/services/notification-mess
 })
 export class GarconsComponent implements OnInit {
 
+  isCreatedGarcom$;
+
   constructor(private router: Router,
-    private store: Store<any>,
+    private store: Store<GarcomState>,
     private notificationMessageService: NotificationMessageService) {
   }
 
@@ -27,13 +30,19 @@ export class GarconsComponent implements OnInit {
 
     // this.store.select(obterGarconsError).subscribe((error) => this.showErroStore(error));
 
-    this.store.select(isCreated).subscribe((done) => {
+    this.isCreatedGarcom$ = this.store.select(isCreated);
+
+    this.isCreatedGarcom$.subscribe((done) => {
       this.showMsgCriadoERedirect(done, 'Garcom criado com sucesso');
     });
   }
 
+  ngOnDestroy() {
+    // this.isCreatedGarcom$.unsubscribe();
+  }
+
   carregarListaGarcons() {
-    this.store.dispatch(fromGarcomActions.ObterGarcons());
+    this.store.dispatch(fromGarcomActions.ObterGarcons({ quantidade: 100 }));
   }
 
   showMsgCriadoERedirect(done: boolean, message: string) {

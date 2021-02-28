@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ActionReducerMap, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { TableModule } from "primeng/table";
@@ -34,7 +34,7 @@ import { PedidosService } from './services/pedidos.service';
     FieldsetModule
   ],
   declarations: [],
-  providers: [ComandasService, GarconsService, ProdutosService, ClientesService, MessageService, NotificationMessageService, PedidosService],
+  providers: [ComandasService, GarconsService, ProdutosService, ClientesService, PedidosService],
   exports: [
     CommonModule,
     HttpClientModule,

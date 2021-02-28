@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import { Garcom } from '../shared/garcom';
-import * as comandaActions from './garcons.actions';
+import * as garconsActions from './garcons.actions';
 
 export const ENTITY_FEATURE_KEY = "garcons";
 
@@ -23,18 +23,26 @@ export const initialState = adapter.getInitialState({
 const _reducer = createReducer(
   initialState,
 
-  on(comandaActions.ObterGarconsSuccess, (state, { data }) => {
-    return adapter.addMany(data || [], {
+  on(garconsActions.ObterGarconsSuccess, (state, { data }) => {
+    return adapter.addMany(data, {
       ...state,
       loaded: true
     });
   }),
 
-  on(comandaActions.ObterGarcomSuccess, (state, { garcom }) => {
+  on(garconsActions.ObterGarcomSuccess, (state, { garcom }) => {
     return adapter.addOne(garcom, state);
   }),
 
-  on(comandaActions.AdicionarGarcomSuccess, (state, { entity }) => {
+  on(garconsActions.AdicionarGarcom, (state) => {
+    state = {
+      ...state,
+      isCreated: false
+    }
+    return state;
+  }),
+
+  on(garconsActions.AdicionarGarcomSuccess, (state, { entity }) => {
     state = {
       ...state,
       isCreated: true

@@ -5,7 +5,7 @@ export const initialState = '';
 
 const _logsReducer = createReducer(
     initialState,
-    on(fromGarcomActions.LogErros, (state) => state)
+    on(fromGarcomActions.LogErros, (state) => state + 'Lesgou')
 );
 
 export function reducer(state, action) {

@@ -22,7 +22,7 @@ import * as clienteReducer from './clientes/store/clientes.reducers';
 import * as produtosPedidoReducer from './pedidos/store/produtospedido.reducers';
 import * as criarPedidoReducer from './pedidos/store/criarpedido.reducers';
 import * as pedidosReducer from './pedidos/store/pedidos.reducers';
-import * as logsReducer from './shared/store/logs.reducers';
+import * as logsReducer from './shared/store/logs/logs.reducers';
 
 import { ProdutoEffects } from './produtos/store/produtos.effects';
 import { GarconsEffects } from './garcons/store/garcons.effects';
@@ -35,6 +35,10 @@ import { ProdutoPedidoEffects } from './pedidos/store/produtospedido.effects';
 import { CriarPedidoEffects } from './pedidos/store/criarpedido.effects';
 import { ActionReducerMap, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { NotificationMessageService } from './shared/services/notification-message.service';
+import { MessageService } from 'primeng/api';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './shared/store/router/custom-serializer';
 
 export const reducers: ActionReducerMap<any> = {
   produtos: produtoReducer.reducer,
@@ -58,6 +62,9 @@ export const reducers: ActionReducerMap<any> = {
     BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }),
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: true,
@@ -66,7 +73,8 @@ export const reducers: ActionReducerMap<any> = {
         strictActionSerializability: false,
       },
     }),
-    EffectsModule.forRoot([ProdutoEffects, GarconsEffects, CozinhaEffects, SituacaoPedidoEffects, ComandaEffects, ClienteEffects, PedidoEffects, ProdutoPedidoEffects, CriarPedidoEffects])
+    EffectsModule.forRoot([ProdutoEffects, GarconsEffects, CozinhaEffects, SituacaoPedidoEffects, ComandaEffects, ClienteEffects, PedidoEffects, ProdutoPedidoEffects, CriarPedidoEffects]),
+    StoreRouterConnectingModule.forRoot({ serializer: CustomSerializer }),
   ],
   providers: [
     {
@@ -79,7 +87,8 @@ export const reducers: ActionReducerMap<any> = {
       deps: [InjectableRxStompConfig]
     },
     // { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    , MessageService, NotificationMessageService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
