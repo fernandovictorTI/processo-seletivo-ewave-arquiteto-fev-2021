@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../app.state';
-import {Cliente} from '../shared/cliente';
-import {Observable} from 'rxjs';
-import {obterAllClientes} from '../store/clientes.reducers';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Cliente } from '../shared/cliente';
+import { Observable } from 'rxjs';
+import { ClienteState } from '../store/clientes.reducers';
+import { selectObterClientes } from '../store/clientes.selector';
 
 @Component({
   selector: 'app-cliente-list',
@@ -14,10 +14,10 @@ export class ClienteListComponent implements OnInit {
   title = 'Clientes';
   clientes: Observable<Cliente[]>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<ClienteState>) {
   }
 
   ngOnInit() {
-    this.clientes = this.store.select(obterAllClientes);
+    this.clientes = this.store.select(selectObterClientes);
   }
 }

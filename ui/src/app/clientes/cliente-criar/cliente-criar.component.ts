@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../shared/cliente';
-import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
 import { AdicionarCliente } from '../store/clientes.actions';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClienteState } from '../store/clientes.reducers';
+import { fromClienteActions } from '../store/clientes.actions';
 
 @Component({
   selector: 'app-cliente-criar',
@@ -17,7 +17,7 @@ export class ClienteCreateComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    private store: Store<AppState>) {
+    private store: Store<ClienteState>) {
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class ClienteCreateComponent implements OnInit {
 
   onSaveCliente() {
     const objetoSalvar = this.frm.getRawValue();
-    this.store.dispatch(new AdicionarCliente(objetoSalvar));
+    this.store.dispatch(fromClienteActions.AdicionarCliente({ entity: objetoSalvar }));
   }
 
   iniciarFormulario() {

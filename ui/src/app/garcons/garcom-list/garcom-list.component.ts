@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../app.state';
-import {Garcom} from '../shared/garcom';
-import {Observable} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Garcom } from '../shared/garcom';
+import { Observable } from 'rxjs';
 import { selectObterGarcons } from '../store/garcons.selector';
 import { GarcomState } from '../store/garcons.reducers';
 

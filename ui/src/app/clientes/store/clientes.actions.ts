@@ -1,77 +1,50 @@
-import {Action} from '@ngrx/store';
-import {Cliente} from '../shared/cliente';
+import { createAction, props } from '@ngrx/store';
+import { Cliente } from '../shared/cliente';
 
-export const OBTER_CLIENTES = '[ALL] Clientes';
-export const OBTER_CLIENTES_SUCCESS = '[ALL] Clientes Success';
-export const OBTER_CLIENTES_ERROR = '[ALL] Clientes Error';
-
-export const OBTER_CLIENTE = '[GET] Cliente';
-export const OBTER_CLIENTE_SUCCESS = '[GET] Clientes Success';
-export const OBTER_CLIENTE_ERROR = '[GET] Clientes Error';
-
-export const CRIAR_CLIENTE = '[CRIAR] Cliente';
-export const CRIAR_CLIENTE_SUCCESS = '[CRIAR] Cliente Success';
-export const CRIAR_CLIENTE_ERROR = '[CRIAR] Cliente Error';
-
-export class ObterClientes implements Action {
-  readonly type = OBTER_CLIENTES;
-
-  constructor(public payload: number) {
-  }
+export enum ClienteActionTypes {
+  OBTER_GARCONS = '[ALL] Clientes',
+  OBTER_GARCONS_SUCCESS = '[ALL] Clientes Success',
+  OBTER_CLIENTE = '[GET] Cliente',
+  OBTER_CLIENTE_SUCCESS = '[GET] Clientes Success',
+  CRIAR_CLIENTE = '[CRIAR] Cliente',
+  CRIAR_CLIENTE_SUCCESS = '[CRIAR] Cliente Success',
 }
 
-export class ObterClientesSuccess implements Action {
-  readonly type = OBTER_CLIENTES_SUCCESS;
+export const ObterClientes = createAction(
+  ClienteActionTypes.OBTER_GARCONS,
+  props<{ quantidade: number }>()
+);
 
-  constructor(public payload: Cliente[]) {
-  }
-}
+export const ObterClientesSuccess = createAction(
+  ClienteActionTypes.OBTER_GARCONS_SUCCESS,
+  props<{ data: Cliente[] }>()
+);
 
-export class ObterClientesError implements Action {
-  readonly type = OBTER_CLIENTES_ERROR;
+export const ObterCliente = createAction(
+  ClienteActionTypes.OBTER_CLIENTE,
+  props<{ id: string }>()
+);
 
-  constructor(public payload: Error) {
-  }
-}
+export const ObterClienteSuccess = createAction(
+  ClienteActionTypes.OBTER_CLIENTE_SUCCESS,
+  props<{ cliente: Cliente }>()
+);
 
-export class ObterCliente implements Action {
-  readonly type = OBTER_CLIENTE;
+export const AdicionarCliente = createAction(
+  ClienteActionTypes.CRIAR_CLIENTE,
+  props<{ entity: Cliente }>()
+);
 
-  constructor(public payload: string) {
-  }
-}
+export const AdicionarClienteSuccess = createAction(
+  ClienteActionTypes.CRIAR_CLIENTE_SUCCESS,
+  props<{ entity: Cliente }>()
+);
 
-export class ObterClienteSuccess implements Action {
-  readonly type = OBTER_CLIENTE_SUCCESS;
-
-  constructor(public payload: Cliente) {
-  }
-}
-
-export class ObterClienteError implements Action {
-  readonly type = OBTER_CLIENTE_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
-
-export class AdicionarCliente implements Action {
-  readonly type = CRIAR_CLIENTE;
-
-  constructor(public payload: Cliente) {
-  }
-}
-
-export class AdicionarClienteSuccess implements Action {
-  readonly type = CRIAR_CLIENTE_SUCCESS;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class AdicionarClienteError implements Action {
-  readonly type = CRIAR_CLIENTE_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
+export const fromClienteActions = {
+  ObterClientes,
+  ObterClientesSuccess,
+  ObterCliente,
+  ObterClienteSuccess,
+  AdicionarCliente,
+  AdicionarClienteSuccess
+};

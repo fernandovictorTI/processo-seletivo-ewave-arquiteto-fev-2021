@@ -1,21 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as clienteActions from './clientes.actions';
-import {
-  AdicionarCliente,
-  AdicionarClienteError,
-  AdicionarClienteSuccess,
-  ObterClientes,
-  ObterClientesError,
-  ObterClientesSuccess,
-  ObterCliente,
-  ObterClienteError,
-  ObterClienteSuccess,
-} from './clientes.actions';
-import { Observable } from 'rxjs';
-import { Action } from '@ngrx/store';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { ClientesService } from 'src/app/shared/services/clientes.service';
+import * as clientesActions from './clientes.actions';
+import { ClientesService } from '../../shared/services/clientes.service';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable()
 export class ClienteEffects {
@@ -23,30 +10,48 @@ export class ClienteEffects {
     private svc: ClientesService) {
   }
 
-  obterAllClientes$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(clienteActions.OBTER_CLIENTES),
-    map((action: ObterClientes) => action.payload),
-    switchMap((quantidade) => this.svc.obter(quantidade).pipe(
-      map(response => new ObterClientesSuccess(response || [])),
-      catchError((err) => [new ObterClientesError(err.error)])
-    ))
-  ));
+  obterAllClientes$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(clientesActions.ObterClientes),
+      map((action) => action),
+      switchMap(({ quantidade }) => this.svc.obter(quantidade).pipe(
+        map((response: any) => {
+          return clientesActions.ObterClientesSuccess({
+            data: response
+          });
+        })
+      ))
+    )
+  );
 
   obterCliente$ = createEffect(() => this.actions$.pipe(
-    ofType(clienteActions.OBTER_CLIENTE),
-    map((action: ObterCliente) => action.payload),
-    switchMap(id => this.svc.obterPorId(id).pipe(
-      map(response => new ObterClienteSuccess(response)),
-      catchError((err) => [new ObterClienteError(err.error)])
-    ))
-  ));
+    ofType(clientesActions.ObterCliente),
+    switchMap(({ id }) => this.svc.obterPorId(id).pipe(
+      map((response: any) => {
+        return clientesActions.ObterClienteSuccess({
+          cliente: response
+        });
+      })
+    )),
+    tap(error => this.handleErrors(error))
+  ),
+    { dispatch: false });
 
-  createCliente$ = createEffect(() => this.actions$.pipe(
-    ofType(clienteActions.CRIAR_CLIENTE),
-    map((action: AdicionarCliente) => action.payload),
-    switchMap(newCliente => this.svc.criar(newCliente).pipe(
-      map((response) => new AdicionarClienteSuccess(response.id)),
-      catchError((err) => [new AdicionarClienteError(err.error)])
-    ))
-  ));
+  createCliente$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(clientesActions.AdicionarCliente),
+      map((action) => action),
+      switchMap(({ entity }) => this.svc.criar(entity).pipe(
+        map((response) => {
+          return clientesActions.AdicionarClienteSuccess({
+            entity: response
+          });
+        })
+      ))
+    )
+  );
+
+  handleErrors(error) {
+    throw error;
+  }
 }
