@@ -1,34 +1,22 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Pedido } from '../shared/pedido';
 
-export const CRIAR_PEDIDO = '[CRIAR] Pedido';
-export const CRIAR_PEDIDO_SUCCESS = '[CRIAR] Pedido Success';
-export const CRIAR_PEDIDO_ERROR = '[CRIAR] Pedido Error';
-export const CRIAR_PEDIDO_CANCELAR_ASSINATURA = '[CRIAR] Pedido Cancelar Assinatura';
-
-export class AdicionarPedido implements Action {
-  readonly type = CRIAR_PEDIDO;
-
-  constructor(public payload: Pedido) {
-  }
+export enum CriarPedidoActionTypes {
+  CRIAR_PEDIDO = '[CRIAR] Pedido',
+  CRIAR_PEDIDO_SUCCESS = '[CRIAR] Pedido Success'
 }
 
-export class AdicionarPedidoSuccess implements Action {
-  readonly type = CRIAR_PEDIDO_SUCCESS;
+export const CriarPedido = createAction(
+  CriarPedidoActionTypes.CRIAR_PEDIDO,
+  props<{ entity: Pedido }>()
+);
 
-  constructor(public payload: Pedido) {
-  }
-}
+export const CriarPedidoSuccess = createAction(
+  CriarPedidoActionTypes.CRIAR_PEDIDO_SUCCESS,
+  props<{ entity: Pedido }>()
+);
 
-export class AdicionarPedidoError implements Action {
-  readonly type = CRIAR_PEDIDO_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
-
-export class AdicionarPedidoCancelarAssinatura implements Action {
-  readonly type = CRIAR_PEDIDO_CANCELAR_ASSINATURA;
-}
-
-export type Actions = AdicionarPedido | AdicionarPedidoSuccess | AdicionarPedidoError | AdicionarPedidoCancelarAssinatura;
+export const fromCriarPedidoActions = {
+  CriarPedido,
+  CriarPedidoSuccess
+};

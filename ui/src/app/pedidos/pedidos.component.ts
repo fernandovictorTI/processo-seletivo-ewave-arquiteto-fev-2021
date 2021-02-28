@@ -7,13 +7,18 @@ import {
   obterPedidosError
 } from './store/pedidos.reducers';
 
-import { selectCriarPedido, selectCriarPedidoError, selectCriarPedidoIsLoading } from './store/criarpedido.reducers';
-
 import {
   getIdDoPedidoAoAdicionarProdutoPedido
 } from './store/produtospedido.reducers';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
-import { AdicionarPedidoCancelarAssinatura } from './store/criarpedido.actions';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { isCreated } from './store/criarpedido.selector';
+import { CriarPedidoState } from './store/criarpedido.reducers';
+import { ComandaState } from '../comandas/store/comandas.reducers';
+import {
+  fromComandaActions
+} from '../comandas/store/comandas.actions';
 
 @Component({
   selector: 'app-pedidos',
@@ -24,40 +29,41 @@ import { AdicionarPedidoCancelarAssinatura } from './store/criarpedido.actions';
 })
 export class PedidosComponent implements OnInit, OnDestroy {
 
+  private isCreatedCriarPedido$;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
   constructor(
     private router: Router,
     private store: Store<AppState>,
+    private storeCriarPedido: Store<CriarPedidoState>,
+    private storeComandas: Store<ComandaState>,
     private notificationMessageService: NotificationMessageService) {
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   ngOnInit() {
 
-    // Pedidos 
     this.store.dispatch(new ObterPedidos(50));
 
-    // Consulta Pedidos com erro
     this.store.select(obterPedidosError).subscribe((error) => this.showErroStore(error));
 
-    // Pedido Criado com sucesso
-    this.store.select(selectCriarPedido).subscribe((cara) => {
-      if(cara)
-        this.showMsgCriadoERedirect('Pedido criado com sucesso');
-    });
+    this.isCreatedCriarPedido$ = this.storeCriarPedido.select(isCreated);
 
-    // Erro ao criar pedido
-    this.store.select(selectCriarPedidoError).subscribe((error) => {
-      this.showErrorAction(error);
-    });
+    this.isCreatedCriarPedido$
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((done) => {
+        this.storeComandas.dispatch(fromComandaActions.ObterComandas({ quantidade: 100 }));
+        this.showMsgCriadoERedirect(done, 'Pedido criado com sucesso');
+      });
 
-    // Carregando novamente o pedido ao adicionar um produto
     this.store.select(getIdDoPedidoAoAdicionarProdutoPedido).subscribe((selected: any) => {
       if (selected)
         this.store.dispatch(new ObterPedido(selected.idPedido));
     });
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(new AdicionarPedidoCancelarAssinatura());
   }
 
   showErroStore(error) {
@@ -67,9 +73,11 @@ export class PedidosComponent implements OnInit, OnDestroy {
     }
   }
 
-  showMsgCriadoERedirect(message: string) {
+  showMsgCriadoERedirect(done: boolean, message: string) {
+    if (done) {
       this.notificationMessageService.mostrarMensagemSucesso(message);
-      this.router.navigate(['/comandas']);
+      this.router.navigate(['/pedidos']);
+    }
   }
 
   showErrorAction(error) {

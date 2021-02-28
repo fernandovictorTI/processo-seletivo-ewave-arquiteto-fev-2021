@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as criarPedidoActions from './criarpedido.actions';
-import {
-  AdicionarPedido,
-  AdicionarPedidoSuccess,
-  AdicionarPedidoError
-} from './criarpedido.actions';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { PedidosService } from 'src/app/shared/services/pedidos.service';
 
 @Injectable()
@@ -15,13 +10,17 @@ export class CriarPedidoEffects {
     private svc: PedidosService) {
   }
 
-  createPedido$ = createEffect(() => this.actions$.pipe(
-    ofType(criarPedidoActions.CRIAR_PEDIDO),
-    map((action: AdicionarPedido) => action.payload),
-    switchMap(newPedido =>
-      this.svc.criar(newPedido).pipe(
-        map((response) => new AdicionarPedidoSuccess(newPedido)),
-        catchError((err) => [new AdicionarPedidoError(err.error)]))
+  createPedido$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(criarPedidoActions.CriarPedido),
+      map((action) => action),
+      switchMap(({ entity }) => this.svc.criar(entity).pipe(
+        map((response) => {
+          return criarPedidoActions.CriarPedidoSuccess({
+            entity: response
+          });
+        })
+      ))
     )
-  ));
+  );
 }
