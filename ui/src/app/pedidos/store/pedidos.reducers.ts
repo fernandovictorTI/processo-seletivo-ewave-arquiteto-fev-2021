@@ -1,93 +1,47 @@
-import * as pedidoActions from './pedidos.actions';
-import {AppAction} from '../../app.action';
-import {createFeatureSelector, createSelector} from '@ngrx/store';
+import * as pedidosActions from './pedidos.actions';
 import { Pedido } from '../shared/pedido';
+import { Action, createReducer, on } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-export interface State {
-  data: Pedido[];
+export const ENTITY_FEATURE_KEY = "pedidos";
+
+export interface PedidoState extends EntityState<Pedido> {
+  loaded: boolean;
+  error: Error;
   selected: Pedido;
-  action: string;
-  done: boolean;
-  error?: Error;
 }
 
-const initialState: State = {
-  data: [],
-  selected: null,
-  action: null,
-  done: false,
-  error: null
-};
+export const adapter: EntityAdapter<Pedido> = createEntityAdapter<Pedido>();
 
-export function reducer(state = initialState, action: AppAction): State {
-  switch (action.type) {
-    case pedidoActions.OBTER_PEDIDOS:
-      return {
-        ...state,
-        action: pedidoActions.OBTER_PEDIDOS,
-        done: false,
-        selected: null,
-        error: null
-      };
-    case pedidoActions.OBTER_PEDIDOS_SUCCESS:
-      return {
-        ...state,
-        data: action.payload,
-        selected: null,
-        done: true,
-        error: null
-      };
-    case pedidoActions.OBTER_PEDIDOS_ERROR:
-      return {
-        ...state,
-        done: true,
-        error: action.payload,
-        selected: null,
-      };
-      
-    case pedidoActions.OBTER_PEDIDO:
-      return {
-        ...state,
-        action: pedidoActions.OBTER_PEDIDO,        
-        done: false,
-        selected: null,
-        error: null
-      };
-    case pedidoActions.OBTER_PEDIDO_SUCCESS:
-      return {
-        ...state,
-        selected: action.payload,
-        done: true,
-        error: null
-      };
-    case pedidoActions.OBTER_PEDIDO_ERROR:
-      return {
-        ...state,
-        selected: null,
-        done: true,
-        error: action.payload
-      };
-  }
-  return state;
+export const initialState = adapter.getInitialState({
+  loaded: false,
+  error: null,
+  selected: null
+});
+
+const _reducer = createReducer(
+  initialState,
+
+  on(pedidosActions.ObterPedidosSuccess, (state, { data }) => {
+    return adapter.addMany(data, {
+      ...state,
+      loaded: true
+    });
+  }),
+
+  on(pedidosActions.ObterPedidoSuccess, (state, { pedido }) => {
+
+    state = {
+      ...state,
+      selected: pedido
+    };
+
+    return adapter.addOne(pedido, state);
+  }),
+);
+
+export function reducer(state: PedidoState | undefined, action: Action) {
+  return _reducer(state, action);
 }
 
-export const obterPedidosState = createFeatureSelector <State> ('pedidos');
-export const obterAllPedidos = createSelector(obterPedidosState, (state: State) => state.data);
-export const obterPedido = createSelector(obterPedidosState, (state: State) => {
-  if (state.action === pedidoActions.OBTER_PEDIDO && state.done) {
-    return state.selected;
-  } else {
-    return null;
-  }
-});
-
-export const obterPedidosError = createSelector(obterPedidosState, (state: State) => {
-  return state.action === pedidoActions.OBTER_PEDIDOS
-    ? state.error
-   : null;
-});
-export const obterPedidoError = createSelector(obterPedidosState, (state: State) => {
-  return state.action === pedidoActions.OBTER_PEDIDO
-    ? state.error
-   : null;
-});
+export const { selectAll, selectIds, selectTotal } = adapter.getSelectors();

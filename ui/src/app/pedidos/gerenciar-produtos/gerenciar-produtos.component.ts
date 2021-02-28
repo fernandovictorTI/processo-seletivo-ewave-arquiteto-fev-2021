@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from '../shared/pedido';
-import { AppState } from '../../app.state';
 import { Store } from '@ngrx/store';
-import { ObterPedido } from '../store/pedidos.actions';
+import { fromPedidoActions } from '../store/pedidos.actions';
 import { AdicionarProdutoPedido, RemoverProdutoPedido } from '../store/produtospedido.actions';
-import { obterPedido } from '../store/pedidos.reducers';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Produto } from 'src/app/produtos/shared/produto';
@@ -12,6 +10,9 @@ import { ProdutosService } from 'src/app/shared/services/produtos.service';
 import { NotificationMessageService } from 'src/app/shared/services/notification-message.service';
 import { foiRemovidoProdutoPedidoError, foiRemovidoProdutoPedido } from '../store/produtospedido.reducers';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { selectObterPedido } from '../store/pedidos.selector';
+import { PedidoState } from '../store/pedidos.reducers';
+import { AppState } from 'src/app/app.state';
 
 @Component({
   selector: 'app-gerenciar-produtos',
@@ -29,6 +30,7 @@ export class GerenciarProdutosComponent implements OnInit {
 
   constructor(private router: Router,
     private store: Store<AppState>,
+    private pedidoStore: Store<PedidoState>,
     private fb: FormBuilder,
     private produtoService: ProdutosService,
     private route: ActivatedRoute,
@@ -42,18 +44,18 @@ export class GerenciarProdutosComponent implements OnInit {
     this.store.select(foiRemovidoProdutoPedidoError).subscribe((error) => {
       if (error) {
         this.showErrorAction(error);
-        this.store.dispatch(new ObterPedido(this.idPedido));
+        this.carregarPedido(this.idPedido);
       }
     });
 
     this.store.select(foiRemovidoProdutoPedido).subscribe((done) => {
       if (done)
-        this.store.dispatch(new ObterPedido(this.idPedido));
+        this.carregarPedido(this.idPedido);
     });
 
     this.produtos = this.produtoService.obterLovs();
 
-    this.store.select(obterPedido)
+    this.pedidoStore.select(selectObterPedido)
       .subscribe(ped => {
         if (ped)
           this.pedido = ped;
@@ -68,8 +70,12 @@ export class GerenciarProdutosComponent implements OnInit {
           this.router.navigate(['/comandas']);
 
         if (!this.pedido)
-          this.store.dispatch(new ObterPedido(this.idPedido));
+          this.carregarPedido(this.idPedido);
       });
+  }
+
+  carregarPedido(idPedido) {
+    this.pedidoStore.dispatch(fromPedidoActions.ObterPedido({ id: idPedido }));
   }
 
   voltar() {

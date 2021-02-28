@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { ComandaState, ENTITY_FEATURE_KEY } from "./comandas.reducers";
-import { selectAll, selectIds, selectTotal } from './comandas.reducers';
+import { ComandaState, ENTITY_FEATURE_KEY, selectAll, selectIds, selectTotal } from "./comandas.reducers";
 
 const getEntityState = createFeatureSelector<ComandaState>(ENTITY_FEATURE_KEY);
 

@@ -2,11 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { AppState } from '../app.state';
-import { ObterPedidos, ObterPedido } from './store/pedidos.actions';
-import {
-  obterPedidosError
-} from './store/pedidos.reducers';
-
+import { fromPedidoActions } from './store/pedidos.actions';
 import {
   getIdDoPedidoAoAdicionarProdutoPedido
 } from './store/produtospedido.reducers';
@@ -19,6 +15,7 @@ import { ComandaState } from '../comandas/store/comandas.reducers';
 import {
   fromComandaActions
 } from '../comandas/store/comandas.actions';
+import { PedidoState } from './store/pedidos.reducers';
 
 @Component({
   selector: 'app-pedidos',
@@ -34,7 +31,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private store: Store<AppState>,
+    private store: Store<PedidoState>,
     private storeCriarPedido: Store<CriarPedidoState>,
     private storeComandas: Store<ComandaState>,
     private notificationMessageService: NotificationMessageService) {
@@ -47,9 +44,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.store.dispatch(new ObterPedidos(50));
-
-    this.store.select(obterPedidosError).subscribe((error) => this.showErroStore(error));
+    this.carregarPedidos();
 
     this.isCreatedCriarPedido$ = this.storeCriarPedido.select(isCreated);
 
@@ -62,8 +57,12 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
     this.store.select(getIdDoPedidoAoAdicionarProdutoPedido).subscribe((selected: any) => {
       if (selected)
-        this.store.dispatch(new ObterPedido(selected.idPedido));
+        this.carregarPedidos();
     });
+  }
+
+  carregarPedidos() {
+    this.store.dispatch(fromPedidoActions.ObterPedidos({ quantidade: 50 }));
   }
 
   showErroStore(error) {

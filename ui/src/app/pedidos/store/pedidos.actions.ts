@@ -1,52 +1,35 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Pedido } from '../shared/pedido';
 
-export const OBTER_PEDIDOS = '[ALL] Pedidos';
-export const OBTER_PEDIDOS_SUCCESS = '[ALL] Pedidos Success';
-export const OBTER_PEDIDOS_ERROR = '[ALL] Pedidos Error';
-
-export const OBTER_PEDIDO = '[GET] Pedido';
-export const OBTER_PEDIDO_SUCCESS = '[GET] Pedidos Success';
-export const OBTER_PEDIDO_ERROR = '[GET] Pedidos Error';
-
-export class ObterPedidos implements Action {
-  readonly type = OBTER_PEDIDOS;
-
-  constructor(public payload: number) {
-  }
+export enum PedidosActionTypes {
+  OBTER_PEDIDOS = '[ALL] Pedidos',
+  OBTER_PEDIDOS_SUCCESS = '[ALL] Pedidos Success',
+  OBTER_PEDIDO = '[GET] Pedido',
+  OBTER_PEDIDO_SUCCESS = '[GET] Pedidos Success'
 }
+export const ObterPedidos = createAction(
+  PedidosActionTypes.OBTER_PEDIDOS,
+  props<{ quantidade: number }>()
+);
 
-export class ObterPedidosSuccess implements Action {
-  readonly type = OBTER_PEDIDOS_SUCCESS;
+export const ObterPedidosSuccess = createAction(
+  PedidosActionTypes.OBTER_PEDIDOS_SUCCESS,
+  props<{ data: Pedido[] }>()
+);
 
-  constructor(public payload: Pedido[]) {
-  }
-}
+export const ObterPedido = createAction(
+  PedidosActionTypes.OBTER_PEDIDO,
+  props<{ id: string }>()
+);
 
-export class ObterPedidosError implements Action {
-  readonly type = OBTER_PEDIDOS_ERROR;
+export const ObterPedidoSuccess = createAction(
+  PedidosActionTypes.OBTER_PEDIDO_SUCCESS,
+  props<{ pedido: Pedido }>()
+);
 
-  constructor(public payload: Error) {
-  }
-}
-
-export class ObterPedido implements Action {
-  readonly type = OBTER_PEDIDO;
-
-  constructor(public payload: string) {
-  }
-}
-
-export class ObterPedidoSuccess implements Action {
-  readonly type = OBTER_PEDIDO_SUCCESS;
-
-  constructor(public payload: Pedido) {
-  }
-}
-
-export class ObterPedidoError implements Action {
-  readonly type = OBTER_PEDIDO_ERROR;
-
-  constructor(public payload: Error) {
-  }
-}
+export const fromPedidoActions = {
+  ObterPedidos,
+  ObterPedidosSuccess,
+  ObterPedido,
+  ObterPedidoSuccess
+};

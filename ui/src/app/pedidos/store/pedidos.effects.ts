@@ -1,17 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import * as pedidoActions from './pedidos.actions';
-import {
-  ObterPedidos,
-  ObterPedidosError,
-  ObterPedidosSuccess,
-  ObterPedido,
-  ObterPedidoError,
-  ObterPedidoSuccess
-} from './pedidos.actions';
-import { Observable } from 'rxjs';
-import { Action } from '@ngrx/store';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import * as pedidosActions from './pedidos.actions';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { PedidosService } from 'src/app/shared/services/pedidos.service';
 
 @Injectable()
@@ -20,24 +10,32 @@ export class PedidoEffects {
     private svc: PedidosService) {
   }
 
-  obterAllPedidos$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(pedidoActions.OBTER_PEDIDOS),
-    map((action: ObterPedidos) => action.payload),
-    switchMap((quantidade) =>
-      this.svc.obter(quantidade).pipe(
-        map(response => new ObterPedidosSuccess(response)),
-        catchError((err) => [new ObterPedidosError(err.error)])
-      )
+  obterAllPedidos$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(pedidosActions.ObterPedidos),
+      map((action) => action),
+      switchMap(({ quantidade }) => this.svc.obter(quantidade).pipe(
+        map((response: any) => {
+          return pedidosActions.ObterPedidosSuccess({
+            data: response
+          });
+        })
+      ))
     )
-  ));
+  );
 
   obterPedido$ = createEffect(() => this.actions$.pipe(
-    ofType(pedidoActions.OBTER_PEDIDO),
-    map((action: ObterPedido) => action.payload),
-    switchMap(id =>
-      this.svc.obterPorId(id).pipe(
-        map(response => new ObterPedidoSuccess(response)),
-        catchError((err) => [new ObterPedidoError(err.error)]))
-    )
+    ofType(pedidosActions.ObterPedido),
+    switchMap(({ id }) => this.svc.obterPorId(id).pipe(
+      map((response: any) => {
+        return pedidosActions.ObterPedidoSuccess({
+          pedido: response
+        });
+      })
+    ))
   ));
+
+  handleErrors(error) {
+    throw error;
+  }
 }
