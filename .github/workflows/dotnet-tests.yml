@@ -8,11 +8,15 @@ on:
 
 jobs:
   build:
+  
+    # Defini diretorio do projeto .NET
+    defaults:
+      run:
+        working-directory: ./api
 
     runs-on: ubuntu-latest
     env:
       config: 'Release'
-      working-directory: ./api
 
     steps:
     - uses: actions/checkout@v2
@@ -20,10 +24,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-        
-    # Defini diretorio do projeto .NET
-    - name: Set directory
-      working-directory: ${{env.working-directory}}
       
     # Restaura dependencias
     - name: Restore dependencies
