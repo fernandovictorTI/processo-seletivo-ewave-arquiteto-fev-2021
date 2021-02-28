@@ -21,6 +21,7 @@ export class CozinhaListComponent implements OnInit {
   constructor(
     private cozinhaStore: Store<CozinhaState>
   ) {
+
   }
 
   ngOnInit() {

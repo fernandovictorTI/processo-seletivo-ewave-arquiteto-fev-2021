@@ -85,12 +85,12 @@ export class GerenciarProdutosComponent implements OnInit {
     const { produtoSelecionado, quantidadeProdutoSelecionado } = this.frm.getRawValue();
 
     if (quantidadeProdutoSelecionado <= 0 || !produtoSelecionado) {
-      this.showErroTela("Selecione produto e quantidade.");
+      this.notificationMessageService.mostrarMensagemErro("Selecione produto e quantidade.");
       return;
     }
 
     if (this.pedido.produtos.some(prod => prod.idProduto == produtoSelecionado.id)) {
-      this.showErroTela("Produto já adicionado.");
+      this.notificationMessageService.mostrarMensagemErro("Produto já adicionado.");
       return;
     }
 
@@ -115,16 +115,5 @@ export class GerenciarProdutosComponent implements OnInit {
 
   removerProdutoBanco(produto) {
     this.produtoPedidoStore.dispatch(fromProdutoPedidoActions.RemoverProdutoPedido({ idPedido: this.pedido.id, idProdutoPedido: produto.idProdutoPedido }));
-  }
-
-  showErroTela(erro) {
-    this.notificationMessageService.mostrarMensagemErro(erro);
-  }
-
-  showErrorAction(error) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
-    }
   }
 }

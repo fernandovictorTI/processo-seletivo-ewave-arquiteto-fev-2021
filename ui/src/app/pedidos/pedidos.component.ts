@@ -56,24 +56,10 @@ export class PedidosComponent implements OnInit, OnDestroy {
     this.store.dispatch(fromPedidoActions.ObterPedidos({ quantidade: 50 }));
   }
 
-  showErroStore(error) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
-    }
-  }
-
   showMsgCriadoERedirect(done: boolean, message: string) {
     if (done) {
       this.notificationMessageService.mostrarMensagemSucesso(message);
-      this.router.navigate(['/comandas']);
-    }
-  }
-
-  showErrorAction(error) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
+      this.router.navigate(['/garcons']);
     }
   }
 }

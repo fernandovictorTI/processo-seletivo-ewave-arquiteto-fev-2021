@@ -49,24 +49,10 @@ export class ComandasComponent implements OnInit, OnDestroy {
     this.store.dispatch(fromComandaActions.ObterComandas({ quantidade: 100 }));
   }
 
-  showErroStore(error) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
-    }
-  }
-
   showMsgCriadoERedirect(done: boolean, message: string) {
     if (done) {
       this.notificationMessageService.mostrarMensagemSucesso(message);
       this.router.navigate(['/comandas']);
-    }
-  }
-
-  showErrorAction(error, message: string) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
     }
   }
 }

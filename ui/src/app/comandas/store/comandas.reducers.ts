@@ -25,15 +25,12 @@ const _reducer = createReducer(
 
   on(comandasActions.ObterComandasSuccess, (state, { data }) => {
 
-    // Deixando as comandas sempre no estado inicial, pra ser manipulada de acordo com a situacao do banco
     state = {
-      ...initialState
+      ...initialState,
+      loaded: true
     };
 
-    return adapter.addMany(data || [], {
-      ...state,
-      loaded: true
-    });
+    return adapter.addMany(data || [], state);
   }),
 
   on(comandasActions.ObterComandaSuccess, (state, { comanda }) => {

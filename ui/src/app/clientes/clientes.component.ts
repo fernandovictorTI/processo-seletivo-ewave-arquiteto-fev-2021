@@ -45,23 +45,10 @@ export class ClientesComponent implements OnInit, OnDestroy {
       });
   }
 
-  showErroStore(error) {
-    if (error) {
-      const message = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(message)
-    }
-  }
-
   showMsgCriadoERedirect(done: boolean, message: string) {
     if (done) {
       this.notificationMessageService.mostrarMensagemSucesso(message)
       this.router.navigate(['/clientes']);
-    }
-  }
-
-  showErrorAction(error, message: string) {
-    if (error) {
-      this.notificationMessageService.mostrarMensagemErro(message)
     }
   }
 }

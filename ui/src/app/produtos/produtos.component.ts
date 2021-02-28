@@ -43,24 +43,10 @@ export class ProdutosComponent implements OnInit, OnDestroy {
       });
   }
 
-  showErroStore(error) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
-    }
-  }
-
   showMsgCriadoERedirect(done: boolean, message: string) {
     if (done) {
       this.notificationMessageService.mostrarMensagemSucesso(message);
       this.router.navigate(['/produtos']);
-    }
-  }
-
-  showErrorAction(error, message: string) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
     }
   }
 }

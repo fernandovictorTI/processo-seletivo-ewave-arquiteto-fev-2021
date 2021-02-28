@@ -30,13 +30,11 @@ const _reducer = createReducer(
   on(cozinhaActions.ObterComandasAbertasSuccess, (state, { data }) => {
 
     state = {
-      ...initialState
+      ...initialState,
+      loaded: true
     };
 
-    return adapter.addMany(data || [], {
-      ...state,
-      loaded: true
-    });
+    return adapter.addMany(data || [], state);
   }),
 
   on(cozinhaActions.AlterarSituacaoPedido, (state) => {

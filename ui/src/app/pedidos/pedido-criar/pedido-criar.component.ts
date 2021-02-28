@@ -81,12 +81,12 @@ export class PedidoCreateComponent implements OnInit {
     const { produtoSelecionado, quantidadeProdutoSelecionado, idCliente, idGarcom } = this.frm.getRawValue();
 
     if (quantidadeProdutoSelecionado <= 0 || !produtoSelecionado) {
-      this.showErrorAction("Selecione produto e quantidade.");
+      this.notificationMessageService.mostrarMensagemErro("Selecione produto e quantidade.");
       return;
     }
 
     if (this.pedido.produtos.some(prod => prod.idProduto == produtoSelecionado.id)) {
-      this.showErrorAction("Produto já adicionado.");
+      this.notificationMessageService.mostrarMensagemErro("Produto já adicionado.");
       return;
     }
 
@@ -105,10 +105,6 @@ export class PedidoCreateComponent implements OnInit {
 
   removerProduto(produto) {
     this.pedido.produtos = this.pedido.produtos.filter(prod => prod.idProduto != produto.idProduto);
-  }
-
-  showErrorAction(message: string) {
-    this.notificationMessageService.mostrarMensagemErro(message);
   }
 
   iniciarFormulario() {

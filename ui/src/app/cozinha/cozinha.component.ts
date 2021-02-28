@@ -28,13 +28,6 @@ export class CozinhaComponent implements OnInit {
     this.escutarAlteracoesNosPedidosDasComandas();
   }
 
-  showErroStore(error) {
-    if (error) {
-      const msgErro = error.map(erro => erro.message).join(', ');
-      this.notificationMessageService.mostrarMensagemErro(msgErro);
-    }
-  }
-
   carregarComandasAbertas() {
     this.cozinhaStore.dispatch(fromCozinhaActions.ObterComandasAbertas());
   }
