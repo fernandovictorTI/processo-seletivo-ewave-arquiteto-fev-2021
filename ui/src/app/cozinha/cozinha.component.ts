@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Router} from '@angular/router';
-import {AppState} from '../app.state';
-import { ObterComandasAbertas } from './store/cozinha.actions';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import {
-  obterAllComandasError
-} from './store/cozinha.reducers';
+  fromCozinhaActions
+} from './store/cozinha.actions';
 
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
+import { CozinhaState } from './store/cozinha.reducers';
 
 @Component({
   selector: 'app-cozinha',
@@ -19,17 +17,15 @@ import { NotificationMessageService } from '../shared/services/notification-mess
 })
 export class CozinhaComponent implements OnInit {
 
-  constructor(private store: Store<AppState>,
-              private rxStompService: RxStompService,
-              private notificationMessageService: NotificationMessageService) {
+  constructor(private cozinhaStore: Store<CozinhaState>,
+    private rxStompService: RxStompService,
+    private notificationMessageService: NotificationMessageService) {
   }
 
   ngOnInit() {
-    this.store.dispatch(new ObterComandasAbertas());
+    this.carregarComandasAbertas();
 
     this.escutarAlteracoesNosPedidosDasComandas();
-
-    this.store.select(obterAllComandasError).subscribe((error) => this.showErroStore(error));
   }
 
   showErroStore(error) {
@@ -39,18 +35,22 @@ export class CozinhaComponent implements OnInit {
     }
   }
 
+  carregarComandasAbertas() {
+    this.cozinhaStore.dispatch(fromCozinhaActions.ObterComandasAbertas());
+  }
+
   escutarAlteracoesNosPedidosDasComandas() {
     this.rxStompService.watch('/queue/queue-novo-pedido').subscribe((message) => {
-      this.store.dispatch(new ObterComandasAbertas());
+      this.carregarComandasAbertas();
     });
     this.rxStompService.watch('/queue/queue-inserido-produto-pedido').subscribe((message) => {
-      this.store.dispatch(new ObterComandasAbertas());
+      this.carregarComandasAbertas();
     });
     this.rxStompService.watch('/queue/queue-removido-produto-pedido').subscribe((message) => {
-      this.store.dispatch(new ObterComandasAbertas());
+      this.carregarComandasAbertas();
     });
     this.rxStompService.watch('/exchange/queue-situacao-pedido-alterada').subscribe((message) => {
-      this.store.dispatch(new ObterComandasAbertas());
+      this.carregarComandasAbertas();
     });
   }
 }

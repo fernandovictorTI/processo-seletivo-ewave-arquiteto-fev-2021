@@ -1,57 +1,70 @@
-import * as cozinhaActions from './cozinha.actions';
-import { AppAction } from '../../app.action';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+
 import { Cozinha } from '../shared/cozinha';
+import * as cozinhaActions from './cozinha.actions';
 
-export interface State {
-  data: Cozinha[];
-  selected: Cozinha;
-  action: string;
-  done: boolean;
-  error?: Error;
+export const ENTITY_FEATURE_KEY = "comandas-abertas";
+
+export interface CozinhaState extends EntityState<Cozinha> {
+  loaded: boolean;
+  error: Error;
+  situacaoAlterada: boolean;
 }
 
-const initialState: State = {
-  data: [],
-  selected: null,
-  action: null,
-  done: false,
-  error: null
-};
-
-export function reducer(state = initialState, action: AppAction): State {
-  switch (action.type) {
-    case cozinhaActions.OBTER_COMANDAS_ABERTAS:
-      return {
-        ...state,
-        action: cozinhaActions.OBTER_COMANDAS_ABERTAS,
-        done: false,
-        selected: null,
-        error: null
-      };
-    case cozinhaActions.OBTER_COMANDAS_ABERTAS_SUCCESS:
-      return {
-        ...state,
-        data: action.payload,
-        done: true,
-        selected: null,
-        error: null
-      };
-    case cozinhaActions.OBTER_COMANDAS_ABERTAS_ERROR:
-      return {
-        ...state,
-        done: true,
-        selected: null,
-        error: action.payload
-      };
+export const adapter: EntityAdapter<Cozinha> = createEntityAdapter<Cozinha>(
+  {
+    selectId: (cozinha: Cozinha) => cozinha.idComanda,
   }
-  return state;
+);
+
+export const initialState = adapter.getInitialState({
+  loaded: false,
+  error: null,
+  situacaoAlterada: false
+});
+
+const _reducer = createReducer(
+  initialState,
+
+  on(cozinhaActions.ObterComandasAbertasSuccess, (state, { data }) => {
+
+    state = {
+      ...initialState
+    };
+
+    return adapter.addMany(data, {
+      ...state,
+      loaded: true
+    });
+  }),
+
+  on(cozinhaActions.AlterarSituacaoPedido, (state) => {
+
+    state = {
+      ...state,
+      situacaoAlterada: false
+    }
+
+    return state;
+  }),
+
+  on(cozinhaActions.AlterarSituacaoPedidoSuccess, (state) => {
+
+    state = {
+      ...state,
+      situacaoAlterada: true
+    }
+
+    return state;
+  })
+
+
+
+);
+
+export function reducer(state: CozinhaState | undefined, action: Action) {
+  return _reducer(state, action);
 }
 
-export const obterComandasAbertasState = createFeatureSelector<State>('comandas-abertas');
-export const obterAllComandasAbertas = createSelector(obterComandasAbertasState, (state: State) => state.data);
-export const obterAllComandasError = createSelector(obterComandasAbertasState, (state: State) => {
-  return state.action === cozinhaActions.OBTER_COMANDAS_ABERTAS
-    ? state.error
-    : null;
-});
+export const { selectAll } = adapter.getSelectors();

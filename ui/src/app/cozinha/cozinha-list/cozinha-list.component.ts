@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.state';
 import { Cozinha } from '../shared/cozinha';
 import { Observable } from 'rxjs';
-import { obterAllComandasAbertas } from '../store/cozinha.reducers';
-import { AlterarSituacaoPedido } from '../store/situacaopedido.actions';
+import { CozinhaState } from '../store/cozinha.reducers';
+import { selectObterComandasAbertas } from '../store/cozinha.selector';
+import { fromCozinhaActions } from '../store/cozinha.actions';
 
 @Component({
   selector: 'app-cozinha-list',
@@ -18,11 +18,13 @@ export class CozinhaListComponent implements OnInit {
   rowGroupMetadata;
   situacoes;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private cozinhaStore: Store<CozinhaState>
+  ) {
   }
 
   ngOnInit() {
-    this.comandasAbertas = this.store.select(obterAllComandasAbertas);
+    this.comandasAbertas = this.cozinhaStore.select(selectObterComandasAbertas);
     this.updateRowGroupMetaData();
     this.carregarSituacoes();
   }
@@ -38,10 +40,10 @@ export class CozinhaListComponent implements OnInit {
   }
 
   alterarSituacaoPedido(idPedido: string, situacaoPedido: number) {
-    this.store.dispatch(new AlterarSituacaoPedido({ idPedido, situacaoPedido }));
+    this.cozinhaStore.dispatch(fromCozinhaActions.AlterarSituacaoPedido({ idPedido, situacaoPedido }));
   }
 
-  onChangeSelectSituacao({idPedido}, situacaoPedido){
+  onChangeSelectSituacao({ idPedido }, situacaoPedido) {
     this.alterarSituacaoPedido(idPedido, situacaoPedido);
   }
 

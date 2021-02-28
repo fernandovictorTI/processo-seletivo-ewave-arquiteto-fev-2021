@@ -8,7 +8,6 @@ import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { GarcomResolver } from './garcons/garcons.resolver';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './core/errors/http-error-interceptor';
 import { GlobalErrorHandler } from './core/errors/global-error-handler';
@@ -16,7 +15,6 @@ import { GlobalErrorHandler } from './core/errors/global-error-handler';
 import * as produtoReducer from './produtos/store/produtos.reducers';
 import * as garconsReducer from './garcons/store/garcons.reducers';
 import * as cozinhaReducer from './cozinha/store/cozinha.reducers';
-import * as situacaoPedidoReducer from './cozinha/store/situacaopedido.reducers';
 import * as comandaReducer from './comandas/store/comandas.reducers';
 import * as clienteReducer from './clientes/store/clientes.reducers';
 import * as produtosPedidoReducer from './pedidos/store/produtospedido.reducers';
@@ -27,7 +25,6 @@ import * as logsReducer from './shared/store/logs/logs.reducers';
 import { ProdutoEffects } from './produtos/store/produtos.effects';
 import { GarconsEffects } from './garcons/store/garcons.effects';
 import { CozinhaEffects } from './cozinha/store/cozinha.effects';
-import { SituacaoPedidoEffects } from './cozinha/store/situacaopedido.effects';
 import { ComandaEffects } from './comandas/store/comandas.effects';
 import { ClienteEffects } from './clientes/store/clientes.effects';
 import { PedidoEffects } from './pedidos/store/pedidos.effects';
@@ -44,7 +41,6 @@ export const reducers: ActionReducerMap<any> = {
   produtos: produtoReducer.reducer,
   garcons: garconsReducer.reducer,
   'comandas-abertas': cozinhaReducer.reducer,
-  'situacoespedido': situacaoPedidoReducer.reducer,
   comandas: comandaReducer.reducer,
   clientes: clienteReducer.reducer,
   pedidos: pedidosReducer.reducer,
@@ -73,7 +69,7 @@ export const reducers: ActionReducerMap<any> = {
         strictActionSerializability: false,
       },
     }),
-    EffectsModule.forRoot([ProdutoEffects, GarconsEffects, CozinhaEffects, SituacaoPedidoEffects, ComandaEffects, ClienteEffects, PedidoEffects, ProdutoPedidoEffects, CriarPedidoEffects]),
+    EffectsModule.forRoot([ProdutoEffects, GarconsEffects, CozinhaEffects, ComandaEffects, ClienteEffects, PedidoEffects, ProdutoPedidoEffects, CriarPedidoEffects]),
     StoreRouterConnectingModule.forRoot({ serializer: CustomSerializer }),
   ],
   providers: [

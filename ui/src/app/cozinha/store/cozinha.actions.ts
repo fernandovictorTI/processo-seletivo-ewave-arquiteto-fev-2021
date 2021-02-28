@@ -1,24 +1,33 @@
-import {Action} from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Cozinha } from '../shared/cozinha';
 
-export const OBTER_COMANDAS_ABERTAS = '[ALL] Comandas-Abertas';
-export const OBTER_COMANDAS_ABERTAS_SUCCESS = '[ALL] Comandas-Abertas-Success';
-export const OBTER_COMANDAS_ABERTAS_ERROR = '[ALL] Comandas-Abertas-Error';
-
-export class ObterComandasAbertas implements Action {
-  readonly type = OBTER_COMANDAS_ABERTAS;
+export enum CozinhaActionTypes {
+  OBTER_COMANDAS_ABERTAS = '[ALL] Comandas-Abertas',
+  OBTER_COMANDAS_ABERTAS_SUCCESS = '[ALL] Comandas-Abertas-Success',
+  ALTERAR_SITUACAOPEDIDO = '[ALTERAR] Situacao Pedido',
+  ALTERAR_SITUACAOPEDIDO_SUCCESS = '[ALTERAR] Situacao Pedido Success'
 }
 
-export class ObterComandasAbertasSuccess implements Action {
-  readonly type = OBTER_COMANDAS_ABERTAS_SUCCESS;
+export const ObterComandasAbertas = createAction(CozinhaActionTypes.OBTER_COMANDAS_ABERTAS);
 
-  constructor(public payload: Cozinha[]) {
-  }
-}
+export const ObterComandasAbertasSuccess = createAction(
+  CozinhaActionTypes.OBTER_COMANDAS_ABERTAS_SUCCESS,
+  props<{ data: Cozinha[] }>()
+);
 
-export class ObterComandasAbertasError implements Action {
-  readonly type = OBTER_COMANDAS_ABERTAS_ERROR;
+export const AlterarSituacaoPedido = createAction(
+  CozinhaActionTypes.ALTERAR_SITUACAOPEDIDO,
+  props<{ idPedido: string, situacaoPedido: number }>()
+);
 
-  constructor(public payload: Error) {
-  }
-}
+export const AlterarSituacaoPedidoSuccess = createAction(
+  CozinhaActionTypes.ALTERAR_SITUACAOPEDIDO_SUCCESS,
+  props<{ msg: string }>()
+);
+
+export const fromCozinhaActions = {
+  ObterComandasAbertas,
+  ObterComandasAbertasSuccess,
+  AlterarSituacaoPedido,
+  AlterarSituacaoPedidoSuccess
+};
