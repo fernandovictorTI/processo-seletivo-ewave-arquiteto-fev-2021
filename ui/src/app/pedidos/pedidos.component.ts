@@ -5,8 +5,7 @@ import { fromPedidoActions } from './store/pedidos.actions';
 import { NotificationMessageService } from '../shared/services/notification-message.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { isCreated } from './store/criarpedido.selector';
-import { CriarPedidoState } from './store/criarpedido.reducers';
+import { isCreated } from './store/pedidos.selector';
 import { ComandaState } from '../comandas/store/comandas.reducers';
 import {
   fromComandaActions
@@ -27,8 +26,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private store: Store<PedidoState>,
-    private storeCriarPedido: Store<CriarPedidoState>,
+    private storePedido: Store<PedidoState>,
     private storeComandas: Store<ComandaState>,
     private notificationMessageService: NotificationMessageService) {
   }
@@ -42,7 +40,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
 
     this.carregarPedidos();
 
-    this.isCreatedCriarPedido$ = this.storeCriarPedido.select(isCreated);
+    this.isCreatedCriarPedido$ = this.storePedido.select(isCreated);
 
     this.isCreatedCriarPedido$
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -53,7 +51,7 @@ export class PedidosComponent implements OnInit, OnDestroy {
   }
 
   carregarPedidos() {
-    this.store.dispatch(fromPedidoActions.ObterPedidos({ quantidade: 50 }));
+    this.storePedido.dispatch(fromPedidoActions.ObterPedidos({ quantidade: 50 }));
   }
 
   showMsgCriadoERedirect(done: boolean, message: string) {

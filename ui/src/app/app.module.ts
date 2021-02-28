@@ -16,7 +16,6 @@ import * as cozinhaReducer from './cozinha/store/cozinha.reducers';
 import * as comandaReducer from './comandas/store/comandas.reducers';
 import * as clienteReducer from './clientes/store/clientes.reducers';
 import * as produtosPedidoReducer from './pedidos/store/produtospedido.reducers';
-import * as criarPedidoReducer from './pedidos/store/criarpedido.reducers';
 import * as pedidosReducer from './pedidos/store/pedidos.reducers';
 
 import { ProdutoEffects } from './produtos/store/produtos.effects';
@@ -26,7 +25,6 @@ import { ComandaEffects } from './comandas/store/comandas.effects';
 import { ClienteEffects } from './clientes/store/clientes.effects';
 import { PedidoEffects } from './pedidos/store/pedidos.effects';
 import { ProdutoPedidoEffects } from './pedidos/store/produtospedido.effects';
-import { CriarPedidoEffects } from './pedidos/store/criarpedido.effects';
 import { ActionReducerMap, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { NotificationMessageService } from './shared/services/notification-message.service';
@@ -40,8 +38,7 @@ export const reducers: ActionReducerMap<any> = {
   comandas: comandaReducer.reducer,
   clientes: clienteReducer.reducer,
   pedidos: pedidosReducer.reducer,
-  produtospedido: produtosPedidoReducer.reducer,
-  criarpedido: criarPedidoReducer.reducer
+  produtospedido: produtosPedidoReducer.reducer
 };
 
 @NgModule({
@@ -64,7 +61,7 @@ export const reducers: ActionReducerMap<any> = {
         strictActionSerializability: false,
       },
     }),
-    EffectsModule.forRoot([ProdutoEffects, GarconsEffects, CozinhaEffects, ComandaEffects, ClienteEffects, PedidoEffects, ProdutoPedidoEffects, CriarPedidoEffects])
+    EffectsModule.forRoot([ProdutoEffects, GarconsEffects, CozinhaEffects, ComandaEffects, ClienteEffects, PedidoEffects, ProdutoPedidoEffects])
   ],
   providers: [
     {

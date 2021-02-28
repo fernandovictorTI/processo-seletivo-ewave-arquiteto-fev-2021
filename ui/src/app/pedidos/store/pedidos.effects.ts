@@ -35,6 +35,20 @@ export class PedidoEffects {
     ))
   ));
 
+  createPedido$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(pedidosActions.CriarPedido),
+      map((action) => action),
+      switchMap(({ entity }) => this.svc.criar(entity).pipe(
+        map((response) => {
+          return pedidosActions.CriarPedidoSuccess({
+            entity: response
+          });
+        })
+      ))
+    )
+  );
+
   handleErrors(error) {
     throw error;
   }

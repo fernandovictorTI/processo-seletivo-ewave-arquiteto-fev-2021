@@ -12,9 +12,9 @@ import { ProdutosService } from 'src/app/shared/services/produtos.service';
 import { Cliente } from 'src/app/clientes/shared/cliente';
 import { ClientesService } from 'src/app/shared/services/clientes.service';
 import { NotificationMessageService } from 'src/app/shared/services/notification-message.service';
-import { fromCriarPedidoActions } from '../store/criarpedido.actions';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { CriarPedidoState } from '../store/criarpedido.reducers';
+import { PedidoState } from '../store/pedidos.reducers';
+import { fromPedidoActions } from '../store/pedidos.actions';
 
 @Component({
   selector: 'app-pedido-criar',
@@ -36,7 +36,7 @@ export class PedidoCreateComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    private store: Store<CriarPedidoState>,
+    private store: Store<PedidoState>,
     private comandaService: ComandasService,
     private garconService: GarconsService,
     private produtoService: ProdutosService,
@@ -73,7 +73,7 @@ export class PedidoCreateComponent implements OnInit {
   }
 
   onSavePedido() {
-    this.store.dispatch(fromCriarPedidoActions.CriarPedido({ entity: this.pedido }));
+    this.store.dispatch(fromPedidoActions.CriarPedido({ entity: this.pedido }));
   }
 
   adicionarProduto() {

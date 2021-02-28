@@ -12,3 +12,8 @@ export const selectObterPedido = createSelector(getEntityState,
     getEntityState,
     state => !state.error && state.selected
 );
+
+export const isCreated = createSelector(getEntityState,
+    getEntityState,
+    state => !state.error && state.isCreated
+);

@@ -9,6 +9,7 @@ export interface PedidoState extends EntityState<Pedido> {
   loaded: boolean;
   error: Error;
   selected: Pedido;
+  isCreated: boolean;
 }
 
 export const adapter: EntityAdapter<Pedido> = createEntityAdapter<Pedido>();
@@ -16,7 +17,8 @@ export const adapter: EntityAdapter<Pedido> = createEntityAdapter<Pedido>();
 export const initialState = adapter.getInitialState({
   loaded: false,
   error: null,
-  selected: null
+  selected: null,
+  isCreated: false
 });
 
 const _reducer = createReducer(
@@ -38,6 +40,23 @@ const _reducer = createReducer(
 
     return adapter.addOne(pedido, state);
   }),
+
+  on(pedidosActions.CriarPedido, (state, { entity }) => {
+    state = {
+      ...state,
+      isCreated: false,
+    };
+    return state;
+  }),
+
+  on(pedidosActions.CriarPedidoSuccess, (state, { entity }) => {
+    state = {
+      ...state,
+      isCreated: true
+    };
+
+    return adapter.addOne(entity, state);;
+  })
 );
 
 export function reducer(state: PedidoState | undefined, action: Action) {

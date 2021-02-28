@@ -5,7 +5,9 @@ export enum PedidosActionTypes {
   OBTER_PEDIDOS = '[ALL] Pedidos',
   OBTER_PEDIDOS_SUCCESS = '[ALL] Pedidos Success',
   OBTER_PEDIDO = '[GET] Pedido',
-  OBTER_PEDIDO_SUCCESS = '[GET] Pedidos Success'
+  OBTER_PEDIDO_SUCCESS = '[GET] Pedidos Success',
+  CRIAR_PEDIDO = '[CRIAR] Pedido',
+  CRIAR_PEDIDO_SUCCESS = '[CRIAR] Pedido Success'
 }
 export const ObterPedidos = createAction(
   PedidosActionTypes.OBTER_PEDIDOS,
@@ -27,9 +29,21 @@ export const ObterPedidoSuccess = createAction(
   props<{ pedido: Pedido }>()
 );
 
+export const CriarPedido = createAction(
+  PedidosActionTypes.CRIAR_PEDIDO,
+  props<{ entity: Pedido }>()
+);
+
+export const CriarPedidoSuccess = createAction(
+  PedidosActionTypes.CRIAR_PEDIDO_SUCCESS,
+  props<{ entity: Pedido }>()
+);
+
 export const fromPedidoActions = {
   ObterPedidos,
   ObterPedidosSuccess,
   ObterPedido,
-  ObterPedidoSuccess
+  ObterPedidoSuccess,
+  CriarPedido,
+  CriarPedidoSuccess
 };
