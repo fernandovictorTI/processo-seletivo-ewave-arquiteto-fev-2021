@@ -24,7 +24,7 @@ const _reducer = createReducer(
   initialState,
 
   on(produtosActions.ObterProdutosSuccess, (state, { data }) => {
-    return adapter.addMany(data, {
+    return adapter.addMany(data || [], {
       ...state,
       loaded: true
     });

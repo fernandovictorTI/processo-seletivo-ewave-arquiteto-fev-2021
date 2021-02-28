@@ -101,7 +101,7 @@ export class PedidoCreateComponent implements OnInit {
       valor: produtoSelecionado.valor
     });
 
-    this.iniciarFormulario();
+    this.limparCamposProduto();
   }
 
   removerProduto(produto) {
@@ -121,7 +121,8 @@ export class PedidoCreateComponent implements OnInit {
     });
   }
 
-  limparCampos() {
-    this.iniciarFormulario();
+  limparCamposProduto() {
+    this.frm.controls['produtoSelecionado'].setValue({});
+    this.frm.controls['quantidadeProdutoSelecionado'].setValue(0);
   }
 }

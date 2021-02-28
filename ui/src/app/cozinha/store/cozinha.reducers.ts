@@ -33,7 +33,7 @@ const _reducer = createReducer(
       ...initialState
     };
 
-    return adapter.addMany(data, {
+    return adapter.addMany(data || [], {
       ...state,
       loaded: true
     });

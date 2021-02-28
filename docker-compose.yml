@@ -23,6 +23,14 @@ services:
     networks:
       - favomel-network
 
+  favodemel.ui: 
+    container_name: favodemel.ui
+    build: ./ui
+    networks:
+      - favomel-network
+    depends_on:
+      - favodemel.api
+
   rabbitmq:
     container_name: favodemel.rabbitmq
     image: rabbitmq:3-management
