@@ -8,7 +8,7 @@ namespace FavoDeMel.Domain.Notifications
 {
     public class DomainNotificationHandler : INotificationHandler<DomainNotification>
     {
-        private List<DomainNotification> _notifications;
+        private readonly List<DomainNotification> _notifications;
 
         public DomainNotificationHandler()
         {
