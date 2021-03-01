@@ -6,7 +6,7 @@ Processo Seletivo Arquiteto de Sistemas da Ewave/TJMT
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=alert_status)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021)
 
 
-| Branch        | Master UI           | Master API  |
+| Branch        | Master           | Master |
 | ------------- |:-------------:| -----:|
 | Status CI      | ![Pipeline UI](https://github.com/fernandovictorTI/processo-seletivo-ewave-arquiteto-fev-2021/actions/workflows/angular-tests.yml/badge.svg?branch=master) | ![Pipeline API](https://github.com/fernandovictorTI/processo-seletivo-ewave-arquiteto-fev-2021/actions/workflows/dotnet-tests.yml/badge.svg?branch=master) |
 
@@ -45,6 +45,11 @@ Foi criado uma aplicação com API, UI e DB  com docker-compose para orquestrar 
 
 #### API
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021)
+
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=alert_status)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=bugs)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=code_smells)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=coverage)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021)
+
+
 Foi criado uma API em .NET Core com C# contendo as funcionalidades para Gerenciar a cozinha da Favo de Mel.
 
 ### Tecnologias Implementadas:
@@ -81,6 +86,8 @@ Foi criado um spa com Angular para se comunicar com a API em real time utilizand
 ### Tecnologias Implementadas:
 
 - Angular
+- PrimeNG
+- Bootstrap
 - Stomp
 - Ngrx(store, reducer, selector e effects)
 
