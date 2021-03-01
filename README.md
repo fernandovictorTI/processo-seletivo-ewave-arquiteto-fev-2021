@@ -3,7 +3,7 @@ Processo Seletivo Arquiteto de Sistemas da Ewave/TJMT
 
 ![GitHub](https://img.shields.io/github/license/fernandovictorti/processo-seletivo-ewave-arquiteto-fev-2021?logoColor=%20)
 ![GitHub last commit](https://img.shields.io/github/last-commit/fernandovictorti/processo-seletivo-ewave-arquiteto-fev-2021)
-[![Quality Gate Status]()]()
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=alert_status)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021)
 
 
 | Branch        | Master UI           | Master API  |
@@ -49,7 +49,7 @@ Foi criado uma API em .NET Core com C# contendo as funcionalidades para Gerencia
 
 ### Tecnologias Implementadas:
 
-- ASP.NET Core 3.1
+- .NET5
 - Entity Framework Core
 - MediatR
 - AutoMapper
@@ -82,7 +82,7 @@ Foi criado um spa com Angular para se comunicar com a API em real time utilizand
 
 - Angular
 - Stomp
-- Ngrx(store, selector e effects)
+- Ngrx(store, reducer, selector e effects)
 
 # Obrigado
 
