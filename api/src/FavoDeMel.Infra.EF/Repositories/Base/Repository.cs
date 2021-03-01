@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FavoDeMel.Domain.Dto;
 using AutoMapper;
+using System.Runtime.InteropServices;
 
 namespace FavoDeMel.Infra.EF.Data.Repositories.Base
 {

@@ -21,8 +21,7 @@ namespace FavoDeMel.Infra.EF.Mappings
             {
                 a.Property(p => p.Numero)
                     .IsRequired()
-                    .HasColumnName("Numero"); ;
-
+                    .HasColumnName("Numero");
                 a.Ignore(p => p.Notifications);
             });
         }

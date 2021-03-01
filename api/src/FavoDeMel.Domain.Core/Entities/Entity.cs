@@ -7,7 +7,7 @@ namespace FavoDeMel.Domain.Core.Entities
     {
         public Guid Id { get; private set; }
 
-        public Entity()
+        protected Entity()
         {
             Id = Guid.NewGuid();
         }

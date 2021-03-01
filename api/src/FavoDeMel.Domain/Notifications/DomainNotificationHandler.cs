@@ -15,9 +15,9 @@ namespace FavoDeMel.Domain.Notifications
             _notifications = new List<DomainNotification>();
         }
 
-        public Task Handle(DomainNotification message, CancellationToken cancellationToken)
+        public Task Handle(DomainNotification notification, CancellationToken cancellationToken)
         {
-            _notifications.Add(message);
+            _notifications.Add(notification);
 
             return Task.CompletedTask;
         }
@@ -30,11 +30,6 @@ namespace FavoDeMel.Domain.Notifications
         public virtual bool HasNotifications()
         {
             return GetNotifications().Any();
-        }
-
-        public void Dispose()
-        {
-            _notifications = new List<DomainNotification>();
         }
     }
 }

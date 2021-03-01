@@ -2,7 +2,7 @@
 
 namespace FavoDeMel.Domain.Core.Querys
 {
-    public abstract class IQuery<T> : IRequest<T>
+    public abstract class Query<T> : IRequest<T>
     {
     }
 }

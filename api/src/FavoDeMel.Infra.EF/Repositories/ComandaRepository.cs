@@ -21,10 +21,5 @@ namespace FavoDeMel.Infra.EF.Repositories
         {
             return GetAll().Where(c => c.NumeroComanda.Numero == comanda.NumeroComanda.Numero).Any();
         }
-
-        //public bool ComandaEstaAberta(Comanda comanda) 
-        //{
-        //    return GetAll().Where(comanda=> comanda.Pedidos.OrderByDescending(or => or.DataPedido).FirstOrDefault())
-        //}
     }
 }

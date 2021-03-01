@@ -6,6 +6,6 @@ namespace FavoDeMel.Domain.Repositories
 {
     public interface IProdutoRepository : IRepository<Produto, ProdutoDto>
     {
-        bool PossuiProdutoCadastrado(Produto cliente);
+        bool PossuiProdutoCadastrado(Produto produto);
     }
 }
