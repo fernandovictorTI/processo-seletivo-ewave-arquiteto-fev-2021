@@ -1,4 +1,5 @@
 ﻿using FavoDeMel.Domain.Core.Messaging;
+using FavoDeMel.Domain.Exceptions;
 using System;
 
 namespace FavoDeMel.Domain.Event.Pedido
@@ -7,6 +8,9 @@ namespace FavoDeMel.Domain.Event.Pedido
     {
         public AdicionadoProdutoPedidoComSucessoEvent(Guid iDPedido)
         {
+            if (iDPedido == Guid.Empty)
+                throw new IDValidoException(nameof(iDPedido));
+
             IDPedido = iDPedido;
         }
 

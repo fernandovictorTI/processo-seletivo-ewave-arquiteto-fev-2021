@@ -1,5 +1,6 @@
 ﻿using FavoDeMel.Domain.Core.Messaging;
 using FavoDeMel.Domain.Enums;
+using FavoDeMel.Domain.Exceptions;
 using System;
 
 namespace FavoDeMel.Domain.Event.Pedido
@@ -10,6 +11,13 @@ namespace FavoDeMel.Domain.Event.Pedido
             Guid iDPedido,
             EnumSituacaoPedido enumSituacao)
         {
+
+            if (iDPedido == Guid.Empty)
+                throw new IDValidoException(nameof(iDPedido));
+
+            if (enumSituacao == default(EnumSituacaoPedido))
+                throw new SituacaoValidaException();
+
             IDPedido = iDPedido;
             EnumSituacao = enumSituacao;
         }

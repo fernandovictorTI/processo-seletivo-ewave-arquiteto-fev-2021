@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FavoDeMel.Domain.Exceptions;
+using MediatR;
 using System;
 
 namespace FavoDeMel.Domain.Event.Pedido
@@ -7,6 +8,9 @@ namespace FavoDeMel.Domain.Event.Pedido
     {
         public NovoPedidoEvent(Guid idPedido)
         {
+            if (idPedido == Guid.Empty)
+                throw new IDValidoException(nameof(idPedido));
+
             IDPedido = idPedido;
         }
 
