@@ -26,7 +26,7 @@ namespace FavoDeMel.Infra.Ef.UoW
             catch (DbEntityValidationException ex)
             {
                 dbContextTransaction.Rollback();
-                throw new Exception(ex.Message);
+                throw new DbEntityValidationException(ex.Message);
             }
             catch (Exception ex)
             {

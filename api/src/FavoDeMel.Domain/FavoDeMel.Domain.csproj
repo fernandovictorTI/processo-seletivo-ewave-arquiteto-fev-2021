@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Command\Base\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
   <ItemGroup>
