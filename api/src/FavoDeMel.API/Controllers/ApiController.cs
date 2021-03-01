@@ -39,7 +39,7 @@ namespace FavoDeMel.API.Controllers
         /// <returns></returns>
         protected bool IsValidOperation()
         {
-            return (!_notifications.HasNotifications());
+            return (_notifications.HasNotifications() is not true);
         }
 
         /// <summary>

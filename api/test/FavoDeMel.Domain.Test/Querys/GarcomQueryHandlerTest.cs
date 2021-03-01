@@ -25,7 +25,7 @@ namespace FavoDeMel.Domain.Test.Querys
 
             dapperMoq
                 .Setup(x => x.ObterGarcons(It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync((new List<GarcomDto>() { new GarcomDto() }));
+                .ReturnsAsync((new List<GarcomDto>() { new GarcomDto(Guid.NewGuid(), "Fernando", "65 999999999") }));
 
             var mediatorMoq = new Mock<IMediator>();
 
@@ -33,8 +33,11 @@ namespace FavoDeMel.Domain.Test.Querys
                 .Setup(x => x.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
 
+            var repositoryMoq = new Mock<IGarcomRepository>();
+
             _mediator = mediatorMoq.Object;
             _garcomDapper = dapperMoq.Object;
+            _garcomRepository = repositoryMoq.Object;
         }
 
         [Fact]
@@ -45,19 +48,20 @@ namespace FavoDeMel.Domain.Test.Querys
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(!command.IsValid);
+            Assert.True(command.IsValid is not true);
         }
 
-        [Theory]
-        [InlineData(null)]
-        public async Task DeveRetornarErroAoConsultarGarcomPorIdComIdsIncorretos(Guid id)
+        [Fact]
+        public async Task DeveRetornarErroAoConsultarGarcomPorIdComIdsIncorretos()
         {
+            Guid id = default;
+
             var handler = new GarcomQueryHandler(_garcomDapper, _mediator, _garcomRepository);
             var command = new ObterGarcomQuery(id);
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(!command.IsValid);
+            Assert.True(command.IsValid is not true);
         }
     }
 }

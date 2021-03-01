@@ -16,7 +16,7 @@ namespace FavoDeMel.Domain.Test.Entities
         public void PedidoDevePossuirGarcomValido()
         {
             var pedido = new Pedido(_helperTest.GarcomInvalido, _helperTest.Comanda, _helperTest.Cliente);
-            Assert.True(!pedido.IsValid);
+            Assert.True(pedido.IsValid is not true);
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace FavoDeMel.Domain.Test.Entities
             pedido.AdicionarProduto(produtoPedido);
             pedido.AdicionarProduto(produtoPedido);
 
-            Assert.True(!pedido.IsValid);
+            Assert.True(pedido.IsValid is not true);
         }
 
         [Theory]
@@ -41,7 +41,7 @@ namespace FavoDeMel.Domain.Test.Entities
 
             pedido.AumentarQuantidadeProduto(produtoPedido, quantidade);
 
-            Assert.True(!pedido.IsValid);
+            Assert.True(pedido.IsValid is not true);
         }
     }
 }

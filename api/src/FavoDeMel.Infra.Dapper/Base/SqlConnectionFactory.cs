@@ -26,7 +26,7 @@ namespace FavoDeMel.Infra.Dapper.Base
 
         public void Dispose()
         {
-            if (_connection != null && _connection.State == ConnectionState.Open)
+            if (_connection is not null && _connection.State == ConnectionState.Open)
             {
                 _connection.Dispose();
             }
