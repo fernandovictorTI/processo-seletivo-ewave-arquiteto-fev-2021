@@ -41,14 +41,10 @@ namespace FavoDeMel.Domain.Test.Querys
         }
 
         [Fact]
-        public async Task DeveRetornarErroAoConsultarClintesComParametrosIncorretos()
+        public void DeveRetornarErroAoConsultarClintesComParametrosIncorretos()
         {
             var handler = new GarcomQueryHandler(_garcomDapper, _mediator, _garcomRepository);
-            var command = new ObterGarconsQuery(-1, 4);
-
-            await handler.Handle(command, new CancellationToken());
-
-            Assert.True(command.IsValid is not true);
+            Assert.Throws<ArgumentNullException>(() => new ObterGarconsQuery(-1, 4));
         }
 
         [Fact]

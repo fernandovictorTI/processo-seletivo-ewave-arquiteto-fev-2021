@@ -42,14 +42,10 @@ namespace FavoDeMel.Domain.Test.Querys
         }
 
         [Fact]
-        public async Task DeveRetornarErroAoConsultarComandasComParametrosIncorretos()
+        public void DeveRetornarErroAoConsultarComandasComParametrosIncorretos()
         {
             var handler = new ComandaQueryHandler(_comandaDapper, _mediator, _comandaRepository);
-            var command = new ObterComandasQuery(-1, 4);
-
-            await handler.Handle(command, new CancellationToken());
-
-            Assert.True(command.IsValid is not true);
+            Assert.Throws<ArgumentNullException>(() => new ObterComandasQuery(-1, 4));
         }
 
         [Theory]
