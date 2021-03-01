@@ -1,6 +1,15 @@
 Processo Seletivo Arquiteto de Sistemas da Ewave/TJMT
 =====================
 
+![GitHub](https://img.shields.io/github/license/fernandovictorti/processo-seletivo-ewave-arquiteto-fev-2021?logoColor=%20)
+![GitHub last commit](https://img.shields.io/github/last-commit/fernandovictorti/processo-seletivo-ewave-arquiteto-fev-2021)
+[![Quality Gate Status]()]()
+
+
+| Branch        | Master UI           | Master API  |
+| ------------- |:-------------:| -----:|
+| Status CI      | ![Pipeline UI](https://github.com/fernandovictorTI/processo-seletivo-ewave-arquiteto-fev-2021/actions/workflows/angular-tests.yml/badge.svg?branch=master) | ![Pipeline API](https://github.com/fernandovictorTI/processo-seletivo-ewave-arquiteto-fev-2021/actions/workflows/dotnet-tests.yml/badge.svg?branch=master) |
+
 ### O Desafio
 
 Ajude o restaurante &quot;Favo de Mel&quot; a gerenciar o atendimento ao cliente, pois o mesmo está tendo sérios problemas com isso. Os problemas são: pedidos são feitos e muitas vezes o mesmo não chega a cozinha, clientes cancelam pedido e a cozinha não recebe o aviso e acaba preparando o mesmo, os pedidos estão demorando para serem entregues ou muitas vezes estão entregando pedido fora de ordem sem priorização.
