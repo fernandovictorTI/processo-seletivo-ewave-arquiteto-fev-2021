@@ -14,7 +14,7 @@ namespace FavoDeMel.Domain.Test.Entities
             var nome = new NomeVo("Fernando Victor Pereira Santiago");
             var produto = new Produto(nome, valor);
 
-            Assert.True(!produto.IsValid);
+            Assert.True(produto.IsValid is not true);
         }
     }
 }

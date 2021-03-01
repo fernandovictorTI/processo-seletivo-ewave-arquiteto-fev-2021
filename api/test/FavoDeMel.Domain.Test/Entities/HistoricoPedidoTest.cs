@@ -14,7 +14,7 @@ namespace FavoDeMel.Domain.Test.Entities
 
             var historicoPedido = new HistoricoPedido(enumInvalido, Guid.NewGuid());
 
-            Assert.True(!historicoPedido.IsValid);
+            Assert.True(historicoPedido.IsValid is not true);
         }
     }
 }

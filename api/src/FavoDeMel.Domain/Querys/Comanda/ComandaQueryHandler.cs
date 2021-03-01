@@ -58,7 +58,7 @@ namespace FavoDeMel.Domain.Querys.Comanda
             if (request.Id == Guid.Empty)
                 request.AddNotification("ObterComandaQuery.Id", "Id é obrigatório.");
 
-            if (!request.IsValid)
+            if (request.IsValid is not true)
             {
                 await _mediator.Publish(new DomainNotification
                 {
@@ -75,7 +75,7 @@ namespace FavoDeMel.Domain.Querys.Comanda
 
         public async Task<HistoricoPedidoDto> Handle(ObterUltimoHistoricoPedidoComandaQuery request, CancellationToken cancellationToken)
         {
-            if(request.IDComanda == Guid.Empty)
+            if (request.IDComanda == Guid.Empty)
                 request.AddNotification("ObterUltimoHistoricoPedidoComandaQuery.IDComanda", "Id da comanda é obrigatório.");
 
             return await _comandaDapper.ObterUltimoHistoricoPedidoComanda(request.IDComanda);

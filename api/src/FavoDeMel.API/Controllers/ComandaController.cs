@@ -49,16 +49,16 @@ namespace FavoDeMel.API.Controllers
         [Route("")]
         [ProducesResponseType(typeof(ComandaViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody]ComandaViewModel comandaViewModel)
+        public async Task<IActionResult> Post([FromBody] ComandaViewModel comandaViewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(comandaViewModel);
             }
 
             var idCriado = await _comandaService.Criar(comandaViewModel);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response();
 
             _unitOfWork.Commit();
@@ -79,14 +79,14 @@ namespace FavoDeMel.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> Get([FromQuery] ComandaQueryModel query)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(query);
             }
 
             var comandas = await _comandaService.ObterListaPaginados(query);
 
-            if (!comandas.Any() && IsValidOperation())
+            if (comandas.Any() is not true && IsValidOperation())
                 return NoContent();
 
             return Response(comandas);
@@ -105,7 +105,7 @@ namespace FavoDeMel.API.Controllers
         {
             var comandas = await _comandaService.ObterPedidosComandasAbertas();
 
-            if (!comandas.Any() && IsValidOperation())
+            if (comandas.Any() is not true && IsValidOperation())
                 return NoContent();
 
             return Response(comandas);
@@ -124,7 +124,7 @@ namespace FavoDeMel.API.Controllers
         {
             var comanda = await _comandaService.Obter(id);
 
-            if (comanda == null && IsValidOperation())
+            if (comanda is null && IsValidOperation())
                 return NoContent();
 
             return Response(comanda);

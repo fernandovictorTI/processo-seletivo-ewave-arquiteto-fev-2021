@@ -15,7 +15,7 @@ namespace FavoDeMel.Domain.Test.Entities
         public void GarcomValido()
         {
             var garcom = _helperTest.GarcomInvalido;
-            Assert.True(!garcom.IsValid);
+            Assert.True(garcom.IsValid is not true);
         }
     }
 }

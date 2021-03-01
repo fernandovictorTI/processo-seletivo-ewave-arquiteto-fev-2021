@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace FavoDeMel.Domain.CommandHandlers
 {
 
-    public class GarcomCommandHandler 
+    public class GarcomCommandHandler
         : IRequestHandler<CriarGarcomCommand, Guid>
     {
         private readonly IGarcomRepository _garcomRepository;
@@ -31,7 +31,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             if (_garcomRepository.PossuiNomeCadastrado(garcom))
                 garcom.AddNotification("Garcom.Nome", "O nome do garcom ja esta cadastrado no banco.");
 
-            if (!garcom.IsValid)
+            if (garcom.IsValid is not true)
             {
                 await _mediator.Publish(new DomainNotification
                 {

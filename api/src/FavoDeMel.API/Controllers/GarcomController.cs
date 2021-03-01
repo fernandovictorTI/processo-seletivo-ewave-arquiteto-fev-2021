@@ -49,16 +49,16 @@ namespace FavoDeMel.API.Controllers
         [Route("")]
         [ProducesResponseType(typeof(GarcomViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody]GarcomViewModel garcomViewModel)
+        public async Task<IActionResult> Post([FromBody] GarcomViewModel garcomViewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(garcomViewModel);
             }
 
             var idCriado = await _garcomService.Criar(garcomViewModel);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response(idCriado);
 
             _unitOfWork.Commit();
@@ -79,14 +79,14 @@ namespace FavoDeMel.API.Controllers
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get([FromQuery] GarcomQueryModel query)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(query);
             }
 
             var garcoms = await _garcomService.ObterListaPaginados(query);
 
-            if (!garcoms.Any() && IsValidOperation())
+            if (garcoms.Any() is not true && IsValidOperation())
                 return NoContent();
 
             return Response(garcoms);
@@ -105,7 +105,7 @@ namespace FavoDeMel.API.Controllers
         {
             var garcom = await _garcomService.Obter(id);
 
-            if (garcom == null && IsValidOperation())
+            if (garcom is null && IsValidOperation())
                 return NoContent();
 
             return Response(garcom);
