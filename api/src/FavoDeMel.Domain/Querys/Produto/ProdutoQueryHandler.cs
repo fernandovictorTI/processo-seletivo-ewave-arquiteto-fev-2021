@@ -17,7 +17,7 @@ namespace FavoDeMel.Domain.Querys.Produto
     {
         private readonly IProdutoDapper _produtoDapper;
         private readonly IMediator _mediator;
-        private readonly IProdutoRepository _produtoRepository;        
+        private readonly IProdutoRepository _produtoRepository;
 
         public ProdutoQueryHandler(
             IProdutoDapper produtoDapper,
@@ -38,7 +38,7 @@ namespace FavoDeMel.Domain.Querys.Produto
             if (request.Quantidade < 5)
                 request.AddNotification("ObterProdutosQuery.Quantidade", "Quantidade deve ser maior ou igual que 5.");
 
-            if (!request.IsValid)
+            if (request.IsValid is not true)
             {
                 await _mediator.Publish(new DomainNotification
                 {
@@ -56,7 +56,7 @@ namespace FavoDeMel.Domain.Querys.Produto
             if (request.Id == Guid.Empty)
                 request.AddNotification("ObterCarcomQuery.Id", "Id é obrigatório.");
 
-            if (!request.IsValid)
+            if (request.IsValid is not true)
             {
                 await _mediator.Publish(new DomainNotification
                 {

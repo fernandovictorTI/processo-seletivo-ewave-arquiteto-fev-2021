@@ -50,16 +50,16 @@ namespace FavoDeMel.API.Controllers
         [Route("")]
         [ProducesResponseType(typeof(PedidoViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody]PedidoViewModel pedidoViewModel)
+        public async Task<IActionResult> Post([FromBody] PedidoViewModel pedidoViewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(pedidoViewModel);
             }
 
             var idCriado = await _pedidoService.Criar(pedidoViewModel);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response(idCriado);
 
             _unitOfWork.Commit();
@@ -82,14 +82,14 @@ namespace FavoDeMel.API.Controllers
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get([FromQuery] PedidoQueryModel query)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(query);
             }
 
             var pedidos = await _pedidoService.ObterListaPaginados(query);
 
-            if (!pedidos.Any() && IsValidOperation())
+            if (pedidos.Any() is not true && IsValidOperation())
                 return NoContent();
 
             return Response(pedidos);
@@ -108,7 +108,7 @@ namespace FavoDeMel.API.Controllers
         {
             var pedido = await _pedidoService.Obter(id);
 
-            if (pedido == null && IsValidOperation())
+            if (pedido is null && IsValidOperation())
                 return NoContent();
 
             return Response(pedido);
@@ -123,11 +123,11 @@ namespace FavoDeMel.API.Controllers
         [HttpPut("{id}/alterar-situacao")]
         [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AlterarSituacao(Guid id, [FromBody]AlterarSituacaoPedidoViewModel viewModel)
+        public async Task<IActionResult> AlterarSituacao(Guid id, [FromBody] AlterarSituacaoPedidoViewModel viewModel)
         {
             var pedido = await _pedidoService.AlterarSituacao(viewModel);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response(pedido);
 
             _unitOfWork.Commit();
@@ -151,7 +151,7 @@ namespace FavoDeMel.API.Controllers
         {
             var removido = await _pedidoService.RemoverProdutoPedido(idProdutoPedido);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response();
 
             _unitOfWork.Commit();
@@ -170,11 +170,11 @@ namespace FavoDeMel.API.Controllers
         [HttpPost("{id}/produtos")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AdicionaProdutoPedido(Guid id, [FromBody]ProdutoPedidoViewModel viewModel)
+        public async Task<IActionResult> AdicionaProdutoPedido(Guid id, [FromBody] ProdutoPedidoViewModel viewModel)
         {
             var idProdutoPedido = await _pedidoService.AdicionarProdutoPedido(id, viewModel);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response();
 
             _unitOfWork.Commit();

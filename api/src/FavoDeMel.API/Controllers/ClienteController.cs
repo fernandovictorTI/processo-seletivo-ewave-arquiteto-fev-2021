@@ -49,16 +49,16 @@ namespace FavoDeMel.API.Controllers
         [Route("")]
         [ProducesResponseType(typeof(ClienteViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody]ClienteViewModel clienteViewModel)
+        public async Task<IActionResult> Post([FromBody] ClienteViewModel clienteViewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(clienteViewModel);
             }
 
             var idCriado = await _clienteService.Criar(clienteViewModel);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response();
 
             _unitOfWork.Commit();
@@ -79,14 +79,14 @@ namespace FavoDeMel.API.Controllers
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get([FromQuery] ClienteQueryModel query)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(query);
             }
 
             var clientes = await _clienteService.ObterListaPaginados(query);
 
-            if (!clientes.Any() && IsValidOperation())
+            if (clientes.Any() is not true && IsValidOperation())
                 return NoContent();
 
             return Response(clientes);
@@ -105,7 +105,7 @@ namespace FavoDeMel.API.Controllers
         {
             var cliente = await _clienteService.Obter(id);
 
-            if (cliente == null && IsValidOperation())
+            if (cliente is null && IsValidOperation())
                 return NoContent();
 
             return Response(cliente);

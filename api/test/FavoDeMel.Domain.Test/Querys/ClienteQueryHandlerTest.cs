@@ -25,7 +25,7 @@ namespace FavoDeMel.Domain.Test.Querys
 
             dapperMoq
                 .Setup(x => x.ObterClientes(It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync((new List<ClienteDto>() { new ClienteDto() }));
+                .ReturnsAsync((new List<ClienteDto>() { new ClienteDto(Guid.NewGuid(), "Fernando", DateTime.Now) }));
 
             var mediatorMoq = new Mock<IMediator>();
 
@@ -46,7 +46,7 @@ namespace FavoDeMel.Domain.Test.Querys
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(!command.IsValid);
+            Assert.True(command.IsValid is not true);
         }
 
         [Theory]
@@ -58,7 +58,7 @@ namespace FavoDeMel.Domain.Test.Querys
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(!command.IsValid);
+            Assert.True(command.IsValid is not true);
         }
 
         public static IEnumerable<object[]> GuidsNullOrEmpty =>

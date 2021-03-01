@@ -23,7 +23,7 @@ namespace FavoDeMel.Domain.Test.Querys
 
             dapperMoq
                 .Setup(x => x.ObterProdutos(It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync((new List<ProdutoDto>() { new ProdutoDto() }));
+                .ReturnsAsync((new List<ProdutoDto>() { new ProdutoDto(Guid.NewGuid(), "Coca-cola", 10M) }));
 
             var mediatorMoq = new Mock<IMediator>();
 
@@ -43,19 +43,20 @@ namespace FavoDeMel.Domain.Test.Querys
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(!command.IsValid);
+            Assert.True(command.IsValid is not true);
         }
 
-        [Theory]
-        [InlineData(null)]
-        public async Task DeveRetornarErroAoConsultarProdutoPorIdComIdsIncorretos(Guid id)
+        [Fact]
+        public async Task DeveRetornarErroAoConsultarProdutoPorIdComIdsIncorretos()
         {
+            Guid id = default;
+
             var handler = new ProdutoQueryHandler(_produtoDapper, _mediator, null);
             var command = new ObterProdutoQuery(id);
 
             await handler.Handle(command, new CancellationToken());
 
-            Assert.True(!command.IsValid);
+            Assert.True(command.IsValid is not true);
         }
     }
 }

@@ -50,24 +50,24 @@ namespace FavoDeMel.Domain.CommandHandlers
 
             var garcom = _garcomRepository.GetEntityById(request.IDGarcom);
 
-            if (garcom == null)
+            if (garcom is null)
                 request.AddNotification("Garcom", "Garcom não encontrado no banco de dados.");
 
             var cliente = _clienteRepository.GetEntityById(request.IDCliente);
 
-            if (cliente == null)
+            if (cliente is null)
                 request.AddNotification("Cliente", "Cliente não encontrado no banco de dados.");
 
             var comanda = _comandaRepository.GetEntityById(request.IDComanda);
 
-            if (comanda == null)
+            if (comanda is null)
                 request.AddNotification("Comanda", "Comanda não encontrado no banco de dados.");
             else
             {
                 var ultimoHistoricoPedidoComanda = await _mediator.Send(new ObterUltimoHistoricoPedidoComandaQuery(comanda.Id));
 
-                if (ultimoHistoricoPedidoComanda != null)
-                    if (!SituacaoPedido.SituacoesPermiteAberturaComanda.Any(situacao => situacao == ultimoHistoricoPedidoComanda.Situacao))
+                if (ultimoHistoricoPedidoComanda is not null)
+                    if (SituacaoPedido.SituacoesPermiteAberturaComanda.Any(situacao => situacao == ultimoHistoricoPedidoComanda.Situacao) is not true)
                         request.AddNotification("Comanda", $"Comanda não pode ser aberta devido ao ultimo pedido estar com a situação({ultimoHistoricoPedidoComanda.Situacao}).");
             }
 
@@ -75,7 +75,7 @@ namespace FavoDeMel.Domain.CommandHandlers
 
             request.Produtos.ToList().ForEach(produtoPedido => pedido.AdicionarProduto(produtoPedido));
 
-            if (!pedido.IsValid || !request.IsValid)
+            if (pedido.IsValid is not true || request.IsValid is not true)
             {
                 pedido.AddNotifications(request.Notifications);
 
@@ -101,12 +101,12 @@ namespace FavoDeMel.Domain.CommandHandlers
 
             var pedido = _pedidoRepository.GetEntityById(request.IDPedido);
 
-            if (pedido == null)
+            if (pedido is null)
                 request.AddNotification("Pedido", $"Pedido({request.IDPedido}) não encontrado no banco de dados.");
             else
                 historicoPedido = new HistoricoPedido(request.Situacao, pedido.Id);
 
-            if (!historicoPedido.IsValid || !request.IsValid)
+            if (historicoPedido.IsValid is not true || request.IsValid is not true)
             {
                 historicoPedido.AddNotifications(request.Notifications);
 
@@ -137,7 +137,7 @@ namespace FavoDeMel.Domain.CommandHandlers
                     request.AddNotification("RemoverProdutoPedidoCommand", $"Não é permitido remover todos os produtos. Feche a comanda ou adicione outro produto para remover este.");
             }
 
-            if (!request.IsValid)
+            if (request.IsValid is not true)
             {
                 await _mediator.Publish(new DomainNotification
                 {
@@ -162,7 +162,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             var produtoPedido = new ProdutoPedido(request.IDProduto, request.Quantidade);
             produtoPedido.VincularAoPedido(request.IDPedido);
 
-            if (!produtoPedido.IsValid || !request.IsValid)
+            if (produtoPedido.IsValid is not true || request.IsValid is not true)
             {
                 produtoPedido.AddNotifications(request.Notifications);
 

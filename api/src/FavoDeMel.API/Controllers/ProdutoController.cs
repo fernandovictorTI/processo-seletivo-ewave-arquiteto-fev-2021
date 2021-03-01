@@ -49,16 +49,16 @@ namespace FavoDeMel.API.Controllers
         [Route("")]
         [ProducesResponseType(typeof(ProdutoViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody]ProdutoViewModel produtoViewModel)
+        public async Task<IActionResult> Post([FromBody] ProdutoViewModel produtoViewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(produtoViewModel);
             }
 
             var idCriado = await _produtoService.Criar(produtoViewModel);
 
-            if (!IsValidOperation())
+            if (IsValidOperation() is not true)
                 return Response(idCriado);
 
             _unitOfWork.Commit();
@@ -79,14 +79,14 @@ namespace FavoDeMel.API.Controllers
         [ProducesResponseType(typeof(List<DomainNotification>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get([FromQuery] ProdutoQueryModel query)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid is not true)
             {
                 return Response(query);
             }
 
             var produtos = await _produtoService.ObterListaPaginados(query);
 
-            if (!produtos.Any() && IsValidOperation())
+            if (produtos.Any() is not true && IsValidOperation())
                 return NoContent();
 
             return Response(produtos);
@@ -105,7 +105,7 @@ namespace FavoDeMel.API.Controllers
         {
             var produto = await _produtoService.Obter(id);
 
-            if (produto == null && IsValidOperation())
+            if (produto is null && IsValidOperation())
                 return NoContent();
 
             return Response(produto);
