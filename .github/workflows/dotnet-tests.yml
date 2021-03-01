@@ -1,4 +1,4 @@
-name: .NET Core Build with Tests set Results in PR
+name: Pipeline API
 
 on:
   push:

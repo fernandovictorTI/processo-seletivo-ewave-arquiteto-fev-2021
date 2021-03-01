@@ -64,11 +64,10 @@ namespace FavoDeMel.Domain.CommandHandlers
                 request.AddNotification("Comanda", "Comanda não encontrado no banco de dados.");
             else
             {
-                var ultimoHistoricoPedidoComanda = await _mediator.Send(new ObterUltimoHistoricoPedidoComandaQuery(comanda.Id));
+                var ultimoHistoricoPedidoComanda = await _mediator.Send(new ObterUltimoHistoricoPedidoComandaQuery(comanda.Id), cancellationToken);
 
-                if (ultimoHistoricoPedidoComanda is not null)
-                    if (SituacaoPedido.SituacoesPermiteAberturaComanda.Any(situacao => situacao == ultimoHistoricoPedidoComanda.Situacao) is not true)
-                        request.AddNotification("Comanda", $"Comanda não pode ser aberta devido ao ultimo pedido estar com a situação({ultimoHistoricoPedidoComanda.Situacao}).");
+                if (ultimoHistoricoPedidoComanda is not null && SituacaoPedido.SituacoesPermiteAberturaComanda.Any(situacao => situacao == ultimoHistoricoPedidoComanda.Situacao) is not true)
+                    request.AddNotification("Comanda", $"Comanda não pode ser aberta devido ao ultimo pedido estar com a situação({ultimoHistoricoPedidoComanda.Situacao}).");
             }
 
             pedido = new Pedido(garcom, comanda, cliente);
@@ -133,7 +132,7 @@ namespace FavoDeMel.Domain.CommandHandlers
             {
                 var pedido = _pedidoRepository.GetEntityById(produtoPedido.IDPedido);
 
-                if (pedido.Produtos.Count() == 1)
+                if (pedido.Produtos.Count == 1)
                     request.AddNotification("RemoverProdutoPedidoCommand", $"Não é permitido remover todos os produtos. Feche a comanda ou adicione outro produto para remover este.");
             }
 
