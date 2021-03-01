@@ -5,9 +5,11 @@ namespace FavoDeMel.Domain.Dto
 {
     public class HistoricoPedidoDto : DtoBase
     {
-        public Guid IDHistoricoPedido { get; init; }
-        public EnumSituacaoPedido Situacao { get; init; }
-        public DateTime Data { get; init; }
+        public Guid IDHistoricoPedido { get; set; }
+        public EnumSituacaoPedido Situacao { get; set; }
+        public DateTime Data { get; set; }
+
+        public HistoricoPedidoDto() { }
 
         public HistoricoPedidoDto(Guid idHistoricoPedido, EnumSituacaoPedido situacao, DateTime data) =>
             (IDHistoricoPedido, Situacao, Data) = (idHistoricoPedido, situacao, data);

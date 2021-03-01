@@ -4,9 +4,11 @@ namespace FavoDeMel.Domain.Dto
 {
     public class GarcomDto : DtoBase
     {
-        public Guid IDGarcom { get; init; }
-        public string Nome { get; init; }
-        public string Telefone { get; init; }
+        public Guid IDGarcom { get; set; }
+        public string Nome { get; set; }
+        public string Telefone { get; set; }
+
+        public GarcomDto() { }
 
         public GarcomDto(Guid idGarcom, string nome, string telefone) =>
             (IDGarcom, Nome, Telefone) = (idGarcom, nome, telefone);

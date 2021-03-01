@@ -6,10 +6,10 @@ namespace FavoDeMel.Domain.Dto
 {
     public class ComandaDto : DtoBase
     {
-        public Guid IDComanda { get; init; }
-        public int Numero { get; init; }
-        public EnumSituacaoPedido Situacao { get; init; }
-        public Guid IDPedido { get; init; }
+        public Guid IDComanda { get; set; }
+        public int Numero { get; set; }
+        public EnumSituacaoPedido Situacao { get; set; }
+        public Guid IDPedido { get; set; }
 
         public bool IsAberta
         {
@@ -21,6 +21,8 @@ namespace FavoDeMel.Domain.Dto
                 return SituacaoPedido.SituacoesPermiteAberturaComanda.Any(c => c == Situacao);
             }
         }
+
+        public ComandaDto() { }
 
         public ComandaDto(Guid idComanda, int numero, EnumSituacaoPedido situacao, Guid idPedido) =>
             (IDComanda, Numero, Situacao, IDPedido) = (idComanda, numero, situacao, idPedido);
