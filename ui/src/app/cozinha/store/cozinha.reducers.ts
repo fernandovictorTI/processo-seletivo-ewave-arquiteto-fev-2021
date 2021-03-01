@@ -14,7 +14,7 @@ export interface CozinhaState extends EntityState<Cozinha> {
 
 export const adapter: EntityAdapter<Cozinha> = createEntityAdapter<Cozinha>(
   {
-    selectId: (cozinha: Cozinha) => cozinha.idComanda,
+    selectId: (cozinha: Cozinha) => cozinha.idProdutoPedido,
   }
 );
 
