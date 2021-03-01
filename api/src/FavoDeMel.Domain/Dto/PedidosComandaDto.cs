@@ -22,5 +22,7 @@ namespace FavoDeMel.Domain.Dto
         {
             get { return Situacao.ToString(); }
         }
+
+        public PedidosComandaDto() { }
     }
 }
