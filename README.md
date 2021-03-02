@@ -5,7 +5,6 @@ Processo Seletivo Arquiteto de Sistemas da Ewave/TJMT
 ![GitHub last commit](https://img.shields.io/github/last-commit/fernandovictorti/processo-seletivo-ewave-arquiteto-fev-2021)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021&metric=alert_status)](https://sonarcloud.io/dashboard?id=fernandovictorTI_processo-seletivo-ewave-arquiteto-fev-2021)
 
-
 | Branch        | Master           | Master |
 | ------------- |:-------------:| -----:|
 | Status CI      | ![Pipeline UI](https://github.com/fernandovictorTI/processo-seletivo-ewave-arquiteto-fev-2021/actions/workflows/angular-tests.yml/badge.svg?branch=master) | ![Pipeline API](https://github.com/fernandovictorTI/processo-seletivo-ewave-arquiteto-fev-2021/actions/workflows/dotnet-tests.yml/badge.svg?branch=master) |
