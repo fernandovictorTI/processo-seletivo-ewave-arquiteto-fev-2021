@@ -23,16 +23,17 @@ namespace FavoDeMel.Application.AutoMapper
 
             CreateMap<Pedido, PedidoDto>()
                 .ConstructUsing((c, rContext) =>
-                new PedidoDto(
-                        c.Id,
-                        c.IDGarcom,
-                        c.Garcom.Nome.Nome,
-                        c.IDCliente,
-                        c.Cliente.Nome.Nome,
-                        c.IDComanda,
-                        c.DataPedido,
-                        c.Comanda.NumeroComanda.Numero,
-                        rContext.Mapper.Map<List<ProdutoPedidoDto>>(c.Produtos))
+                new PedidoDto()
+                {
+                    Id = c.Id,
+                    IDGarcom = c.IDGarcom,
+                    NomeGarcom = c.Garcom.Nome.Nome,
+                    IDCliente = c.IDCliente,
+                    NomeCliente = c.Cliente.Nome.Nome,
+                    IDComanda = c.IDComanda,
+                    DataPedido = c.DataPedido,
+                    NumeroComanda = c.Comanda.NumeroComanda.Numero,
+                    Produtos = rContext.Mapper.Map<List<ProdutoPedidoDto>>(c.Produtos)}
                 );
 
             CreateMap<Comanda, ComandaDto>()

@@ -17,30 +17,5 @@ namespace FavoDeMel.Domain.Dto
         public List<ProdutoPedidoDto> Produtos { get; set; }
         public PedidoDto() =>
             (Produtos) = (new List<ProdutoPedidoDto>());
-
-        public PedidoDto(
-            Guid iDPedido,
-            Guid iDGarcom,
-            string nomeGarcom,
-            Guid iDCliente,
-            string nomeCliente,
-            Guid iDComanda,
-            DateTime dataPedido,
-            int numeroComanda) =>
-            (IDPedido, IDGarcom, NomeGarcom, IDCliente, NomeCliente, IDComanda, DataPedido, NumeroComanda) =
-            (iDPedido, iDGarcom, nomeGarcom, iDCliente, nomeCliente, iDComanda, dataPedido, numeroComanda);
-
-        public PedidoDto(
-            Guid iDPedido,
-            Guid iDGarcom,
-            string nomeGarcom,
-            Guid iDCliente,
-            string nomeCliente,
-            Guid iDComanda,
-            DateTime dataPedido,
-            int numeroComanda,
-            List<ProdutoPedidoDto> produtos) =>
-            (IDPedido, IDGarcom, NomeGarcom, IDCliente, NomeCliente, IDComanda, DataPedido, NumeroComanda, Produtos) =
-            (iDPedido, iDGarcom, nomeGarcom, iDCliente, nomeCliente, iDComanda, dataPedido, numeroComanda, produtos);
     }
 }
