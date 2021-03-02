@@ -1,2 +1,6 @@
 echo "Starting SQL Server..."
-/opt/mssql-tools/bin/sqlcmd -S localhost -l 60 -U SA -P "Sql2019isfast" -i setup.sql & /opt/mssql/bin/sqlservr
+#!/bin/bash
+# Run init-script with long timeout - and make it run in the background
+/opt/mssql-tools/bin/sqlcmd -S favodemel.db -l 60 -U SA -P "Sql2019isfast" -i setup.sql & 
+# Start SQL server
+/opt/mssql/bin/sqlservr
