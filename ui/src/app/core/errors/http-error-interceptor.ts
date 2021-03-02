@@ -29,7 +29,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         return of([]);
 
                     case 500:
-                        this.notificationMessageService.mostrarMensagemErro(error.error || error.message);
+                        this.notificationMessageService.mostrarMensagemErro("Erro ao realziar sua solicitação.");
+                        console.error(error.error || error.message);
                         return of([]);
 
                     default:

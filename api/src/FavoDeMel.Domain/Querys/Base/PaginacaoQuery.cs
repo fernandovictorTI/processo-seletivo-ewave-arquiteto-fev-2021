@@ -9,10 +9,10 @@ namespace FavoDeMel.Domain.Querys.Base
     {
         public PaginacaoQuery(int pagina, int quantidade)
         {
-            if (pagina <= 0)
+            if (pagina < 0)
                 throw new ArgumentNullException(nameof(pagina), "Pagina atual da paginação deve ser maior que 0.");
 
-            if (quantidade <= 0)
+            if (quantidade < 0)
                 throw new ArgumentNullException(nameof(quantidade), "Quantidade atual da paginação deve ser maior que 0.");
 
 

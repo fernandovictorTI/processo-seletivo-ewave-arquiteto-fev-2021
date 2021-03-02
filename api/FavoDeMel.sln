@@ -23,8 +23,6 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\docker
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{1723C08D-8522-4E6A-BA93-872D52D20241}"
 	ProjectSection(SolutionItems) = preProject
-		..\db\db-init.sh = ..\db\db-init.sh
-		..\db\db-init.sql = ..\db\db-init.sql
 		..\db\Dockerfile = ..\db\Dockerfile
 		..\db\entrypoint.sh = ..\db\entrypoint.sh
 		..\db\setup.sql = ..\db\setup.sql
@@ -35,8 +33,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infra.Dapper", "src\FavoDeMel.Infra.Dapper\FavoDeMel.Infra.Dapper.csproj", "{FD6A1A5A-D106-414F-9817-1D071CA95E2F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FavoDeMel.Infra.RabbitMQ", "src\FavoDeMel.Infra.RabbitMQ\FavoDeMel.Infra.RabbitMQ.csproj", "{CAAD5949-EC3D-484D-B324-17D87BE01510}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoDeMel.Infra.EF.Test", "test\FavoDeMel.Infra.EF.Test\FavoDeMel.Infra.EF.Test.csproj", "{3780813C-1549-4863-89A0-1500D44593B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,10 +80,6 @@ Global
 		{CAAD5949-EC3D-484D-B324-17D87BE01510}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAAD5949-EC3D-484D-B324-17D87BE01510}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAAD5949-EC3D-484D-B324-17D87BE01510}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3780813C-1549-4863-89A0-1500D44593B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3780813C-1549-4863-89A0-1500D44593B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3780813C-1549-4863-89A0-1500D44593B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3780813C-1549-4863-89A0-1500D44593B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,7 +94,6 @@ Global
 		{A8C5D702-02F6-43A1-A95B-7DF927A31323} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
 		{FD6A1A5A-D106-414F-9817-1D071CA95E2F} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
 		{CAAD5949-EC3D-484D-B324-17D87BE01510} = {54CA6BC1-3792-4DF3-A824-FF91F28DCD2C}
-		{3780813C-1549-4863-89A0-1500D44593B5} = {E532D532-7E79-457F-9D47-5F84CCCB5AFB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B05F9C33-1360-4F9A-96C7-392876B9D487}

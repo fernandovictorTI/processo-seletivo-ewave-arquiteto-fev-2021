@@ -7,9 +7,9 @@ namespace FavoDeMel.Domain.Test.Querys.Base
     public class PaginacaoQueryTest
     {
         [Fact]
-        public void DeveValidarPaginaMenorIgualQueZero()
+        public void DeveValidarPaginaMenorQueZero()
         {
-            Assert.Throws<ArgumentNullException>(() => new PaginacaoQuery<dynamic>(0, 10));
+            Assert.Throws<ArgumentNullException>(() => new PaginacaoQuery<dynamic>(-1, 10));
         }
     }
 }
