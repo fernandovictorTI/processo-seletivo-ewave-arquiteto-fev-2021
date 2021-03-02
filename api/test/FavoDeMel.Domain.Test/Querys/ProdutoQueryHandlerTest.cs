@@ -44,16 +44,12 @@ namespace FavoDeMel.Domain.Test.Querys
         }
 
         [Fact]
-        public async Task DeveRetornarErroAoConsultarProdutoPorIdComIdsIncorretos()
+        public void DeveRetornarErroAoConsultarProdutoPorIdComIdsIncorretos()
         {
             Guid id = default;
 
             var handler = new ProdutoQueryHandler(_produtoDapper, _mediator, null);
-            var command = new ObterProdutoQuery(id);
-
-            await handler.Handle(command, new CancellationToken());
-
-            Assert.True(command.IsValid is not true);
+            Assert.Throws<ArgumentNullException>(() => new ObterProdutoQuery(id));
         }
     }
 }

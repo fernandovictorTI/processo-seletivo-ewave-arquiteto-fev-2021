@@ -11,10 +11,10 @@ namespace FavoDeMel.Domain.Querys.Comanda.Consultas
         public ObterComandasQuery(int pagina, int quantidade)
         {
             if (pagina <= 0)
-                throw new ArgumentNullException("Pagina atual da paginação deve ser maior que 0.");
+                throw new ArgumentNullException(nameof(pagina), "Pagina atual da paginação deve ser maior que 0.");
 
             if (quantidade <= 0)
-                throw new ArgumentNullException("Quantidade atual da paginação deve ser maior que 0.");
+                throw new ArgumentNullException(nameof(quantidade), "Quantidade atual da paginação deve ser maior que 0.");
 
             Pagina = pagina;
             Quantidade = quantidade;

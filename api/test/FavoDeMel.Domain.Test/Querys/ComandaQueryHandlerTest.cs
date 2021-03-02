@@ -50,26 +50,18 @@ namespace FavoDeMel.Domain.Test.Querys
 
         [Theory]
         [MemberData(nameof(GuidsNullOrEmpty))]
-        public async Task DeveRetornarErroAoConsultarComandaPorIdComIdsIncorretos(Guid id)
+        public void DeveRetornarErroAoConsultarComandaPorIdComIdsIncorretos(Guid id)
         {
             var handler = new ComandaQueryHandler(_comandaDapper, _mediator, _comandaRepository);
-            var command = new ObterComandaQuery(id);
-
-            await handler.Handle(command, new CancellationToken());
-
-            Assert.True(command.IsValid is not true);
+            Assert.Throws<ArgumentNullException>(() => new ObterComandaQuery(id));
         }
 
         [Theory]
         [MemberData(nameof(GuidsNullOrEmpty))]
-        public async Task DeveRetornarErroAoConsultarUltimoHistoricoPedidoComandaComIdsIncorretos(Guid id)
+        public void DeveRetornarErroAoConsultarUltimoHistoricoPedidoComandaComIdsIncorretos(Guid id)
         {
             var handler = new ComandaQueryHandler(_comandaDapper, _mediator, _comandaRepository);
-            var command = new ObterUltimoHistoricoPedidoComandaQuery(id);
-
-            await handler.Handle(command, new CancellationToken());
-
-            Assert.True(command.IsValid is not true);
+            Assert.Throws<ArgumentNullException>(() => new ObterUltimoHistoricoPedidoComandaQuery(id));
         }
         public static IEnumerable<object[]> GuidsNullOrEmpty =>
         new List<object[]>

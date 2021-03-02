@@ -48,16 +48,12 @@ namespace FavoDeMel.Domain.Test.Querys
         }
 
         [Fact]
-        public async Task DeveRetornarErroAoConsultarGarcomPorIdComIdsIncorretos()
+        public void DeveRetornarErroAoConsultarGarcomPorIdComIdsIncorretos()
         {
             Guid id = default;
 
             var handler = new GarcomQueryHandler(_garcomDapper, _mediator, _garcomRepository);
-            var command = new ObterGarcomQuery(id);
-
-            await handler.Handle(command, new CancellationToken());
-
-            Assert.True(command.IsValid is not true);
+            Assert.Throws<ArgumentNullException>(() => new ObterGarcomQuery(id));
         }
     }
 }

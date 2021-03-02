@@ -47,14 +47,10 @@ namespace FavoDeMel.Domain.Test.Querys
 
         [Theory]
         [MemberData(nameof(GuidsNullOrEmpty))]
-        public async Task DeveRetornarErroAoConsultarClintePorIdComIdsIncorretos(Guid id)
+        public void DeveRetornarErroAoConsultarClintePorIdComIdsIncorretos(Guid id)
         {
             var handler = new ClienteQueryHandler(_clienteDapper, _mediator, _clienteRepository);
-            var command = new ObterClienteQuery(id);
-
-            await handler.Handle(command, new CancellationToken());
-
-            Assert.True(command.IsValid is not true);
+            Assert.Throws<ArgumentNullException>(() => new ObterClienteQuery(id));
         }
 
         public static IEnumerable<object[]> GuidsNullOrEmpty =>

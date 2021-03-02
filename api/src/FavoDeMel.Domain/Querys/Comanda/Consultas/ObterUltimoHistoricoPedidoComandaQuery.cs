@@ -9,6 +9,9 @@ namespace FavoDeMel.Domain.Querys.Comanda.Consultas
     {
         public ObterUltimoHistoricoPedidoComandaQuery(Guid iDComanda)
         {
+            if (iDComanda == default(Guid))
+                throw new ArgumentNullException(nameof(iDComanda), "ID da comanda não deve ser null.");
+
             IDComanda = iDComanda;
         }
 
