@@ -49,8 +49,6 @@ namespace FavoDeMel.Domain.Test.Querys
         public void DeveRetornarErroAoConsultarClintePorIdComIdsIncorretos(Guid id)
         {
             var handler = new PedidoQueryHandler(_pedidoDapper, _mediator, _pedidoRepository);
-            var command = new ObterPedidoQuery(id);
-
             Assert.Throws<ArgumentNullException>(() => new ObterPedidoQuery(id));
         }
 
