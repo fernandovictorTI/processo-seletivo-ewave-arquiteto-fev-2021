@@ -47,7 +47,7 @@ namespace FavoDeMel.Domain.Test.EventHandler
 
             var retorno = await handler.Handle(command, new CancellationToken());
 
-            Assert.Equal(true, retorno);
+            Assert.True(retorno);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace FavoDeMel.Domain.Test.EventHandler
 
             var retorno = await handler.Handle(command, new CancellationToken());
 
-            Assert.Equal(true, retorno);
+            Assert.True(retorno);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace FavoDeMel.Domain.Test.EventHandler
 
             var retorno = await handler.Handle(command, new CancellationToken());
 
-            Assert.Equal(true, retorno);
+            Assert.True(retorno);
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace FavoDeMel.Domain.Test.EventHandler
 
             var retorno = await handler.Handle(command, new CancellationToken());
 
-            Assert.Equal(true, retorno);
+            Assert.True(retorno);
         }
     }
 }

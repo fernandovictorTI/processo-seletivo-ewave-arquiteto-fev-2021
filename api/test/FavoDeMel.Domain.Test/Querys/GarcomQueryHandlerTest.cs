@@ -41,10 +41,32 @@ namespace FavoDeMel.Domain.Test.Querys
         }
 
         [Fact]
-        public void DeveRetornarErroAoConsultarClintesComParametrosIncorretos()
+        public void DeveRetornarErroAoConsultarGarconsComParametrosIncorretos()
         {
             var handler = new GarcomQueryHandler(_garcomDapper, _mediator, _garcomRepository);
             Assert.Throws<ArgumentNullException>(() => new ObterGarconsQuery(-1, 4));
+        }
+
+        [Fact]
+        public async Task DeveRetornarGarconsComParametros()
+        {
+            var handler = new GarcomQueryHandler(_garcomDapper, _mediator, _garcomRepository);
+            var command = new ObterGarconsQuery(1, 14);
+
+            await handler.Handle(command, new CancellationToken());
+
+            Assert.True(command.IsValid);
+        }
+
+        [Fact]
+        public async Task DeveRetornarGarcomPorId()
+        {
+            var handler = new GarcomQueryHandler(_garcomDapper, _mediator, _garcomRepository);
+            var command = new ObterGarcomQuery(Guid.NewGuid());
+
+            await handler.Handle(command, new CancellationToken());
+
+            Assert.True(command.IsValid);
         }
 
         [Fact]

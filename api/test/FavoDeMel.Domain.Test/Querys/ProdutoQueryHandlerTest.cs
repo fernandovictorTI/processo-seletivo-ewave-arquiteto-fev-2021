@@ -1,7 +1,9 @@
 ﻿using FavoDeMel.Domain.Dapper;
 using FavoDeMel.Domain.Dto;
+using FavoDeMel.Domain.Entities;
 using FavoDeMel.Domain.Querys.Produto;
 using FavoDeMel.Domain.Querys.Produto.Consultas;
+using FavoDeMel.Domain.Repositories;
 using MediatR;
 using Moq;
 using System;
@@ -15,10 +17,12 @@ namespace FavoDeMel.Domain.Test.Querys
     public class ProdutoQueryHandlerTest
     {
         private readonly IProdutoDapper _produtoDapper;
+        private readonly IProdutoRepository _produtoRepository;
         private readonly IMediator _mediator;
 
         public ProdutoQueryHandlerTest()
         {
+            var _helperEntitiesTest = new HelperEntitiesTest();
             var dapperMoq = new Mock<IProdutoDapper>();
 
             dapperMoq
@@ -31,8 +35,15 @@ namespace FavoDeMel.Domain.Test.Querys
                 .Setup(x => x.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.CompletedTask);
 
+            var repositoryMoq = new Mock<IProdutoRepository>();
+
+            repositoryMoq
+                .Setup(x => x.GetById(It.IsAny<Guid>()))
+                .Returns(new ProdutoDto(Guid.NewGuid(), "Fernando", 10.25m));
+
             _mediator = mediatorMoq.Object;
             _produtoDapper = dapperMoq.Object;
+            _produtoRepository = repositoryMoq.Object;
         }
 
         [Fact]
@@ -42,6 +53,27 @@ namespace FavoDeMel.Domain.Test.Querys
 
             Assert.Throws<ArgumentNullException>(() => new ObterProdutosQuery(-1, 4));
         }
+
+        [Fact]
+        public async Task DeveRetornarProdutoPorId()
+        {
+            var handler = new ProdutoQueryHandler(_produtoDapper, _mediator, _produtoRepository);
+            var command = new ObterProdutoQuery(Guid.NewGuid());
+
+            await handler.Handle(command, new CancellationToken());
+            Assert.True(command.IsValid);
+        }
+
+        [Fact]
+        public async Task DeveRetornarProdutosPorParametros()
+        {
+            var handler = new ProdutoQueryHandler(_produtoDapper, _mediator, _produtoRepository);
+            var command = new ObterProdutosQuery(1, 10);
+
+            await handler.Handle(command, new CancellationToken());
+            Assert.True(command.IsValid);
+        }
+
 
         [Fact]
         public void DeveRetornarErroAoConsultarProdutoPorIdComIdsIncorretos()
